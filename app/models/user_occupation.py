@@ -9,7 +9,7 @@ class UserOccupation(db.Model):
     occupation_id = db.Column(db.Integer, db.ForeignKey(
         'Occupations.id'), nullable=False)
 
-    user = db.relationship("User", back_populates="skill")
+    user = db.relationship("User", back_populates="occupation")
     occupation = db.relationship('Occupation', back_populates="user_occupation")
 
     def to_dict(self):

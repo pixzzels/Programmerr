@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_img = db.Column(db.String(500))
     description = db.Column(db.String(500))
-    time_created = db.Column(db.DateTime(timezone=True),
+    date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
     language = db.relationship("UserLanguage", back_populates="user")
