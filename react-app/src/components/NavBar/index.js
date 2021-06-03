@@ -16,6 +16,7 @@ function NavBar() {
 
                 <div className="">
                     <LoginFormModal />
+                    <LoginFormModal text={"Join"}/>
                 </div>
 
             </div>

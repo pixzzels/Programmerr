@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import LoginForm from '../LoginForm'
 import SignupForm from '../SignupForm'
 
-import './LoginSignupForm.css'
+import './Signup.css'
 
-function LoginSignupForm() {
-  const [isRegister, setIsRegister] = useState(false);
+function Signup() {
+  const [isRegister, setIsRegister] = useState(true);
   const onClick = () => {
     setIsRegister(!isRegister)
   }
@@ -22,4 +22,4 @@ function LoginSignupForm() {
   );
 }
 
-export default LoginSignupForm;
+export default Signup;
