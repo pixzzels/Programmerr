@@ -5,12 +5,12 @@ class UserLanguage(db.Model):
     __tablename__ = 'UserLanguages'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'), primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey(
-        'Languages.id'), primary_key=True, nullable=False)
+        'Languages.id'), nullable=False)
 
-    # user = db.relationship("User", back_populates="language")
-    # language = db.relationship('Language', back_populates="user_language")
+    user = db.relationship("User", back_populates="language")
+    language = db.relationship('Language', back_populates="user_language")
 
     def to_dict(self):
         return {

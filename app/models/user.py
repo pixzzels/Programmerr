@@ -1,5 +1,4 @@
 from .db import db
-from .user_language import UserLanguage
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -16,11 +15,7 @@ class User(db.Model, UserMixin):
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
-    languages = db.relationship(
-        "UserLanguage", 
-        secondary=UserLanguage, 
-        back_populates="users"
-    )
+    language = db.relationship("UserLanguage", back_populates="user")
     skill = db.relationship("UserSkill", back_populates="user")
     occupation = db.relationship("UserOccupation", back_populates="user")
     service = db.relationship("Service", back_populates="user")
