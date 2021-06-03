@@ -1,0 +1,17 @@
+from .db import db
+
+
+class Category(db.Model):
+    __tablename__ = "Categories"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+    service_type = db.relationship("ServiceType", back_populates="category")
+    service = db.relationship("Service", back_populates="category")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name
+        }

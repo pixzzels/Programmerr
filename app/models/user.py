@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     language = db.relationship("UserLanguage", back_populates="user")
     skill = db.relationship("UserSkill", back_populates="user")
     occupation = db.relationship("UserOccupation", back_populates="user")
+    service = db.relationship("Service", back_populates="user")
 
 
     @property
