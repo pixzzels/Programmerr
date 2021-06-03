@@ -1,4 +1,5 @@
 from .db import db
+from .user_language import UserLanguage
 
 class Language(db.Model):
     __tablename__ = 'Languages'
@@ -8,12 +9,16 @@ class Language(db.Model):
     level = db.Column(db.String, nullable = False)
 
 
-    user_language = db.relationship('UserLanguage', back_populates="language")
+    # user_language = db.relationship('UserLanguage', back_populates="language")
+    users = db.relationship(
+        'User', 
+        secondary=UserLanguage, 
+        back_populates="languages")
+
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "level": self.level,
-
         }

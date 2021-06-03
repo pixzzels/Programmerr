@@ -1,4 +1,5 @@
 from .db import db
+from .web_package import WebPackage
 
 
 class Web(db.Model):
@@ -16,7 +17,23 @@ class Web(db.Model):
     revisions = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
 
-    web_package = db.relationship("WebPackage", back_populates="web")
+    web_package_basic = db.relationship(
+        "WebPackage",
+        foreign_keys=[WebPackage.web_basic_id],
+        back_populates="web_basic"
+    )
+
+    web_package_standard = db.relationship(
+        "WebPackage",
+        foreign_keys=[WebPackage.web_standard_id],
+        back_populates="web_standard"
+    )
+
+    web_package_premium = db.relationship(
+        "WebPackage",
+        foreign_keys=[WebPackage.web_premium_id],
+        back_populates="web_premium"
+    )
 
     def to_dict(self):
         return {

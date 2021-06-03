@@ -1,4 +1,5 @@
 from .db import db
+from .user_language import UserLanguage
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -12,10 +13,14 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_img = db.Column(db.String(500))
     description = db.Column(db.String(500))
-    time_created = db.Column(db.DateTime(timezone=True),
+    date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
-    language = db.relationship("UserLanguage", back_populates="user")
+    languages = db.relationship(
+        "UserLanguage", 
+        secondary=UserLanguage, 
+        back_populates="users"
+    )
     skill = db.relationship("UserSkill", back_populates="user")
     occupation = db.relationship("UserOccupation", back_populates="user")
     service = db.relationship("Service", back_populates="user")

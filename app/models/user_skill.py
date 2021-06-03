@@ -7,7 +7,7 @@ class UserSkill(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey(
-        'Languages.id'), nullable=False)
+        'Skills.id'), nullable=False)
 
     user = db.relationship("User", back_populates="skill")
     skill = db.relationship('Skill', back_populates="user_skill")

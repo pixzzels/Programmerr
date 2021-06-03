@@ -11,7 +11,7 @@ class ReqAnswer(db.Model):
 
 
     requirement = db.relationship("Requirement", back_populates="req_answer")
-    user = db.relationship("Service", back_populates="req_answer")
+    user = db.relationship("User", back_populates="req_answer")
 
 
     def to_dict(self):

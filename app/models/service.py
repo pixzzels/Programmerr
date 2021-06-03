@@ -21,10 +21,10 @@ class Service(db.Model):
     user = db.relationship("User", back_populates="service")
     category = db.relationship("Category", back_populates="service")
     service_type = db.relationship("ServiceType", back_populates="service")
-    web_metadata = db.relationship("WebMetadata", back_populates="service")
+    web_megadata = db.relationship("WebMegadata", back_populates="service")
     web_package = db.relationship("WebPackage", back_populates="service")
-    service_requirement = db.relationship("ServiceRequirement", back_populates="service")
-
+    service_requirement = db.relationship(
+        "ServiceRequirement", back_populates="service")
 
     def to_dict(self):
         return {
