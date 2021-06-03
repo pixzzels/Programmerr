@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import LoginForm from '../LoginForm'
-import SignupForm from '../SignupForm'
+import LoginForm from '../auth/LoginForm'
+import SignupForm from '../auth/SignupForm'
 
-import './Login.css'
+// import './Login.css'
 
 function Login() {
   const [isRegister, setIsRegister] = useState(false);

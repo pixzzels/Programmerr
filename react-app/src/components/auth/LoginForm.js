@@ -1,65 +1,75 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import * as sessionActions from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { login } from "../../store/session";
+import './LoginSignup.css'
 
-const LoginForm = () => {
-  const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const user = useSelector(state => state.session.user);
-  const dispatch = useDispatch();
+function LoginForm({ handleClick }) {
+    const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
 
-  const onLogin = async (e) => {
-    e.preventDefault();
-    const data = await dispatch(login(email, password));
-    if (data.errors) {
-      setErrors(data.errors);
+    if (sessionUser) return (
+        <Redirect to="/" />
+    );
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+        const data = await dispatch(sessionActions.login(email, password))
+        if (data && data.errors) {
+            setErrors(data.errors);
+        };
     }
-  };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
+    const demoSubmit = (e) => {
+        e.preventDefault();
+        const email = 'demo@example.com'
+        const password = 'password'
+        return dispatch(sessionActions.login(email, password))
+            .catch(async (res) => {
+                const data = await res.json();
+                // console.log(data)
+                // if (data && data.errors) setErrors(data.errors);
+            })
+    }
 
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  if (user) {
-    return <Redirect to="/" />;
-  }
-
-  return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
-  );
-};
+    return (
+        <>
+            <form className='modalForm' onSubmit={handleSubmit}>
+                <div className='login-register'>
+                    <h1>Sign In to Programmerr</h1>
+                </div>
+                <ul className='errors-list'>
+                    {errors.map((error, idx) => (
+                        <li key={idx}>{error}</li>
+                    ))}
+                </ul>
+                <div className='login-container'>
+                    <label className='usernameLabel'>Email</label>
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label className='passwordLabel'>Password</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <button type="submit" className="login-signup-submit-btn">Continue</button>
+                <button onClick={demoSubmit} className="login-signup-submit-btn" type="button">Demo Log In</button>
+                <footer className="login-signup-footer">
+                    Not a member yet? <button className="login-signup-switch-btn" type="button" onClick={handleClick}>Join now</button>
+                </footer>
+            </form>
+        </>
+    );
+}
 
 export default LoginForm;
