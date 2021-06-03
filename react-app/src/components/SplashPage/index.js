@@ -6,6 +6,7 @@ function SplashPage() {
     return (
         <>
             <NavBar />
+            <h1>Not logged in</h1>
         </>
     )
 }

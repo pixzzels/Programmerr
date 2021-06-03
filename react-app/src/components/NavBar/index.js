@@ -14,9 +14,10 @@ function NavBar() {
                     <span><i className="fas fa-circle navbar__logo-dot"></i></span>
                 </div>
 
-                <div className="">
+                <div className="navbar-buttons">
                     <LoginFormModal />
                     <LoginFormModal text={"Join"}/>
+                    <LogoutButton />
                 </div>
 
             </div>

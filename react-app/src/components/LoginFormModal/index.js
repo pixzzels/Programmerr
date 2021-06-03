@@ -31,17 +31,10 @@ function LoginFormModal({ text = 'Sign In' }) {
 
     return (
         <>
-            {/* <button onClick={() => setShowModal(true)}>Log In</button> */}
-            <button onClick={onClick}>{text}</button>
+            <button style={text === "Sign In" ? {color:"red"} : {color:"blue"}}onClick={onClick}>{text}</button>
 
             {showModal && (
                 component
-                // <>
-                //     <div>hello</div>
-                // <Modal className="login-register-modal" onClose={() => setShowModal(false)}>
-                //     <LoginSignupForm />
-                // </Modal>
-                // </>
             )}
         </>
     );
