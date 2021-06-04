@@ -63,12 +63,10 @@
     font-weight: bold;
 }
 
-.sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
-
 .hidden {
     display: none;
+}
+
+.bold {
+    font-weight: bold;
 }

@@ -10,18 +10,18 @@ fake = Faker()
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', 
-        email='demo@.example.com', 
-        password='password', 
-        profile_img=fake.image_url(), 
-        description=fake.paragraph(nb_sentences=6),
-        date_created=fake.date_between(start_date='-20y', end_date='today')
-    )
+    # demo = User(
+    #     username='Demo', 
+    #     email='demo@example.com', 
+    #     password='password', 
+    #     profile_img=fake.image_url(), 
+    #     description=fake.paragraph(nb_sentences=6),
+    #     date_created=fake.date_between(start_date='-20y', end_date='today')
+    # )
 
-    db.session.add(demo)
+    # db.session.add(demo)
 
-    db.session.commit()
+    # db.session.commit()
 
     for i in range(4):
         fake_users = User(
@@ -32,9 +32,8 @@ def seed_users():
             description = fake.paragraph(nb_sentences=6),
             date_created = fake.date_between(start_date='-20y', end_date='today')
         )
-    db.session.add(fake_users)
-
-    db.session.commit()
+        db.session.add(fake_users)
+        db.session.commit()
         
 
 # Uses a raw SQL query to TRUNCATE the users table.

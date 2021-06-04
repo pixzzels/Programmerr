@@ -1,10 +1,12 @@
-import React from 'react';
-import NavBar from '../NavBar';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import LogoutButton from '../auth/LogoutButton';
-import LoginFormModal from '../LoginFormModal';
 import "./HomePage.css"
 
 function HomePage() {
+
+    const user = useSelector(state => state.session.user)
+    console.log(user)
     return (
         <>
             <nav className="navbar-container sticky">
@@ -16,9 +18,8 @@ function HomePage() {
                     </div>
 
                     <div className="navbar-buttons">
-                        <LoginFormModal />
-                        <LoginFormModal text={"Join"} />
                         <LogoutButton />
+                        <button className="profile-img-btn"><img src={user.profile_img}></img></button>
                     </div>
 
                 </div>

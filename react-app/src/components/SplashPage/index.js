@@ -98,15 +98,15 @@ function SplashPage() {
                     <div className="heros">
                         <div className={"hero jesse " + (showJesse == 0 ? "hidden" : "")} style={{ backgroundColor: "#5880a5", opacity: showJesse }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png"></img> */}
+                            <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png"></img>
                         </div>
                         <div className={"hero brad " + (showBrad == 0 ? "hidden" : "")} style={{ backgroundColor: "#58a581", opacity: showBrad }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png"></img> */}
+                            <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png"></img>
                         </div>
                         <div className={"hero eunice " + (showEunice === 0 ? "hidden" : "")} style={{ backgroundColor: "#a5587c", opacity: showEunice }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png"></img> */}
+                            <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png"></img>
                         </div>
                     </div>
 
