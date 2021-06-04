@@ -17,3 +17,9 @@ body, ul, div, nav {
 body {
     /* background-color: #fdfbf7; */
 }
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
