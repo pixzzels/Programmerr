@@ -86,7 +86,6 @@ function SplashPage() {
                             <div className="navbar-buttons">
                                 <LoginFormModal />
                                 <LoginFormModal text={"Join"} />
-                                <LogoutButton />
                             </div>
 
                         </div>

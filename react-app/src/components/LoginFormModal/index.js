@@ -47,7 +47,9 @@ function LoginFormModal({ text = 'Sign In' }) {
                     fontWeight: "bold",
                     fontSize: "16px",
                     marginRight: "10px"
-                }}>{text}
+                }}
+                onClick={onClick}
+                >{text}
                 </button>
             }
 
