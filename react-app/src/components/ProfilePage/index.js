@@ -25,6 +25,10 @@ function ProfilePage() {
         };
     }, []);
 
+    const handleTaglineSubmit = () => {
+
+    }
+
 
     return (
         <>
@@ -67,7 +71,8 @@ function ProfilePage() {
                     <div className="profile-container-left">
                         <div className="profile-card">
                             <div className="profile-card__image-container">
-                                <img className="profile-card__image" src={user.profile_img}></img>
+                                <img className="profile-card__image" src={user.profile_img} 
+                                onClick={handleTaglineSubmit}></img>
                             </div>
                             <div className="profile-card__tagline">
                                 <span>{user.username}</span>
