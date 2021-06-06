@@ -1,3 +1,9 @@
+/*------Global-------------------------------------------------------*/
+.hidden {
+    display: none;
+}
+
+
 /*------NAV-------------------------------------------------------*/
 
 .navbar-container {
@@ -68,7 +74,6 @@
 
 /*------Profile-------------------------------------------------------*/
 
-
 .main-profile-container {
     display: flex;
     justify-content: space-between;
@@ -85,18 +90,17 @@
     width: 400px;
     height: 2000px;
 }
-/*------Profile-left__profile-card--------------------------------*/
 
+/*------Profile-left__profile-card--------------------------------*/
 
 .profile-card {
     border: 1px solid pink;
     padding: 30px;
     width: 400px;
-    height: 427px;
+    height: 415px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .profile-card__image-container {
@@ -113,17 +117,35 @@
     border-radius: 50%;
 }
 
-.profile-card__tagline {
+.profile-card__tagline-container {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
     align-items: center;
+    justify-content: center;
+}
+
+.profile-card__member-since {
+    display: flex;
+    width: 340px;
+    justify-content: space-between;
+    margin-top: 70px;
+    padding-top: 20px;
+    border-top: 1px solid #c5c5c5;
+    color: #62646a;
+    font-size: 14px;
+}
+
+/*------Profile-left__tagline-------------------------------------------------------*/
 
 
+.profile-card__tagline {
+    font-size: 14px;
+    color: grey;
 }
 
 .fa-pencil-alt {
-    margin-top: 15px;
+    margin-top: 10px;
     color: grey;
 }
 
@@ -131,16 +153,50 @@
     cursor: pointer;
 }
 
-/*------Profile-left__information-card--------------------------------*/
+.tagline__button-container {
+    width: 340px;
+    display: flex;
+    justify-content: space-between;
+}
 
+.tagline__input {
+    width: 100%;
+    outline: none;
+    height: 25px;
+    margin-bottom: 15px;
+    border: 1px solid #c5c5c5;
+    align-content: center;
+    text-align: center;
+}
+
+.tagline__cancel-btn {
+    height: 36px;
+    width: 161px;
+    color: #1DBF73;
+    background-color: white;
+    border: 1px solid #1DBF73;
+    border-radius: 4px;
+}
+
+.tagline__submit-btn {
+    height: 36px;
+    width: 161px;
+    color: white;
+    background-color: #1DBF73;
+    border: 1px solid #1DBF73;
+    border-radius: 4px;
+
+}
+
+/*------Profile-left__information-card--------------------------------*/
 
 .profile-info-card {
     border: 1px solid pink;
     margin: 10px;
 }
 
-
 /*------Profile-right-------------------------------------------------------*/
+
 .profile-container-right {
     border: 1px solid green;
     width: 756px;
@@ -151,9 +207,9 @@
 
 @media only screen and (max-width: 1259px) {
     .profile-container-right {
-      width: 500px;
+        width: 500px;
     }
     .main-profile-container {
         width: 985px;
     }
-  }
+}
