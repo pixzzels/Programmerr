@@ -7,7 +7,6 @@ from .user_skill import UserSkill
 from .occupation import Occupation
 from .user_occupation import UserOccupation
 from .category import Category
-from .service_type import ServiceType
 from .programming_language import ProgrammingLanguage
 from .web_metadata import WebMegadata
 from .web import Web

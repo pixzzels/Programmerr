@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_img = db.Column(db.String(500))
+    tag_line = db.Column(db.String(200))
     description = db.Column(db.String(500))
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())
@@ -40,6 +41,7 @@ class User(db.Model, UserMixin):
             "username": self.username,
             "email": self.email,
             "profile_img": self.profile_img,
+            "tag_line": self.tag_line,
             "description": self.description,
             "date_created": self.date_created,
         }

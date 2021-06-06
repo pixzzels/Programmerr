@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 03678f895f33
+Revision ID: 7ce9419cf1e8
 Revises: 
-Create Date: 2021-06-03 00:08:14.235719
+Create Date: 2021-06-06 15:14:46.680122
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '03678f895f33'
+revision = '7ce9419cf1e8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,7 +27,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('level', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('Occupations',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -58,6 +59,7 @@ def upgrade():
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('profile_img', sa.String(length=500), nullable=True),
+    sa.Column('tag_line', sa.String(length=200), nullable=True),
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('date_created', sa.Date(), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
@@ -87,20 +89,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('ServiceTypes',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['category_id'], ['Categories.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('UserLanguages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('language_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['language_id'], ['Languages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'language_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('UserOccupations',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -108,7 +103,7 @@ def upgrade():
     sa.Column('occupation_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['occupation_id'], ['Occupations.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'occupation_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('UserSkills',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -116,7 +111,7 @@ def upgrade():
     sa.Column('skill_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['skill_id'], ['Skills.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'skill_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('WebMegadatas',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -143,12 +138,10 @@ def upgrade():
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.Column('service_type_id', sa.Integer(), nullable=True),
     sa.Column('web_metadata_id', sa.Integer(), nullable=True),
     sa.Column('web_package_id', sa.Integer(), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['Categories.id'], ),
-    sa.ForeignKeyConstraint(['service_type_id'], ['ServiceTypes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.ForeignKeyConstraint(['web_metadata_id'], ['WebMegadatas.id'], ),
     sa.ForeignKeyConstraint(['web_package_id'], ['WebPackages.id'], ),
@@ -174,7 +167,6 @@ def downgrade():
     op.drop_table('UserSkills')
     op.drop_table('UserOccupations')
     op.drop_table('UserLanguages')
-    op.drop_table('ServiceTypes')
     op.drop_table('ReqAnswers')
     op.drop_table('Webs')
     op.drop_table('Users')
