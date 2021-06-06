@@ -23,6 +23,8 @@ def seed_users():
 
     # db.session.commit()
 
+
+
     for i in range(4):
         fake_users = User(
             username = fake.user_name(),
