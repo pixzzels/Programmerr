@@ -21,7 +21,7 @@ def user(id):
 
 @user_routes.route('/tagline/<int:userId>', methods=["PUT"])
 @login_required
-def update_tagline(userId):
+def update_user_tagline(userId):
     user = User.query.get(userId)
 
     user.tag_line = request.json["tag_line"]
@@ -29,3 +29,15 @@ def update_tagline(userId):
     db.session.add(user)
     db.session.commit()
     return user.to_dict()
+
+@user_routes.route('/description/<int:userId>', methods=["PUT"])
+@login_required
+def update_user_description(userId):
+    user = User.query.get(userId)
+
+    user.description = request.json["description"]
+
+    db.session.add(user)
+    db.session.commit()
+    return user.to_dict()
+
