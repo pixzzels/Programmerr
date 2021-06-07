@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 03678f895f33
+Revision ID: ba87c5b581aa
 Revises: 
-Create Date: 2021-06-03 00:08:14.235719
+Create Date: 2021-06-07 12:05:09.245493
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '03678f895f33'
+revision = 'ba87c5b581aa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,15 +26,8 @@ def upgrade():
     op.create_table('Languages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('level', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('Occupations',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('start_year', sa.Integer(), nullable=False),
-    sa.Column('end_year', sa.Integer(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('ProgrammingLanguages',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -46,18 +39,13 @@ def upgrade():
     sa.Column('question', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('Skills',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('level', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('Users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('profile_img', sa.String(length=500), nullable=True),
+    sa.Column('tag_line', sa.String(length=200), nullable=True),
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('date_created', sa.Date(), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
@@ -78,6 +66,15 @@ def upgrade():
     sa.Column('price', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('Educations',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('start_year', sa.Integer(), nullable=False),
+    sa.Column('end_year', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('ReqAnswers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('answer', sa.String(), nullable=False),
@@ -87,36 +84,22 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('ServiceTypes',
+    op.create_table('Skills',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['category_id'], ['Categories.id'], ),
+    sa.Column('level', sa.String(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('UserLanguages',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('level', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('language_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['language_id'], ['Languages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'language_id')
-    )
-    op.create_table('UserOccupations',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('occupation_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['occupation_id'], ['Occupations.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'occupation_id')
-    )
-    op.create_table('UserSkills',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('skill_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['skill_id'], ['Skills.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'user_id', 'skill_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('WebMegadatas',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -143,12 +126,10 @@ def upgrade():
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.Column('service_type_id', sa.Integer(), nullable=True),
     sa.Column('web_metadata_id', sa.Integer(), nullable=True),
     sa.Column('web_package_id', sa.Integer(), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['Categories.id'], ),
-    sa.ForeignKeyConstraint(['service_type_id'], ['ServiceTypes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.ForeignKeyConstraint(['web_metadata_id'], ['WebMegadatas.id'], ),
     sa.ForeignKeyConstraint(['web_package_id'], ['WebPackages.id'], ),
@@ -171,17 +152,14 @@ def downgrade():
     op.drop_table('Services')
     op.drop_table('WebPackages')
     op.drop_table('WebMegadatas')
-    op.drop_table('UserSkills')
-    op.drop_table('UserOccupations')
     op.drop_table('UserLanguages')
-    op.drop_table('ServiceTypes')
+    op.drop_table('Skills')
     op.drop_table('ReqAnswers')
+    op.drop_table('Educations')
     op.drop_table('Webs')
     op.drop_table('Users')
-    op.drop_table('Skills')
     op.drop_table('Requirements')
     op.drop_table('ProgrammingLanguages')
-    op.drop_table('Occupations')
     op.drop_table('Languages')
     op.drop_table('Categories')
     # ### end Alembic commands ###

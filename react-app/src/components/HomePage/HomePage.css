@@ -1,6 +1,18 @@
+.main-profile-wrapper {
+    background-color: #F7F7F7;
+}
+
+/*------Global-------------------------------------------------------*/
+
+.hidden {
+    display: none;
+}
+
+/*------NAV-------------------------------------------------------*/
+
 .navbar-container {
     padding: 0px 100px;
-    background:transparent;
+    background: transparent;
 }
 
 .navbar__header {
@@ -8,6 +20,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .navbar__logo-dot {
@@ -40,4 +53,25 @@
     height: 35px;
     width: 35px;
     border-radius: 50%;
+}
+
+/*------NAV-Dropdown-------------------------------------------------------*/
+
+.profile-drop-down {
+    position: absolute;
+    height: 270px;
+    width: 200px;
+    border: 1px solid #7A7D85;
+    top: 70px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+}
+
+.profile-drop-down__nav-link {
+    font-size: 16px;
+    color: #7A7D85;
+    padding: 5px 0px;
+    text-decoration: none;
 }

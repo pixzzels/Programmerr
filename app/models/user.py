@@ -11,13 +11,14 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_img = db.Column(db.String(500))
+    tag_line = db.Column(db.String(200))
     description = db.Column(db.String(500))
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
     language = db.relationship("UserLanguage", back_populates="user")
-    skill = db.relationship("UserSkill", back_populates="user")
-    occupation = db.relationship("UserOccupation", back_populates="user")
+    skill = db.relationship("Skill", back_populates="user")
+    education = db.relationship("Education", back_populates="user")
     service = db.relationship("Service", back_populates="user")
     req_answer = db.relationship("ReqAnswer", back_populates="user")
 
@@ -40,6 +41,7 @@ class User(db.Model, UserMixin):
             "username": self.username,
             "email": self.email,
             "profile_img": self.profile_img,
+            "tag_line": self.tag_line,
             "description": self.description,
             "date_created": self.date_created,
         }
