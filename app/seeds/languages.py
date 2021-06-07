@@ -1,40 +1,29 @@
-from app.models import db, User
-from faker import Faker
-fake = Faker()
-# Faker.seed(0)
-# fake.paragraph(nb_sentences=5)
-# fake.sentence(nb_words=10)
-# fake.boolean(chance_of_getting_true=50)
-# fake.password(length=12)
+from app.models import db, Language
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        username='Demo',
-        email='demo@example.com',
-        password='password',
-        profile_img=fake.image_url(),
-        tag_line=fake.sentence(nb_words=7),
-        description=fake.paragraph(nb_sentences=6),
-        date_created=fake.date_between(start_date='-20y', end_date='today')
-    )
+def seed_languages():
 
-    db.session.add(demo)
+    languages = [
+        "Mandarin Chinese", "English", "Spanish", "Hindi", "French", "Portuguese", "Bengali", "Standard Arabic", "Russian", "Indonesian",
+        "Urdu", "Standard German", "Japanese", "Swahili", "Western Punjabi", "Javanese", "Wu Chinese", "Telugu", "Korean", "Tamil",
+        "Marathi", "Turkish", "Vietnamese", "Italian", "Yue Chinese", "Thai", "Egyptian Spoken Arabic", "Iranian Persian", "Huizhou Chinese", "Min Nan Chinese",
+        "Gujarati", "Kannada", "Jinyu Chinese", "Filipino", "Burmese", "Hausa", "Polish", "Bhojpuri", "Xiang Chinese", "Ukrainian",
+        "Malayalam", "Sunda", "Maithili", "Odia", "Algerian Spoken Arabic", "Hakka Chinese", "Nigerian Pidgin", "Eastern Punjabi", "Moroccan Spoken Arabic", "Zulu",
+        "North Levantine Spoken Arabic", "Amharic", "Tagalog", "Northern Uzbek", "Sindhi", "Romanian", "Dutch", "Gan Chinese", "Northern Pashto", "Yoruba",
+        "Sa’idi Spoken Arabic", "Saraiki", "Xhosa", "Malay", "Igbo", "Afrikaans", "Sudanese Spoken Arabic", "Sinhala", "Cebuano", "Mesopotamian Spoken Arabic",
+        "Nepali", "Rangpuri", "Central Khmer", "Northern Kurdish", "Northeastern Thai", "South Azerbaijani", "Somali", "Bamanankan", "Bavarian", "Magahi",
+        "Northern Sotho", "Southern Sotho", "Chhattisgarhi", "Tswana", "Czech", "Greek", "Chittagonian", "Assamese", "Deccan", "Kazakh",
+        "Hungarian", "Shona", "Jula", "Swedish", "Sylheti", "Najdi Spoken Arabic", "Nigerian Fulfulde", "Tunisian Spoken Arabic", "Kinyarwanda", "Min Bei Chinese",
 
-    db.session.commit()
 
-    for i in range(4):
-        fake_users = User(
-            username=fake.user_name(),
-            email=fake.ascii_safe_email(),
-            password=fake.password(length=10),
-            profile_img=fake.image_url(),
-            tag_line=fake.sentence(nb_words=7),
-            description=fake.paragraph(nb_sentences=6),
-            date_created=fake.date_between(start_date='-20y', end_date='today')
+        ]
+
+    for one in languages:
+        lang = Language(
+            name=one
         )
-        db.session.add(fake_users)
+        db.session.add(lang)
         db.session.commit()
 
 
@@ -42,6 +31,6 @@ def seed_users():
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and resets
 # the auto incrementing primary key
-def undo_users():
-    db.session.execute('TRUNCATE Users RESTART IDENTITY CASCADE;')
+def undo_languages():
+    db.session.execute('TRUNCATE Languages RESTART IDENTITY CASCADE;')
     db.session.commit()
