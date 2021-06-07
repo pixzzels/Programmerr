@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, addLanguage } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
@@ -10,8 +10,14 @@ function ProfilePage() {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
-    // const languages = useSelector(state => state.session.user)
-    // console.log(user)
+    const userProfile = useSelector(state => {
+        const profile = Object.values(state.user)
+        return profile[0];
+    })
+    const languages = useSelector(state => {
+        const lang = Object.values(state.language)
+        return lang[0];
+    })
 
     const [showDropDown, setshowDropDown] = useState(false);
     const [showTaglineDD, setShowTaglineDD] = useState(false);
@@ -23,20 +29,15 @@ function ProfilePage() {
 
     const [tagline, setTagline] = useState('');
     const [description, setDescription] = useState('');
-    const [language, setLanguage] = useState('');
+    const [language, setLanguage] = useState();
+    const [languageLevel, setLanguageLevel] = useState('');
+
     const [skill, setSkill] = useState('');
     const [edu, setEdu] = useState('');
 
 
     const ref = useRef(null);
     const userId = user.id
-
-    const userProfile = useSelector(state => {
-        const profile = Object.values(state.user)
-        return profile[0];
-    })
-
-    console.log(userProfile)
 
     useEffect(() => {
         dispatch(loadUser(userId))
@@ -77,8 +78,17 @@ function ProfilePage() {
             return
         }
         dispatch(updateDescription({ userId, description }))
-
     }
+
+    const handleLanguageSubmit = (e) => {
+        e.preventDefault();
+        setShowLanguageDD(false)
+        const language_id = parseInt(language)
+        dispatch(addLanguage({ language_id, languageLevel, userId }))
+        console.log("language", language, "level", languageLevel)
+    }
+
+    if (!languages) return null
 
     if (!userProfile) return null
     // console.log(userProfile.tag_line)
@@ -211,23 +221,45 @@ function ProfilePage() {
                                             onClick={() => setShowLanguageDD(true)}
                                         >Add New</button>
 
+                                    {console.log(userProfile)}
                                     </div>
+
+                                    {!showLanguageDD &&
+                                        <p>{userProfile.description}</p>
+                                    }
+
                                     <section>
                                         {showLanguageDD &&
                                             <>
-                                                <div className="profile-info__description-form-wrapper">
-                                                    <form onSubmit={handleDescriptionSubmit}>
-                                                        <textarea
-                                                            className="profile-info__description-input"
-                                                            type="textarea"
-
+                                                <div className="profile-info__language-form-wrapper">
+                                                    <form onSubmit={handleLanguageSubmit}>
+                                                        <select
+                                                            className="profile-info__language-input"
                                                             placeholder={!userProfile.description ? "Please tell us about any hobbies, additional expertise, or anything else you'd like to add." : userProfile.description}
-                                                            onChange={(e) => setDescription(e.target.value)}
+                                                            onChange={(e) => setLanguage(e.target.value)}
+                                                            required
                                                         >
-                                                        </textarea>
+                                                            <option value="" defaultValue>Select a Language</option>
+
+                                                            {languages.map((language) => {
+                                                                return (
+                                                                    <option value={language.id}>{language.name}</option>
+                                                                )
+                                                            })}
+                                                        </select>
+                                                        <select required
+                                                            className="profile-info__language-input"
+                                                            onChange={(e) => setLanguageLevel(e.target.value)}
+                                                        >
+                                                            <option value="" defaultValue>Language Level</option>
+                                                            <option value="Basic">Basic</option>
+                                                            <option value="Conversational">Conversational</option>
+                                                            <option value="Fluent">Fluent</option>
+                                                            <option value="Native/Bilingual">Native/Bilingual</option>
+                                                        </select>
                                                         <footer className="profile-info__button-container">
                                                             <button className="profile-info__cancel-btn" type="button" onClick={() => setShowLanguageDD(false)}>Cancel</button>
-                                                            <button className="profile-info__submit-btn" type="submit">Update</button>
+                                                            <button className="profile-info__submit-btn" type="submit">Add</button>
                                                         </footer>
                                                     </form>
                                                 </div>

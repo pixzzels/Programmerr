@@ -359,6 +359,37 @@
     font-size: 16px;
 }
 
+/*------Information-card__languages-------------------------------------------*/
+
+.profile-info__language-form-wrapper {
+    background-color: #F4F4F4;
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 370px;
+    margin-left: 15px;
+    border-radius: 4px;
+}
+
+.info-card__language p {
+    width: 340px;
+    margin: 10px 30px 0px 30px;
+    color: #62646a;
+    font-size: 14px;
+}
+
+.profile-info__language-input {
+    width: 336px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px 10px 7px 6px;
+    margin-bottom: 15px;
+    outline: none;
+    resize: none;
+    font-size: 16px;
+}
+
 /*------Profile-right-------------------------------------------------------*/
 
 .profile-container-right {
@@ -367,6 +398,8 @@
     height: 2000px;
     background-color: #fff;
 }
+
+
 
 /*------Media Screen-------------------------------------------------------*/
 

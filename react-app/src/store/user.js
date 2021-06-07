@@ -2,6 +2,9 @@ const LOAD_USER = 'user/LOAD_USER'
 
 const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE'
 const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION'
+const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGES'
+const ADD_LANGUAGE = 'user/ADD_LANGUAGE'
+
 
 
 const loadUserInfo = data => ({
@@ -19,8 +22,16 @@ const updateUserDescription = data => ({
     data
 });
 
+const loadUserLanguage = data => ({
+    type: LOAD_USER_LANGUAGE,
+    data
+})
 
 
+const addUserLanguage = data => ({
+    type: ADD_LANGUAGE,
+    data
+});
 
 
 export const loadUser = (userId) => async (dispatch) => {
@@ -52,9 +63,7 @@ export const updateTagline = (info) => async dispatch => {
         })
     })
 
-    if (!response.ok) {
-        throw response
-    }
+    if (!response.ok) throw response
 
     const data = await response.json();
     dispatch(updateUserTagline(data));
@@ -74,14 +83,51 @@ export const updateDescription = (info) => async dispatch => {
         })
     })
 
-    if (!response.ok) {
-        throw response
-    }
+    if (!response.ok) throw response
 
     const data = await response.json();
     dispatch(updateUserDescription(data));
     return data
 };
+
+export const loadUserLanguages = (userId) => async (dispatch) => {
+
+    const response = await fetch(`/api/users/language/${userId}`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) throw response
+
+
+    const data = await response.json();
+
+    dispatch(loadUserLanguage(data));
+    return data;
+}
+
+export const addLanguage = (info) => async dispatch => {
+    const { language_id, languageLevel, userId } = info
+    // console.log(language_id, languageLevel, userId)
+    
+    const response = await fetch(`/api/users/language`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            level: languageLevel,
+            user_id: userId,
+            language_id: language_id
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(addUserLanguage(data));
+    return data
+};
+
+
+
 
 const initialState = []
 

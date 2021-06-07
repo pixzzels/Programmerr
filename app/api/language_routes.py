@@ -6,9 +6,7 @@ language_routes = Blueprint('languages', __name__)
 
 
 @language_routes.route('/')
-@login_required
 def languages():
     languages = Language.query.all()
-    print([language.to_dict() for language in languages])
     return jsonify([language.to_dict() for language in languages])
     
