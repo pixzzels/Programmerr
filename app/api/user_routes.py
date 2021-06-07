@@ -15,8 +15,8 @@ def users():
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
-    user = User.query.get(id)
-    return user.to_dict()
+    users = User.query.get(id)
+    return users.to_dict()
 
 
 @user_routes.route('/tagline/<int:userId>', methods=["PUT"])
@@ -42,9 +42,8 @@ def update_user_description(userId):
     return user.to_dict()
 
 @user_routes.route('/language', methods=["POST"])
-# @login_required
+@login_required
 def add_user_language():
-    # print("FLAAAGGGG", **request.json)
     language = UserLanguage(**request.json)
 
     db.session.add(language)
@@ -53,7 +52,7 @@ def add_user_language():
 
 
 @user_routes.route('/language/<int:userId>')
-# @login_required
+@login_required
 def load_user_language(userId):
     languages = UserLanguage.query.filter(UserLanguage.user_id == userId).all()
 

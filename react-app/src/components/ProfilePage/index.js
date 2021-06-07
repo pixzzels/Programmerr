@@ -17,9 +17,6 @@ function ProfilePage() {
     const userProfile = useSelector(state => state.user.profile)
     const userLanguages = useSelector(state => state.user.languages)
 
-    console.log("userProfile", userProfile)
-    console.log("userLanguages", userLanguages)
-
     const languages = useSelector(state => {
         const lang = Object.values(state.language)
         return lang[0];
@@ -220,7 +217,7 @@ function ProfilePage() {
                                     <span className="profile-info-line"></span>
                                 </div>
 
-                                <div className="info-card__languages info-card">
+                                <div className="info-card__language info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Lanugages</span>
                                         <div className="tooltip hidden">You can make up to 4 selections.</div>
@@ -236,9 +233,9 @@ function ProfilePage() {
                                             {userLanguages.map((language) => {
                                                 return (
                                                     <>
-                                                        <div className="">
+                                                        <div className="info-card__language-single" key={language.id}>
                                                             <p>{language.language.name}  {" - "} </p>
-                                                            <p>{language.level}</p>
+                                                            <p style={{color:"#9a9ca1", paddingLeft:"5px"}}>{language.level}</p>
                                                         </div>
                                                     </>
                                                 )
@@ -261,7 +258,7 @@ function ProfilePage() {
 
                                                             {languages.map((language) => {
                                                                 return (
-                                                                    <option value={language.id}>{language.name}</option>
+                                                                    <option value={language.id} key={language.id}>{language.name}</option>
                                                                 )
                                                             })}
                                                         </select>

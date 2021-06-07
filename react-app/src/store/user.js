@@ -4,6 +4,8 @@ const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE'
 const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION'
 const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGES'
 const ADD_LANGUAGE = 'user/ADD_LANGUAGE'
+const REMOVE_LANGUAGE = 'user/REMOVE_LANGUAGE'
+
 
 
 
@@ -33,6 +35,10 @@ const addUserLanguage = data => ({
     data
 });
 
+const removeUserLanguage = data => ({
+    type: ADD_LANGUAGE,
+    data
+});
 
 export const loadUser = (userId) => async (dispatch) => {
 
@@ -108,7 +114,7 @@ export const loadUserLanguages = (userId) => async (dispatch) => {
 export const addLanguage = (info) => async dispatch => {
     const { language_id, languageLevel, userId } = info
     // console.log(language_id, languageLevel, userId)
-    
+
     const response = await fetch(`/api/users/language`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -126,17 +132,14 @@ export const addLanguage = (info) => async dispatch => {
     return data
 };
 
-
-
-
 const initialState = []
-
 
 const userReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_USER: {
             newState = {}
+
             newState["profile"] = action.data
             return {
                 ...newState, ...state
@@ -145,15 +148,17 @@ const userReducer = (state = initialState, action) => {
         case UPDATE_TAGLINE: {
             return {
                 ...state,
-                [action.data.id]: action.data
+                profile: action.data
             };
         }
 
         case UPDATE_DESCRIPTION: {
-            return {
+            newState = {
                 ...state,
-                [action.data.id]: action.data
-            };
+                profile: action.data
+            }
+            console.log("newState", newState)
+            return newState;
         }
 
         case LOAD_USER_LANGUAGE: {
@@ -163,6 +168,14 @@ const userReducer = (state = initialState, action) => {
                 ...newState, ...state
             }
         }
+
+        case ADD_LANGUAGE:
+            newState = {
+                ...state,
+                languages: [...state.languages, action.data]
+            }
+            console.log("...state", newState)
+            return newState;
 
         default:
             return state;
