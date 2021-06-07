@@ -162,7 +162,7 @@ function ProfilePage() {
                                     </div>
 
                                     {!showDescriptionDD &&
-                                    <p>{userProfile.description}</p>
+                                        <p>{userProfile.description}</p>
                                     }
 
 
@@ -195,14 +195,41 @@ function ProfilePage() {
                                 <div className="info-card__languages info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Lanugages</span>
-                                        <button className="info-card-show-form-btn" type="button">Add New</button>
+                                        <div className="tooltip hidden">You can make up to 4 selections.</div>
+                                        <button className="info-card-show-form-btn" type="button"
+                                            style={showLanguageDD ? { visibility: "hidden" } : {}}
+                                            onClick={() => setShowLanguageDD(true)}
+                                        >Add New</button>
 
                                     </div>
+                                    <section>
+                                        {showLanguageDD &&
+                                            <>
+                                                <div className="profile-info__description-form-wrapper">
+                                                    <form onSubmit={handleDescriptionSubmit}>
+                                                        <textarea
+                                                            className="profile-info__description-input"
+                                                            type="textarea"
+
+                                                            placeholder={!userProfile.description ? "Please tell us about any hobbies, additional expertise, or anything else you'd like to add." : userProfile.description}
+                                                            onChange={(e) => setDescription(e.target.value)}
+                                                        >
+                                                        </textarea>
+                                                        <footer className="profile-info__button-container">
+                                                            <button className="profile-info__cancel-btn" type="button" onClick={() => setShowLanguageDD(false)}>Cancel</button>
+                                                            <button className="profile-info__submit-btn" type="submit">Update</button>
+                                                        </footer>
+                                                    </form>
+                                                </div>
+                                            </>
+                                        }
+                                    </section>
                                 </div>
 
                                 <div className="info-card__skills info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Skills</span>
+                                        <div className="tooltip hidden">Let your buyers know your skills. Skills gained through your previous jobs, hobbies, or even everyday life.</div>
                                         <button className="info-card-show-form-btn" type="button">Add New</button>
 
                                     </div>
@@ -211,6 +238,8 @@ function ProfilePage() {
                                 <div className="info-card__occupation info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Education</span>
+                                        <div className="tooltip hidden">Describe your educational background. It will help buyers get to know you!</div>
+
                                         <button className="info-card-show-form-btn" type="button">Add New</button>
 
                                     </div>

@@ -5,8 +5,6 @@ class Language(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, unique = True, nullable = False)
-    level = db.Column(db.String, default="basic", nullable = False)
-
 
     user_language = db.relationship('UserLanguage', back_populates="language")
 
@@ -14,5 +12,4 @@ class Language(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "level": self.level,
         }

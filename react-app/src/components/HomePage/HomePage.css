@@ -243,11 +243,11 @@
 .tooltip {
     position: absolute;
     bottom: 40px;
-    width: 350px;
+    width: 310px;
     height: fit-content;
     /* line-height: 20px; */
-    padding: 5px;
-    font-size: 14px;
+    padding: 3px;
+    font-size: 12px;
     text-align: center;
     color: white;
     background: #272727;
@@ -265,7 +265,7 @@
     border-width: 10px;
     border-style: solid;
     border-color: #272727 transparent transparent transparent;
-    top: 43px;
+    top: 35px;
     left: 20px;
 }
 

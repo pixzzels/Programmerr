@@ -3,9 +3,7 @@ from .user import User
 from .language import Language
 from .user_language import UserLanguage
 from .skill import Skill
-from .user_skill import UserSkill
-from .occupation import Occupation
-from .user_occupation import UserOccupation
+from .education import Education
 from .category import Category
 from .programming_language import ProgrammingLanguage
 from .web_metadata import WebMegadata

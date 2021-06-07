@@ -5,6 +5,7 @@ class UserLanguage(db.Model):
     __tablename__ = 'UserLanguages'
 
     id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String, default="basic", nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey(
         'Languages.id'), nullable=False)
@@ -15,6 +16,7 @@ class UserLanguage(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "level": self.level,
             "user_id": self.user_id,
             "language_id": self.language_id,
         }
