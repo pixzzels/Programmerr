@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription, addLanguage } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
@@ -10,10 +10,16 @@ function ProfilePage() {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
-    const userProfile = useSelector(state => {
-        const profile = Object.values(state.user)
-        return profile[0];
-    })
+    // const userProfile = useSelector(state => {
+    //     const profile = Object.values(state.user)
+    //     return profile;
+    // })
+    const userProfile = useSelector(state => state.user.profile)
+    const userLanguages = useSelector(state => state.user.languages)
+
+    console.log("userProfile", userProfile)
+    console.log("userLanguages", userLanguages)
+
     const languages = useSelector(state => {
         const lang = Object.values(state.language)
         return lang[0];
@@ -45,6 +51,10 @@ function ProfilePage() {
 
     useEffect(() => {
         dispatch(loadLanguages())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadUserLanguages(userId))
     }, [dispatch])
 
 
@@ -89,10 +99,8 @@ function ProfilePage() {
     }
 
     if (!languages) return null
-
     if (!userProfile) return null
-    // console.log(userProfile.tag_line)
-
+    if (!userLanguages) return null
 
     return (
         <>
@@ -221,11 +229,21 @@ function ProfilePage() {
                                             onClick={() => setShowLanguageDD(true)}
                                         >Add New</button>
 
-                                    {console.log(userProfile)}
                                     </div>
 
                                     {!showLanguageDD &&
-                                        <p>{userProfile.description}</p>
+                                        <>
+                                            {userLanguages.map((language) => {
+                                                return (
+                                                    <>
+                                                        <div className="">
+                                                            <p>{language.language.name}  {" - "} </p>
+                                                            <p>{language.level}</p>
+                                                        </div>
+                                                    </>
+                                                )
+                                            })}
+                                        </>
                                     }
 
                                     <section>

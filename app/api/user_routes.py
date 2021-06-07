@@ -52,11 +52,11 @@ def add_user_language():
     return language.to_dict()
 
 
-# @user_routes.route('/language/<int:userId>')
-# # @login_required
-# def load_user_language(userId):
-#     languages = Language.query.filter(Language.user_id == userId).all()
+@user_routes.route('/language/<int:userId>')
+# @login_required
+def load_user_language(userId):
+    languages = UserLanguage.query.filter(UserLanguage.user_id == userId).all()
 
-#     return jsonify([language.to_dict() for language in languages])
+    return jsonify([language.to_dict() for language in languages])
 
 

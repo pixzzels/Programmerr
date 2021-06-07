@@ -156,6 +156,14 @@ const userReducer = (state = initialState, action) => {
             };
         }
 
+        case LOAD_USER_LANGUAGE: {
+            newState = {}
+            newState["languages"] = action.data
+            return {
+                ...newState, ...state
+            }
+        }
+
         default:
             return state;
     }
