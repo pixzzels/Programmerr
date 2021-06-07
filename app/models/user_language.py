@@ -11,7 +11,7 @@ class UserLanguage(db.Model):
         'Languages.id'), nullable=False)
 
     user = db.relationship("User", back_populates="language")
-    language = db.relationship('Language', back_populates="user_language")
+    language = db.relationship('Language', back_populates="user_language", lazy='subquery')
 
     def to_dict(self):
         return {

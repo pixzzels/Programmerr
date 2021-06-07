@@ -1,10 +1,48 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
+
+function SingleLanguage({ language }) {
+    const dispatch = useDispatch();
+    const [languageId, setLanguageId] = useState();
+    console.log("languageId", languageId)
+
+
+    const handleLanguageDelete = (id) => {
+        // let id = languageId
+        console.log(id, "id")
+        dispatch(deleteUserLanguage(id))
+    }
+
+    if (!language) return null
+
+    return (
+        <>
+            <div className="info-card__language-single" key={language.id}>
+                {language.language &&
+                    <p>{language.language.name}  {" - "} </p>
+                    }
+                <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
+                <form>
+                    <input className="hidden"></input>
+                    <i className="fas fa-trash-alt hidden"
+                        value={language.id}
+
+                        onClick={() => {
+                            // setLanguageId(language.id)
+                            handleLanguageDelete(language.id)
+                        }}
+                    ></i>
+
+                </form>
+            </div>
+        </>
+    )
+}
 
 function ProfilePage() {
 
@@ -34,6 +72,8 @@ function ProfilePage() {
     const [description, setDescription] = useState('');
     const [language, setLanguage] = useState();
     const [languageLevel, setLanguageLevel] = useState('');
+
+
 
     const [skill, setSkill] = useState('');
     const [edu, setEdu] = useState('');
@@ -95,9 +135,12 @@ function ProfilePage() {
         console.log("language", language, "level", languageLevel)
     }
 
+
     if (!languages) return null
     if (!userProfile) return null
     if (!userLanguages) return null
+
+
 
     return (
         <>
@@ -232,12 +275,7 @@ function ProfilePage() {
                                         <>
                                             {userLanguages.map((language) => {
                                                 return (
-                                                    <>
-                                                        <div className="info-card__language-single" key={language.id}>
-                                                            <p>{language.language.name}  {" - "} </p>
-                                                            <p style={{color:"#9a9ca1", paddingLeft:"5px"}}>{language.level}</p>
-                                                        </div>
-                                                    </>
+                                                    <SingleLanguage language={language} />
                                                 )
                                             })}
                                         </>

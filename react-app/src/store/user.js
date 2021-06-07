@@ -36,7 +36,7 @@ const addUserLanguage = data => ({
 });
 
 const removeUserLanguage = data => ({
-    type: ADD_LANGUAGE,
+    type: REMOVE_LANGUAGE,
     data
 });
 
@@ -132,6 +132,20 @@ export const addLanguage = (info) => async dispatch => {
     return data
 };
 
+export const deleteUserLanguage = (id) => async (dispatch) => {
+
+    const response = await fetch(`/api/users/language/delete/${id}`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) {
+        throw response
+    }
+
+    dispatch(removeUserLanguage(id))
+}
+
 const initialState = []
 
 const userReducer = (state = initialState, action) => {
@@ -176,6 +190,30 @@ const userReducer = (state = initialState, action) => {
             }
             console.log("...state", newState)
             return newState;
+        // delete newState.languages.filter((language) => language.id === action.data)
+        // // delete newState.languages[action.data]
+        // console.log("sdfsdfsf", newState.languages)
+
+        case REMOVE_LANGUAGE: {
+            newState = { ...state };
+            // console.log("beginning", newState)
+
+            const index = newState.languages.findIndex((element) => element.id === action.data)
+            // // console.log("index", index)
+
+            // console.log("deleted", newState.languages.splice(index, 1))
+
+            // delete newState.languages.splice(index, 1)
+
+            // console.log("end", newState)
+            // return newState;
+
+            let newArr = state.languages
+            newArr.splice(index, 1)
+            console.log("newarr", newArr)
+            newState = { ...state, languages: [...newArr] }
+            return newState;
+        }
 
         default:
             return state;

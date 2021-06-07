@@ -30,6 +30,7 @@ def update_user_tagline(userId):
     db.session.commit()
     return user.to_dict()
 
+
 @user_routes.route('/description/<int:userId>', methods=["PUT"])
 @login_required
 def update_user_description(userId):
@@ -41,6 +42,15 @@ def update_user_description(userId):
     db.session.commit()
     return user.to_dict()
 
+
+@user_routes.route('/language/<int:userId>')
+@login_required
+def load_user_language(userId):
+    languages = UserLanguage.query.filter(UserLanguage.user_id == userId).all()
+
+    return jsonify([language.to_dict() for language in languages])
+
+
 @user_routes.route('/language', methods=["POST"])
 @login_required
 def add_user_language():
@@ -51,11 +61,11 @@ def add_user_language():
     return language.to_dict()
 
 
-@user_routes.route('/language/<int:userId>')
+@user_routes.route('/language/delete/<int:id>', methods=["DELETE"])
 @login_required
-def load_user_language(userId):
-    languages = UserLanguage.query.filter(UserLanguage.user_id == userId).all()
+def delete_user_language(id):
+    userLanguage = UserLanguage.query.get(id)
 
-    return jsonify([language.to_dict() for language in languages])
-
-
+    db.session.delete(userLanguage)
+    db.session.commit()
+    return userLanguage.to_dict()
