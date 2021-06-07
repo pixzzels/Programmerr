@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, db
+from app.models import User, Language, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -41,3 +41,10 @@ def update_user_description(userId):
     db.session.commit()
     return user.to_dict()
 
+@user_routes.route('/languages')
+@login_required
+def languages():
+    languages = Language.query.all()
+    print([language.to_dict() for language in languages])
+    return jsonify([language.to_dict() for language in languages])
+    

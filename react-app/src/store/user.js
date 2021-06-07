@@ -1,6 +1,8 @@
 const LOAD_USER = 'user/LOAD_USER'
+
 const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE'
 const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION'
+const LOAD_LANGUAGES = 'user/LOAD_LANGUAGES'
 
 
 const loadUserInfo = data => ({
@@ -17,6 +19,11 @@ const updateUserDescription = data => ({
     type: UPDATE_DESCRIPTION,
     data
 });
+
+const loadAllLanguages = data => ({
+    type: LOAD_LANGUAGES,
+    data
+})
 
 
 
@@ -76,9 +83,25 @@ export const updateDescription = (info) => async dispatch => {
     }
 
     const data = await response.json();
-    dispatch(updateUserTagline(data));
+    dispatch(updateUserDescription(data));
     return data
 };
+
+export const loadLanguages = () => async (dispatch) => {
+
+    const response = await fetch(`/api/users/languages`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) {
+        throw response
+    }
+
+    const data = await response.json();
+
+    dispatch(loadAllLanguages(data));
+    return data;
+}
 
 
 
@@ -90,7 +113,7 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_USER: {
             newState = {}
-            newState[action.data.id] = action.data
+            newState["profile"] = action.data
             return {
                 ...newState, ...state
             }
@@ -100,6 +123,22 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 [action.data.id]: action.data
             };
+        }
+
+        case UPDATE_DESCRIPTION: {
+            return {
+                ...state,
+                [action.data.id]: action.data
+            };
+        }
+
+        case LOAD_LANGUAGES: {
+            newState = {}
+            newState["languages"] = action.data
+
+            return {
+                ...newState, ...state
+            }
         }
 
         default:

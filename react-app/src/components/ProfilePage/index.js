@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, loadLanguages } from '../../store/user'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
 
@@ -9,6 +9,9 @@ function ProfilePage() {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
+    // const languages = useSelector(state => state.session.user)
+    console.log(user)
+
     const [showDropDown, setshowDropDown] = useState(false);
     const [showTaglineDD, setShowTaglineDD] = useState(false);
     const [showDescriptionDD, setShowDescriptionDD] = useState(false);
@@ -34,6 +37,10 @@ function ProfilePage() {
 
     useEffect(() => {
         dispatch(loadUser(userId))
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadLanguages())
     }, [dispatch])
 
 
