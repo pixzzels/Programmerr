@@ -41,10 +41,3 @@ def update_user_description(userId):
     db.session.commit()
     return user.to_dict()
 
-@user_routes.route('/languages')
-@login_required
-def languages():
-    languages = Language.query.all()
-    print([language.to_dict() for language in languages])
-    return jsonify([language.to_dict() for language in languages])
-    
