@@ -4,6 +4,7 @@ from .languages import seed_languages, undo_languages
 from .reviews import seed_reviews, undo_reviews
 from .categories import seed_categories, undo_categories
 from .service_languages import seed_service_languages, undo_service_languages
+from .webs import seed_webs, undo_webs
 # from .languages import seed_languages, undo_languages
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -14,9 +15,10 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     seed_categories()
-    seed_languages()()
-    seed_service_languages
-    seed_reviews()
+    seed_languages()
+    seed_service_languages()
+    # seed_reviews()
+    seed_webs()
     # Add other seed functions here
 
 # Creates the `flask seed undo` command
@@ -26,5 +28,6 @@ def undo():
     undo_categories()
     undo_languages()
     undo_service_languages()
-    undo_reviews()
+    # undo_reviews()
+    undo_webs()
     # Add other undo functions here

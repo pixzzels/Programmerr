@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 68fd9a7c1353
+Revision ID: 8564a63d4fc4
 Revises: 
-Create Date: 2021-06-08 16:47:00.551410
+Create Date: 2021-06-08 18:44:06.832420
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '68fd9a7c1353'
+revision = '8564a63d4fc4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,9 +60,10 @@ def upgrade():
     sa.Column('description', sa.String(), nullable=False),
     sa.Column('delivery_time', sa.Integer(), nullable=False),
     sa.Column('pages', sa.Integer(), nullable=False),
-    sa.Column('design', sa.Boolean(), nullable=False),
-    sa.Column('content_upload', sa.Boolean(), nullable=False),
-    sa.Column('source_code', sa.Boolean(), nullable=False),
+    sa.Column('design_custom', sa.Boolean(), nullable=True),
+    sa.Column('content_upload', sa.Boolean(), nullable=True),
+    sa.Column('responsive_design', sa.Boolean(), nullable=True),
+    sa.Column('source_code', sa.Boolean(), nullable=True),
     sa.Column('revisions', sa.Integer(), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -133,7 +134,6 @@ def upgrade():
     sa.Column('service_id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(), nullable=False),
     sa.Column('score', sa.Integer(), nullable=False),
-    sa.Column('end_year', sa.Integer(), nullable=False),
     sa.Column('owner', sa.String(), nullable=False),
     sa.Column('date_created', sa.Date(), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['service_id'], ['Services.id'], ),

@@ -9,7 +9,6 @@ class Review(db.Model):
         'Services.id'), nullable=False)
     description = db.Column(db.String, nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    end_year = db.Column(db.Integer, nullable=False)
     owner = db.Column(db.String, nullable=False)
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())

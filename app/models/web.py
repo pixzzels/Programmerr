@@ -11,9 +11,10 @@ class Web(db.Model):
     description = db.Column(db.String, nullable=False)
     delivery_time = db.Column(db.Integer, nullable=False)
     pages = db.Column(db.Integer, nullable=False)
-    design = db.Column(db.Boolean(), nullable=False)
-    content_upload = db.Column(db.Boolean(), nullable=False)
-    source_code = db.Column(db.Boolean(), nullable=False)
+    design_custom = db.Column(db.Boolean())
+    content_upload = db.Column(db.Boolean())
+    responsive_design = db.Column(db.Boolean())
+    source_code = db.Column(db.Boolean())
     revisions = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
 
