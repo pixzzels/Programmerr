@@ -8,7 +8,6 @@ class Service(db.Model):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     listing_img = db.Column(db.String)
-    price = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(
         "Categories.id"), nullable=False)
@@ -30,7 +29,6 @@ class Service(db.Model):
             "title": self.title,
             "description": self.description,
             "listing_img": self.listing_img,
-            "price": self.price,
             "user_id": self.user_id,
             "category_id": self.category_id,
             "web_metadata_id": self.web_metadata_id,

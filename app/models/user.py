@@ -7,12 +7,12 @@ class User(db.Model, UserMixin):
     __tablename__ = 'Users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    username = db.Column(db.String(80), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_img = db.Column(db.String(500))
-    tag_line = db.Column(db.String(200))
-    description = db.Column(db.String(500))
+    tag_line = db.Column(db.String())
+    description = db.Column(db.String())
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
@@ -21,7 +21,6 @@ class User(db.Model, UserMixin):
     education = db.relationship("Education", back_populates="user")
     service = db.relationship("Service", back_populates="user")
     req_answer = db.relationship("ReqAnswer", back_populates="user")
-
 
 
     @property
