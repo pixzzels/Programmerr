@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bc8b74d76ef6
+Revision ID: 68fd9a7c1353
 Revises: 
-Create Date: 2021-06-08 15:47:55.868541
+Create Date: 2021-06-08 16:47:00.551410
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bc8b74d76ef6'
+revision = '68fd9a7c1353'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,18 +29,19 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('ProgrammingLanguages',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('Requirements',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('question', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('ServiceLanguages',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('Users',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('seller', sa.Boolean(create_constraint=False), nullable=True),
     sa.Column('username', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
@@ -101,13 +102,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('WebMegadatas',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('programming_language_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['programming_language_id'], ['ProgrammingLanguages.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('WebPackages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('web_basic_id', sa.Integer(), nullable=False),
@@ -125,12 +119,12 @@ def upgrade():
     sa.Column('listing_img', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.Column('web_metadata_id', sa.Integer(), nullable=True),
+    sa.Column('service_language_id', sa.Integer(), nullable=True),
     sa.Column('web_package_id', sa.Integer(), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['Categories.id'], ),
+    sa.ForeignKeyConstraint(['service_language_id'], ['ServiceLanguages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
-    sa.ForeignKeyConstraint(['web_metadata_id'], ['WebMegadatas.id'], ),
     sa.ForeignKeyConstraint(['web_package_id'], ['WebPackages.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -162,15 +156,14 @@ def downgrade():
     op.drop_table('Reviews')
     op.drop_table('Services')
     op.drop_table('WebPackages')
-    op.drop_table('WebMegadatas')
     op.drop_table('UserLanguages')
     op.drop_table('Skills')
     op.drop_table('ReqAnswers')
     op.drop_table('Educations')
     op.drop_table('Webs')
     op.drop_table('Users')
+    op.drop_table('ServiceLanguages')
     op.drop_table('Requirements')
-    op.drop_table('ProgrammingLanguages')
     op.drop_table('Languages')
     op.drop_table('Categories')
     # ### end Alembic commands ###

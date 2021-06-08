@@ -5,8 +5,7 @@ from .user_language import UserLanguage
 from .skill import Skill
 from .education import Education
 from .category import Category
-from .programming_language import ProgrammingLanguage
-from .web_metadata import WebMegadata
+from .service_language import ServiceLanguage
 from .web import Web
 from .web_package import WebPackage
 from .service import Service

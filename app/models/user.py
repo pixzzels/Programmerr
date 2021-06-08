@@ -7,6 +7,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'Users'
 
     id = db.Column(db.Integer, primary_key=True)
+    seller =  db.Column(db.Boolean(create_constraint=False,))
     username = db.Column(db.String(80), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -37,6 +38,7 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             "id": self.id,
+            "seller": self.seller,
             "username": self.username,
             "email": self.email,
             "profile_img": self.profile_img,
