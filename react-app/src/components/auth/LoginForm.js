@@ -27,7 +27,7 @@ function LoginForm({ handleClick }) {
 
     const demoSubmit = (e) => {
         e.preventDefault();
-        const email = 'demo@example.com'
+        const email = 'demo@programmerr.com'
         const password = 'password'
         return dispatch(sessionActions.login(email, password))
             .catch(async (res) => {
