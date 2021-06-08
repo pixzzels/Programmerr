@@ -1,20 +1,44 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
 
+function SingleSkill({ skill }) {
+    const dispatch = useDispatch();
+    const handleSkillDelete = (id) => {
+        dispatch(deleteUserSkill(id))
+    }
+
+    if (!skill) return null
+
+    return (
+        <>
+            <div className="info-card__skill-single" key={skill.id}>
+                <p>{skill.name}  {" - "} </p>
+                <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{skill.level} </p>
+                <form>
+                    <input className="hidden"></input>
+                    <i className="fas fa-trash-alt hidden"
+                        value={skill.id}
+
+                        onClick={() => {
+                            // setLanguageId(language.id)
+                            handleSkillDelete(skill.id)
+                        }}
+                    ></i>
+
+                </form>
+            </div>
+        </>
+    )
+}
+
 function SingleLanguage({ language }) {
     const dispatch = useDispatch();
-    const [languageId, setLanguageId] = useState();
-    console.log("languageId", languageId)
-
-
     const handleLanguageDelete = (id) => {
-        // let id = languageId
-        console.log(id, "id")
         dispatch(deleteUserLanguage(id))
     }
 
@@ -25,7 +49,7 @@ function SingleLanguage({ language }) {
             <div className="info-card__language-single" key={language.id}>
                 {language.language &&
                     <p>{language.language.name}  {" - "} </p>
-                    }
+                }
                 <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
                 <form>
                     <input className="hidden"></input>
@@ -48,12 +72,11 @@ function ProfilePage() {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
-    // const userProfile = useSelector(state => {
-    //     const profile = Object.values(state.user)
-    //     return profile;
-    // })
     const userProfile = useSelector(state => state.user.profile)
     const userLanguages = useSelector(state => state.user.languages)
+    const userSkills = useSelector(state => state.user.skills)
+    console.log(userSkills)
+
 
     const languages = useSelector(state => {
         const lang = Object.values(state.language)
@@ -72,10 +95,9 @@ function ProfilePage() {
     const [description, setDescription] = useState('');
     const [language, setLanguage] = useState();
     const [languageLevel, setLanguageLevel] = useState('');
-
-
-
     const [skill, setSkill] = useState('');
+    const [skillLevel, setSkillLevel] = useState('');
+
     const [edu, setEdu] = useState('');
 
 
@@ -94,6 +116,10 @@ function ProfilePage() {
         dispatch(loadUserLanguages(userId))
     }, [dispatch])
 
+    useEffect(() => {
+        dispatch(loadSkills(userId))
+    }, [dispatch])
+
 
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -110,44 +136,49 @@ function ProfilePage() {
 
     const handleUpdateTagline = (e) => {
         e.preventDefault();
-        setShowTaglineDD(false)
+        setShowTaglineDD(false);
         if (tagline === '') {
             return
-        }
+        };
         // console.log(tagline, userId)
-        dispatch(updateTagline({ tagline, userId }))
-    }
+        dispatch(updateTagline({ tagline, userId }));
+    };
 
     const handleDescriptionSubmit = (e) => {
         e.preventDefault();
         setShowDescriptionDD(false)
         if (description === '') {
             return
-        }
-        dispatch(updateDescription({ userId, description }))
-    }
+        };
+        dispatch(updateDescription({ userId, description }));
+    };
 
     const handleLanguageSubmit = (e) => {
         e.preventDefault();
-        setShowLanguageDD(false)
-        const language_id = parseInt(language)
-        dispatch(addLanguage({ language_id, languageLevel, userId }))
-        console.log("language", language, "level", languageLevel)
-    }
+        setShowLanguageDD(false);
+        const language_id = parseInt(language);
+        dispatch(addLanguage({ language_id, languageLevel, userId }));
+        // console.log("language", language, "level", languageLevel)
+    };
 
+    const handleSkillSubmit = (e) => {
+        e.preventDefault();
+        setShowSkillDD(false);
+        dispatch(addSkill({ skill, skillLevel, userId }))
+        // console.log(skill, skillLevel)
 
-    if (!languages) return null
-    if (!userProfile) return null
-    if (!userLanguages) return null
+    };
+
+    if (!languages) return null;
+    if (!userProfile) return null;
+    if (!userLanguages) return null;
 
 
 
     return (
         <>
             <div className="main-profile-wrapper">
-
-
-                <nav className="navbar-container sticky">
+                <nav className="navbar-container">
                     <div className="navbar__header">
 
                         <div className="navbar__logo">
@@ -179,7 +210,6 @@ function ProfilePage() {
 
                     </div>
                 </nav>
-                <h1>Profile Page!</h1>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="main-profile-container">
 
@@ -325,12 +355,55 @@ function ProfilePage() {
                                     <div className="info-card__header">
                                         <span className="info-card__name">Skills</span>
                                         <div className="tooltip hidden">Let your buyers know your skills. Skills gained through your previous jobs, hobbies, or even everyday life.</div>
-                                        <button className="info-card-show-form-btn" type="button">Add New</button>
+                                        <button className="info-card-show-form-btn" type="button"
+                                            style={showSkillDD ? { visibility: "hidden" } : {}}
+                                            onClick={() => setShowSkillDD(true)}
+                                        >Add New</button>
 
                                     </div>
+                                    {!showSkillDD &&
+                                        <>
+                                            {userSkills.map((skill) => {
+                                                return (
+                                                    <SingleSkill skill={skill} />
+                                                )
+                                            })}
+                                        </>
+                                    }
+
+                                    <section>
+                                        {showSkillDD &&
+                                            <>
+                                                <div className="profile-info__skills-form-wrapper">
+                                                    <form onSubmit={handleSkillSubmit}>
+                                                        <input
+                                                            className="profile-info__skill-input"
+                                                            type="text"
+                                                            placeholder={"Add Skill (E.G. Web Design, Javascript)"}
+                                                            onChange={(e) => setSkill(e.target.value)}
+                                                        >
+                                                        </input>
+                                                        <select required
+                                                            className="profile-info__skill-input"
+                                                            onChange={(e) => setSkillLevel(e.target.value)}
+                                                        >
+                                                            <option value="" defaultValue>Experience Level</option>
+                                                            <option value="Beginner">Beginner</option>
+                                                            <option value="Intermediate">Intermediate</option>
+                                                            <option value="Expert">Expert</option>
+                                                        </select>
+                                                        <footer className="profile-info__button-container">
+                                                            <button className="profile-info__cancel-btn" type="button" onClick={() => setShowSkillDD(false)}>Cancel</button>
+                                                            <button className="profile-info__submit-btn" id="skill-add-btn" type="submit" >Add</button>
+                                                        </footer>
+                                                    </form>
+                                                </div>
+                                            </>
+                                        }
+                                    </section>
                                 </div>
 
-                                <div className="info-card__occupation info-card">
+                                {/* <div className="info-card__occupation info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Education</span>
                                         <div className="tooltip hidden">Describe your educational background. It will help buyers get to know you!</div>
@@ -338,7 +411,7 @@ function ProfilePage() {
                                         <button className="info-card-show-form-btn" type="button">Add New</button>
 
                                     </div>
-                                </div>
+                                </div> */}
 
 
                             </div>
@@ -346,6 +419,11 @@ function ProfilePage() {
                         </div>
 
                         <div className="profile-container-right">
+                            <div className="profile-container-right-header">
+                                <p>It looks like you don't have any active Gigs. Get selling!</p>
+                                <button>Create a New Gig</button>
+
+                            </div>
 
                         </div>
                     </div>
