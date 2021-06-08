@@ -87,3 +87,13 @@ def load_user_skill(userId):
     skills = Skill.query.filter(Skill.user_id == userId).all()
 
     return jsonify([skill.to_dict() for skill in skills])
+
+
+@user_routes.route('/skill/delete/<int:id>', methods=["DELETE"])
+@login_required
+def delete_user_skill(id):
+    userSkill = Skill.query.get(id)
+
+    db.session.delete(userSkill)
+    db.session.commit()
+    return userSkill.to_dict()

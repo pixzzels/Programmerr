@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills } from '../../store/user'
+import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
@@ -9,7 +9,7 @@ import './ProfilePage.css';
 function SingleSkill({ skill }) {
     const dispatch = useDispatch();
     const handleSkillDelete = (id) => {
-        // dispatch(deleteUserLanguage(id))
+        dispatch(deleteUserSkill(id))
     }
 
     if (!skill) return null

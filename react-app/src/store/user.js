@@ -1,12 +1,12 @@
-const LOAD_USER = 'user/LOAD_USER'
-const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE'
-const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION'
-const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGE'
-const ADD_LANGUAGE = 'user/ADD_LANGUAGE'
-const REMOVE_LANGUAGE = 'user/REMOVE_LANGUAGE'
-const LOAD_SKILLS = 'user/LOAD_SKILLS'
-const ADD_SKILL = 'user/ADD_SKILL'
-
+const LOAD_USER = 'user/LOAD_USER';
+const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE';
+const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION';
+const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGE';
+const ADD_LANGUAGE = 'user/ADD_LANGUAGE';
+const REMOVE_LANGUAGE = 'user/REMOVE_LANGUAGE';
+const LOAD_SKILLS = 'user/LOAD_SKILLS';
+const ADD_SKILL = 'user/ADD_SKILL';
+const REMOVE_SKILL = 'user/REMOVE_SKILL';
 
 
 const loadUserInfo = data => ({
@@ -39,15 +39,20 @@ const removeUserLanguage = data => ({
     data
 });
 
+const loadUserSkill = data => ({
+    type: LOAD_SKILLS,
+    data
+});
+
 const addUserSkill = data => ({
     type: ADD_SKILL,
     data
 });
 
-const loadUserSkill = data => ({
-    type: LOAD_SKILLS,
+const removeUserSkill = data => ({
+    type: REMOVE_SKILL,
     data
-})
+});
 
 export const loadUser = (userId) => async (dispatch) => {
 
@@ -182,6 +187,16 @@ export const addSkill = (info) => async dispatch => {
     return data
 };
 
+export const deleteUserSkill = (id) => async (dispatch) => {
+    const response = await fetch(`/api/users/skill/delete/${id}`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) throw response
+    dispatch(removeUserSkill(id))
+};
+
 const initialState = []
 
 const userReducer = (state = initialState, action) => {
@@ -248,6 +263,15 @@ const userReducer = (state = initialState, action) => {
                 skills: [...state.skills, action.data]
             }
             return newState;
+
+        case REMOVE_SKILL: {
+            newState = { ...state };
+            const index = newState.skills.findIndex((element) => element.id === action.data)
+            let newArr = state.skills
+            newArr.splice(index, 1)
+            newState = { ...state, skills: [...newArr] }
+            return newState;
+        }
 
         default:
             return state;
