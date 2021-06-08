@@ -178,9 +178,7 @@ function ProfilePage() {
     return (
         <>
             <div className="main-profile-wrapper">
-
-
-                <nav className="navbar-container sticky">
+                <nav className="navbar-container">
                     <div className="navbar__header">
 
                         <div className="navbar__logo">
@@ -212,7 +210,6 @@ function ProfilePage() {
 
                     </div>
                 </nav>
-                <h1>Profile Page!</h1>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="main-profile-container">
 
@@ -406,7 +403,7 @@ function ProfilePage() {
                                     </section>
                                 </div>
 
-                                <div className="info-card__occupation info-card">
+                                {/* <div className="info-card__occupation info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Education</span>
                                         <div className="tooltip hidden">Describe your educational background. It will help buyers get to know you!</div>
@@ -414,7 +411,7 @@ function ProfilePage() {
                                         <button className="info-card-show-form-btn" type="button">Add New</button>
 
                                     </div>
-                                </div>
+                                </div> */}
 
 
                             </div>
@@ -422,6 +419,11 @@ function ProfilePage() {
                         </div>
 
                         <div className="profile-container-right">
+                            <div className="profile-container-right-header">
+                                <p>It looks like you don't have any active Gigs. Get selling!</p>
+                                <button>Create a New Gig</button>
+
+                            </div>
 
                         </div>
                     </div>
