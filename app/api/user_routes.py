@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, UserLanguage, db
+from app.models import User, UserLanguage, Skill, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -69,3 +69,21 @@ def delete_user_language(id):
     db.session.delete(userLanguage)
     db.session.commit()
     return userLanguage.to_dict()
+
+
+@user_routes.route('/skill', methods=["POST"])
+@login_required
+def add_user_skill():
+    skill = Skill(**request.json)
+
+    db.session.add(skill)
+    db.session.commit()
+    return skill.to_dict()
+
+
+@user_routes.route('/skill/<int:userId>')
+@login_required
+def load_user_skill(userId):
+    skills = Skill.query.filter(Skill.user_id == userId).all()
+
+    return jsonify([skill.to_dict() for skill in skills])

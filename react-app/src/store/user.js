@@ -1,11 +1,11 @@
 const LOAD_USER = 'user/LOAD_USER'
-
 const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE'
 const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION'
-const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGES'
+const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGE'
 const ADD_LANGUAGE = 'user/ADD_LANGUAGE'
 const REMOVE_LANGUAGE = 'user/REMOVE_LANGUAGE'
-
+const LOAD_SKILLS = 'user/LOAD_SKILLS'
+const ADD_SKILL = 'user/ADD_SKILL'
 
 
 
@@ -29,7 +29,6 @@ const loadUserLanguage = data => ({
     data
 })
 
-
 const addUserLanguage = data => ({
     type: ADD_LANGUAGE,
     data
@@ -39,6 +38,16 @@ const removeUserLanguage = data => ({
     type: REMOVE_LANGUAGE,
     data
 });
+
+const addUserSkill = data => ({
+    type: ADD_SKILL,
+    data
+});
+
+const loadUserSkill = data => ({
+    type: LOAD_SKILLS,
+    data
+})
 
 export const loadUser = (userId) => async (dispatch) => {
 
@@ -54,7 +63,7 @@ export const loadUser = (userId) => async (dispatch) => {
 
     dispatch(loadUserInfo(data));
     return data;
-}
+};
 
 export const updateTagline = (info) => async dispatch => {
     const { userId, tagline } = info
@@ -109,7 +118,7 @@ export const loadUserLanguages = (userId) => async (dispatch) => {
 
     dispatch(loadUserLanguage(data));
     return data;
-}
+};
 
 export const addLanguage = (info) => async dispatch => {
     const { language_id, languageLevel, userId } = info
@@ -133,18 +142,45 @@ export const addLanguage = (info) => async dispatch => {
 };
 
 export const deleteUserLanguage = (id) => async (dispatch) => {
-
     const response = await fetch(`/api/users/language/delete/${id}`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
     })
 
-    if (!response.ok) {
-        throw response
-    }
-
+    if (!response.ok) throw response
     dispatch(removeUserLanguage(id))
-}
+};
+
+export const loadSkills = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/users/skill/${userId}`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) throw response
+    const data = await response.json();
+    dispatch(loadUserSkill(data));
+    return data;
+};
+
+export const addSkill = (info) => async dispatch => {
+    const { skill, skillLevel, userId } = info
+    // console.log(language_id, languageLevel, userId)
+
+    const response = await fetch(`/api/users/skill`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            level: skillLevel,
+            user_id: userId,
+            name: skill
+        })
+    })
+
+    if (!response.ok) throw response
+    const data = await response.json();
+    dispatch(addUserSkill(data));
+    return data
+};
 
 const initialState = []
 
@@ -171,7 +207,6 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.data
             }
-            console.log("newState", newState)
             return newState;
         }
 
@@ -188,32 +223,31 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 languages: [...state.languages, action.data]
             }
-            console.log("...state", newState)
             return newState;
-        // delete newState.languages.filter((language) => language.id === action.data)
-        // // delete newState.languages[action.data]
-        // console.log("sdfsdfsf", newState.languages)
 
         case REMOVE_LANGUAGE: {
             newState = { ...state };
-            // console.log("beginning", newState)
-
             const index = newState.languages.findIndex((element) => element.id === action.data)
-            // // console.log("index", index)
-
-            // console.log("deleted", newState.languages.splice(index, 1))
-
-            // delete newState.languages.splice(index, 1)
-
-            // console.log("end", newState)
-            // return newState;
-
             let newArr = state.languages
             newArr.splice(index, 1)
-            console.log("newarr", newArr)
             newState = { ...state, languages: [...newArr] }
             return newState;
         }
+
+        case LOAD_SKILLS: {
+            newState = {}
+            newState["skills"] = action.data
+            return {
+                ...newState, ...state
+            }
+        }
+
+        case ADD_SKILL:
+            newState = {
+                ...state,
+                skills: [...state.skills, action.data]
+            }
+            return newState;
 
         default:
             return state;
