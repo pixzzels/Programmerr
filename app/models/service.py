@@ -22,6 +22,7 @@ class Service(db.Model):
     web_package = db.relationship("WebPackage", back_populates="service")
     service_requirement = db.relationship(
         "ServiceRequirement", back_populates="service")
+    review = db.relationship("Review", back_populates="service")
 
     def to_dict(self):
         return {

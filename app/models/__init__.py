@@ -11,5 +11,6 @@ from .web import Web
 from .web_package import WebPackage
 from .service import Service
 from .requirement import Requirement
+from .review import Review
 from .service_requirement import ServiceRequirement
 from .req_answer import ReqAnswer
