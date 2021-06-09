@@ -4,13 +4,13 @@ from app.models import db, Web
 def seed_webs():
 
     web_programming_1 = Web(type="Basic", title="Basic PHP coding", description="In this i will give you simple php codes with mysql in a way you want.",
-                            delivery_time=1, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=5)
+                            delivery_time=1, pages=1, design_custom=False, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=5)
     web_programming_2 = Web(type="Basic", title="Clean Minimalist", description="Simple and minimalist static single page web app",
-                            delivery_time=1, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=105)
+                            delivery_time=1, pages=1, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=0, price=105)
     web_programming_3 = Web(type="Basic", title="Basic", description="Web Map Application + GIS Data integration + Application Deployment on Cloud",
-                            delivery_time=7, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=500)
+                            delivery_time=7, pages=1, design_custom=False, content_upload=False, responsive_design=True, source_code=True, revisions=0, price=500)
     web_programming_4 = Web(type="Basic", title="Basic", description="Basic web application including landing page with responsive design.",
-                            delivery_time=7, pages=2, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=60)
+                            delivery_time=7, pages=2, design_custom=False, content_upload=False, responsive_design=True, source_code=True, revisions=0, price=60)
     web_programming_5 = Web(type="Basic", title="Bep-20 Token Development", description="I will create and Deploy your own Bep-20 Token on Binance Smart Chain",
                             delivery_time=1, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=4, price=50)
     web_programming_6 = Web(type="Basic", title="Twilio", description="I can help you with setting up and configuring Twilio. Contact me before ordering",
@@ -90,13 +90,13 @@ def seed_webs():
     db.session.add(web_programming_28)
 
     web_programming_29 = Web(type="Standard", title="A WEB APP", description="In standuard catagory i will make a web app of your requirements professionally.",
-                             delivery_time=2, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=20)
+                             delivery_time=2, pages=1, design_custom=False, content_upload=False, responsive_design=True, source_code=True, revisions=888, price=20)
     web_programming_30 = Web(type="Standard", title="Standard", description="Responsive web app with modern design and database connectivity",
-                             delivery_time=2, pages=4, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=495)
+                             delivery_time=2, pages=4, design_custom=True, content_upload=False, responsive_design=True, source_code=True, revisions=1, price=495)
     web_programming_31 = Web(type="Standard", title="Standard", description="Everything from Basic + API integration + GIS Data Processing",
-                             delivery_time=14, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=1500)
+                             delivery_time=14, pages=1, design_custom=True, content_upload=False, responsive_design=True, source_code=True, revisions=0, price=1500)
     web_programming_32 = Web(type="Standard", title="Standard", description="Complex web application with complete routing and Api integration.",
-                             delivery_time=14, pages=3, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=100)
+                             delivery_time=14, pages=3, design_custom=False, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=100)
     web_programming_33 = Web(type="Standard", title="Medium level online academy site", description="Courses, students, teachers and admin modules",
                              delivery_time=3, pages=3, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=250)
     web_programming_34 = Web(type="Standard", title="Standard", description="Simple design 3 pages Web app with database by simple crud. Please discuss before placing order.",
