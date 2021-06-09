@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import user from "./user";
 import language from "./language";
+import category from "./category";
 
 const rootReducer = combineReducers({
     session,
     user,
-    language
+    language,
+    category
 });
 
 
