@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
 import { loadLanguages } from '../../store/language'
-import LogoutButton from '../auth/LogoutButton';
+import NavBar from '../NavBar';
 import './ProfilePage.css';
 
 function SingleSkill({ skill }) {
@@ -17,7 +17,7 @@ function SingleSkill({ skill }) {
     return (
         <>
             <div className="info-card__skill-single" key={skill.id}>
-                <p>{skill.name}  {" - "} </p>
+                <p className="profile">{skill.name}  {" - "} </p>
                 <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{skill.level} </p>
                 <form>
                     <input className="hidden"></input>
@@ -48,9 +48,9 @@ function SingleLanguage({ language }) {
         <>
             <div className="info-card__language-single" key={language.id}>
                 {language.language &&
-                    <p>{language.language.name}  {" - "} </p>
+                    <p className="profile" >{language.language.name}  {" - "} </p>
                 }
-                <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
+                <p className="profile" style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
                 <form>
                     <input className="hidden"></input>
                     <i className="fas fa-trash-alt hidden"
@@ -99,10 +99,8 @@ function ProfilePage() {
     const [skillLevel, setSkillLevel] = useState('');
 
     const [edu, setEdu] = useState('');
-
-
-    const ref = useRef(null);
     const userId = user.id
+
 
     useEffect(() => {
         dispatch(loadUser(userId))
@@ -120,19 +118,6 @@ function ProfilePage() {
         dispatch(loadSkills(userId))
     }, [dispatch])
 
-
-    const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            setshowDropDown(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
 
     const handleUpdateTagline = (e) => {
         e.preventDefault();
@@ -178,38 +163,8 @@ function ProfilePage() {
     return (
         <>
             <div className="main-profile-wrapper">
-                <nav className="navbar-container">
-                    <div className="navbar__header">
-
-                        <div className="navbar__logo">
-                            <NavLink className="navbar__logo-name" to={`/`}>Programmerr</NavLink>
-                            <span><i className="fas fa-circle navbar__logo-dot"></i></span>
-                        </div>
-
-                        <div className="navbar-buttons">
-                            {/* <LogoutButton /> */}
-                            <button className="profile-img-btn" onClick={() => setshowDropDown(!showDropDown)}><img src={user.profile_img}></img></button>
-                        </div>
-                        {showDropDown &&
-                            <>
-                                <div ref={ref} className="profile-drop-down">
-                                    <NavLink className="profile-drop-down__nav-link" to={`/profile`}>Profile</NavLink>
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
-                                    <NavLink className="profile-drop-down__nav-link" to={`/users/${user.id}`} style={{ borderTop: "1px solid #7A7D85" }}>Become a Seller</NavLink>
-                                    <LogoutButton />
-
-
-                                </div>
-                            </>
-                        }
-
-                    </div>
-                    <div className="navbar__categories">
-
-                    </div>
-                </nav>
+                <NavBar />
+                      
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="main-profile-container">
 
@@ -260,7 +215,7 @@ function ProfilePage() {
                                     </div>
 
                                     {!showDescriptionDD &&
-                                        <p>{userProfile.description}</p>
+                                        <p className="profile">{userProfile.description}</p>
                                     }
 
 
@@ -420,7 +375,7 @@ function ProfilePage() {
 
                         <div className="profile-container-right">
                             <div className="profile-container-right-header">
-                                <p>It looks like you don't have any active Gigs. Get selling!</p>
+                                <p className="profile">It looks like you don't have any active Gigs. Get selling!</p>
                                 <button>Create a New Gig</button>
 
                             </div>

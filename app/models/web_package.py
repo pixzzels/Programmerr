@@ -12,7 +12,7 @@ class WebPackage(db.Model):
 
     service = db.relationship(
         "Service", uselist=False,
-        back_populates="web_packages"
+        back_populates="web_package"
     )
 
     web_basic = db.relationship(
@@ -34,9 +34,16 @@ class WebPackage(db.Model):
     )
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "web_basic_id": self.web_basic_id,
-            "web_standard_id": self.web_standard_id,
-            "web_premium_id": self.web_premium_id,
-        }
+        if self.web_standard:
+            return {
+                "id": self.id,
+                "web_basic": self.web_basic.to_dict(),
+                "web_standard": self.web_standard.to_dict(),
+                "web_premium": self.web_premium.to_dict(),
+            }
+        else:
+            return {
+                "id": self.id,
+                "web_basic": self.web_basic.to_dict(),
+                
+            }

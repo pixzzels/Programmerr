@@ -21,7 +21,7 @@ class Service(db.Model):
     category = db.relationship("Category", back_populates="service")
     service_language = db.relationship(
         "ServiceLanguage", back_populates="service")
-    web_packages = db.relationship("WebPackage", back_populates="service")
+    web_package = db.relationship("WebPackage", back_populates="service")
     service_requirement = db.relationship(
         "ServiceRequirement", back_populates="service")
     reviews = db.relationship("Review", back_populates="service")
@@ -39,5 +39,6 @@ class Service(db.Model):
             "time_created": self.time_created,
             "user": self.user.to_dict(),
             "reviews": [review.to_dict() for review in self.reviews],
-            # "web_packages": self.web_packages
+            "web_package": self.web_package.to_dict(),
+            "service_language": self.service_language.to_dict()
         }

@@ -1,0 +1,257 @@
+/*_______service-page navbar________________________________________*/
+.service-page__navbar-wrapper {
+    border-bottom: 1px solid #ddd;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+
+.service-page__navbar {
+    margin: auto;
+    margin-top: 0px;
+    background: white;
+    padding: 0px 32px;
+    height: 53px;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+}
+
+.service-page__navbar-list {
+    text-decoration: none;
+    color: #96979D;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+
+/*------------General________________________________________*/
+
+.service-page__wrapper {
+    margin: 0px auto;
+    padding: 32px 32px 0px;
+    display: flex;
+    justify-content: center;
+    /* max-width: 1300px; */
+}
+
+.service-page__main {
+    margin-right: 1.2%;
+    width: 44.6em;
+    /* width: 57.42%; */
+    /* height: 280em; */
+    /* border: 1px solid pink; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.service-card__link {
+    text-decoration: none;
+    color: #404145;
+}
+
+/*---------Overview-header-------------------------------------------------------------------*/
+
+.service-page__overview {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-page__title {
+    padding-bottom: 16px;
+    font-size: 28px;
+    color: #404145;
+}
+
+.service-page__seller-info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.seller-info__profile-img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.seller-info__seller-name {
+    padding-left: 12px;
+}
+
+.seller-info__review-score {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding-left: 12px;
+    font-size: 16px;
+    color: #FFBE5B;
+}
+
+.service-page__listing-img-container {
+    display: flex;
+    justify-content: center;
+    width: 44.6em;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+.service-page__listing-img {
+    width: 38.8em;
+}
+
+.service-page__section-header {
+    font-size: 20px;
+    padding-bottom: 25px;
+    margin: 0px;
+    color: 404145
+}
+
+/*---------Review Snippet-------------------------------------------------------------------*/
+
+.service-page__review-snippet {
+    margin-bottom: 64px;
+}
+
+.service-page__review {
+    padding: 16px 24px;
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.review__profile_img {
+    padding: 0px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.review__owner-info {
+    display: flex;
+    /* align-items: center; */
+}
+
+.review__owner-username {
+    margin-left: 20px;
+}
+
+.review__description {
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 25px;
+    height: 52px;
+    overflow: hidden;
+    color: #62646A;
+}
+
+.service-page__rating {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding-left: 12px;
+    font-size: 16px;
+    color: #FFBE5B;
+}
+
+/*-------------service-page__description-----------------------------------------*/
+
+.service-page__info-container {
+    padding-bottom: 20px;
+}
+
+.service-page__description {
+    font-size: 15px;
+    line-height: 35px;
+    color: #62646A;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.service-page__megadata {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    line-height: 28px;
+    padding-top: 20px;
+    font-size: 16px;
+    padding-bottom: 30px;
+}
+
+.megadata__programming-language {
+    height: 44px;
+    color: #62646A;
+}
+
+/*-------------service-page__about-seller-----------------------------------------*/
+
+.about-seller__info {
+    display: flex;
+    align-items: center;
+    padding-bottom: 24px;
+}
+
+.about-seller__details {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    color: #62646A;
+}
+
+.about-seller__profile_img {
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+}
+
+.about-seller__seller-name {
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: bold;
+    color: #62646A;
+}
+
+.about-seller__tagline {
+    line-height: 30px;
+}
+
+.about-seller__seller-name:hover {
+    text-decoration: underline;
+}
+
+.about-seller__review-score {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    font-size: 16px;
+    color: #FFBE5B;
+}
+
+.about-seller__stats {
+    padding: 35px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.about-seller__stats-description {
+    font-size: 16px;
+    padding-top: 15px;
+    line-height: 30px;
+    border-top: 1px solid #ddd;
+    color: #62646A;
+}
+
+/*-------------service-page__packages-----------------------------------------*/
+
+.service-page__packages-container {
+    width: 25.9em;
+    height: fit-content;
+    margin-left: 100px;
+    border: 1px solid #ddd;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 85px;
+}
+

@@ -9,3 +9,8 @@ service_routes = Blueprint('services', __name__)
 def all_services():
     services = Service.query.all()
     return jsonify([service.to_dict() for service in services])
+
+@service_routes.route('/<int:id>')
+def one_service(id):
+    service = Service.query.get(id)
+    return service.to_dict()
