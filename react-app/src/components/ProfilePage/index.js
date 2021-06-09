@@ -75,13 +75,13 @@ function ProfilePage() {
     const userProfile = useSelector(state => state.user.profile)
     const userLanguages = useSelector(state => state.user.languages)
     const userSkills = useSelector(state => state.user.skills)
-    console.log(userSkills)
-
 
     const languages = useSelector(state => {
         const lang = Object.values(state.language)
         return lang[0];
     })
+
+    console.log(userProfile)
 
     const [showDropDown, setshowDropDown] = useState(false);
     const [showTaglineDD, setShowTaglineDD] = useState(false);
@@ -172,7 +172,7 @@ function ProfilePage() {
     if (!languages) return null;
     if (!userProfile) return null;
     if (!userLanguages) return null;
-
+    if (!userSkills) return null;
 
 
     return (
@@ -193,7 +193,7 @@ function ProfilePage() {
                         {showDropDown &&
                             <>
                                 <div ref={ref} className="profile-drop-down">
-                                    <NavLink className="profile-drop-down__nav-link" to={`/profile/`}>Profile</NavLink>
+                                    <NavLink className="profile-drop-down__nav-link" to={`/profile`}>Profile</NavLink>
                                     {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
                                     {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
                                     {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
@@ -301,7 +301,7 @@ function ProfilePage() {
 
                                     </div>
 
-                                    {!showLanguageDD &&
+                                    {!showLanguageDD && userLanguages &&
                                         <>
                                             {userLanguages.map((language) => {
                                                 return (
@@ -312,7 +312,7 @@ function ProfilePage() {
                                     }
 
                                     <section>
-                                        {showLanguageDD &&
+                                        {showLanguageDD && userLanguages &&
                                             <>
                                                 <div className="profile-info__language-form-wrapper">
                                                     <form onSubmit={handleLanguageSubmit}>

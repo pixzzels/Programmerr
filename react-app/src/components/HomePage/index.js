@@ -47,7 +47,7 @@ function HomePage() {
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
-                                <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`} style={{borderTop:"1px solid #7A7D85"}}>Become a Seller</NavLink>
+                                {/* <NavLink className="profile-drop-down__nav-link"  to={`/profile`} style={{borderTop:"1px solid #7A7D85"}}>Become a Seller</NavLink> */}
                                 <LogoutButton />
 
 

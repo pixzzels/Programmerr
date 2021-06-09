@@ -1,7 +1,6 @@
 from app.models import db, Category
 
 
-# Adds a demo user, you can add other users here if you want
 def seed_categories():
 
     web_application = Category(name="Web Application")
