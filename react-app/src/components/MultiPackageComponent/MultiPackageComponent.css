@@ -1,3 +1,7 @@
+.packages-info-main {
+
+}
+
 .packages-info-headers {
     display: flex;
     justify-content: space-evenly;
@@ -12,7 +16,6 @@
     border: 1px solid #ddd;
     color: #7A7D85;
     background-color: #FAFAFA;
-
 }
 
 .packages-info-header-selected {
@@ -31,7 +34,6 @@
 
 .service-request__content {
     padding: 12px 24px 0px 24px;
-
 }
 
 .service-request__title-price {
@@ -39,4 +41,52 @@
     justify-content: space-between;
     color: #404145;
     height: 48px;
+}
+
+.service-request__package-description {
+    margin: 6px 0px 12px 0px;
+    color: #62646A;
+    height: 63px;
+    font-size: 14px;
+}
+
+.service-request__additional-info {
+    display: flex;
+    color: #62646A;
+    font-size: 14px;
+    font-weight: bold;
+    height: 24px;
+}
+
+.service-request__feature {
+    list-style: none;
+    padding: 3px;
+    font-size: 14px;
+    color: #95979D;
+    line-height: 20px;
+    margin-top: 7px;
+}
+
+.service-request__feature>i {
+    margin-right: 10px;
+}
+
+.service-request__submit-btn {
+    width: 100%;
+    background-color: #1DBF73;
+    color: white;
+    border: 1px solid #1DBF73;
+    border-radius: 4px;
+    height: 42px;
+    padding: 12px 24px;
+    font-size: 16px;
+    /* font-weight: bold; */
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.service-request__submit-btn:hover {
+    background-color: #17aa66;
+    color: white;
+    border: 1px solid #17aa66;
 }

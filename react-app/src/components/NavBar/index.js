@@ -74,7 +74,7 @@ function NavBar() {
 
                 }
             </div>
-            <hr></hr>
+            <hr style={{marginBottom:"0px"}}></hr>
         </nav>
     );
 }

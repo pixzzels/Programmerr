@@ -1,3 +1,33 @@
+/*_______service-page navbar________________________________________*/
+.service-page__navbar-wrapper {
+    border-bottom: 1px solid #ddd;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+
+.service-page__navbar {
+    margin: auto;
+    margin-top: 0px;
+    background: white;
+    padding: 0px 32px;
+    height: 53px;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+}
+
+.service-page__navbar-list {
+    text-decoration: none;
+    color: #96979D;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+
+/*------------General________________________________________*/
+
 .service-page__wrapper {
     margin: 0px auto;
     padding: 32px 32px 0px;
@@ -64,6 +94,8 @@
     display: flex;
     justify-content: center;
     width: 44.6em;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .service-page__listing-img {
@@ -91,8 +123,9 @@
 }
 
 .review__profile_img {
-    height: 32px;
+    padding: 0px;
     width: 32px;
+    height: 32px;
     border-radius: 50%;
 }
 
@@ -106,7 +139,7 @@
 }
 
 .review__description {
-    margin-left: 20px;
+    padding-left: 20px;
     font-size: 16px;
     line-height: 25px;
     height: 52px;
@@ -217,5 +250,8 @@
     height: fit-content;
     margin-left: 100px;
     border: 1px solid #ddd;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 85px;
 }
 

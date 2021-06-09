@@ -273,7 +273,7 @@
     border-radius: 4px;
 }
 
-.info-card__description > p {
+.info-card__description > p.profile {
     width: 340px;
     margin: 10px 30px 0px 30px;
     color: #62646a;

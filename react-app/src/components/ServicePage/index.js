@@ -12,7 +12,8 @@ function ServicePage() {
     // console.log(service)
 
     const { id } = useParams();
-    console.log(id)
+
+    // console.log(id)
     useEffect(() => {
         dispatch(loadService(id))
     }, [dispatch, id])
@@ -26,9 +27,20 @@ function ServicePage() {
     return (
         <>
             <NavBar />
+            <div className="service-page__navbar-wrapper">
+                <nav className="service-page__navbar">
+                    <ul >
+                        <a className="service-page__navbar-list" href="#overview">Overview</a>
+                        <a className="service-page__navbar-list" href="#description">Description</a>
+                        <a className="service-page__navbar-list" href="#about-seller">About Seller</a>
+                        <a className="service-page__navbar-list" href="#reviews">Reviews</a>
+
+                    </ul>
+                </nav>
+            </div>
             <div className='service-page__wrapper'>
                 <div className="service-page__main">
-                    <div className="service-page__overview">
+                    <div className="service-page__overview" id="#overview">
                         <h1 className="service-page__title">{service.title}</h1>
 
                         <div className="service-page__seller-info">
@@ -54,7 +66,10 @@ function ServicePage() {
                     <div className="service-page__review-snippet">
                         <h2 className="service-page__section-header">What people loved about this seller</h2>
                         <div className="service-page__review">
-                            <img className="review__profile_img" src={service.user.profile_img}></img>
+                            <div style={{ width: "32px" }}>
+                                <img className="review__profile_img" src={service.user.profile_img}></img>
+
+                            </div>
                             <div>
                                 <div className="review__owner-info">
                                     <span className="review__owner-username">{service.reviews[0].owner}</span>
@@ -70,7 +85,7 @@ function ServicePage() {
                         </div>
                     </div>
 
-                    <div className="service-page__info-container">
+                    <div className="service-page__info-container" id="#description">
                         <h2 className="service-page__section-header">About This Service</h2>
                         <div className="service-page__description">{service.description}</div>
                         <div className="service-page__megadata">
@@ -123,13 +138,17 @@ function ServicePage() {
                     </div>
 
                 </div>
-                <div className="service-page__packages-container">
-                    <MultiPackageComponent 
-                    basic={service.web_package.web_basic}
-                    standard={service.web_package.web_standard}
-                    premium={service.web_package.web_premium}
 
-                    />
+                <div className="service-page__packages-container">
+                    {console.log(service)}
+                    {service.id === parseInt(id) &&
+                        <MultiPackageComponent
+                            basic={service.web_package.web_basic}
+                            standard={service.web_package.web_standard}
+                            premium={service.web_package.web_premium}
+
+                        />
+                    }
                 </div>
             </div>
         </>

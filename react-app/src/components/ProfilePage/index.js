@@ -17,7 +17,7 @@ function SingleSkill({ skill }) {
     return (
         <>
             <div className="info-card__skill-single" key={skill.id}>
-                <p>{skill.name}  {" - "} </p>
+                <p className="profile">{skill.name}  {" - "} </p>
                 <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{skill.level} </p>
                 <form>
                     <input className="hidden"></input>
@@ -48,9 +48,9 @@ function SingleLanguage({ language }) {
         <>
             <div className="info-card__language-single" key={language.id}>
                 {language.language &&
-                    <p>{language.language.name}  {" - "} </p>
+                    <p className="profile" >{language.language.name}  {" - "} </p>
                 }
-                <p style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
+                <p className="profile" style={{ color: "#9a9ca1", paddingLeft: "5px" }}>{language.level} </p>
                 <form>
                     <input className="hidden"></input>
                     <i className="fas fa-trash-alt hidden"
@@ -215,7 +215,7 @@ function ProfilePage() {
                                     </div>
 
                                     {!showDescriptionDD &&
-                                        <p>{userProfile.description}</p>
+                                        <p className="profile">{userProfile.description}</p>
                                     }
 
 
@@ -375,7 +375,7 @@ function ProfilePage() {
 
                         <div className="profile-container-right">
                             <div className="profile-container-right-header">
-                                <p>It looks like you don't have any active Gigs. Get selling!</p>
+                                <p className="profile">It looks like you don't have any active Gigs. Get selling!</p>
                                 <button>Create a New Gig</button>
 
                             </div>
