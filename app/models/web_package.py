@@ -12,7 +12,7 @@ class WebPackage(db.Model):
 
     service = db.relationship(
         "Service", uselist=False,
-        back_populates="web_package"
+        back_populates="web_packages"
     )
 
     web_basic = db.relationship(

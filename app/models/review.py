@@ -13,7 +13,7 @@ class Review(db.Model):
     date_created = db.Column(db.Date(),
                              server_default=db.func.now())
 
-    service = db.relationship("Service", back_populates="review")
+    service = db.relationship("Service", back_populates="reviews")
 
     def to_dict(self):
         return {

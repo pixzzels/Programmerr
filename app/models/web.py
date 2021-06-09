@@ -44,10 +44,10 @@ class Web(db.Model):
             "description": self.description,
             "delivery_time": self.delivery_time,
             "pages": self.pages,
-            "design": self.design,
+            "design_custom": self.design_custom,
             "content_upload": self.content_upload,
+            "responsive_design": self.responsive_design,
             "source_code": self.source_code,
             "revisions": self.revisions,
             "price": self.price,
-            "type": self.type,
         }

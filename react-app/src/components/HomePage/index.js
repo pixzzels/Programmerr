@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import categoryReducer, { loadCategories } from '../../store/category';
+import { loadCategories } from '../../store/category';
+import { loadServices } from '../../store/service';
 import LogoutButton from '../auth/LogoutButton';
+import ServiceCard from '../ServiceCard';
 import "./HomePage.css"
 
 function HomePage() {
@@ -10,6 +12,8 @@ function HomePage() {
 
     const user = useSelector(state => state.session.user)
     const categories = useSelector(state => state.category.categories)
+    const services = useSelector(state => state.service.services)
+
     // console.log(categories)
 
     const [showDropDown, setshowDropDown] = useState(false);
@@ -17,7 +21,11 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(loadCategories())
-    })
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadServices())
+    }, [dispatch])
 
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -33,6 +41,8 @@ function HomePage() {
     }, []);
 
     if (!categories) return null
+    if (!services) return null
+
 
 
     return (
@@ -65,6 +75,7 @@ function HomePage() {
                     }
 
                 </div>
+                <hr></hr>
                 <div className="navbar__categories-home">
                     {categories && categories.map((category => {
                         return (
@@ -75,10 +86,16 @@ function HomePage() {
 
                     }
                 </div>
+                <hr></hr>
             </nav>
             <div className="homepage_container">
-                <div>
-                    
+                <h3 style={{paddingLeft:"18px"}}>Editors Picks'</h3>
+                <div className="services-container">
+                    {services && services.map((service => {
+                        return (
+                            <ServiceCard service={service} />
+                        )
+                    }))}
                 </div>
             </div>
         </>

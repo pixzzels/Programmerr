@@ -11,6 +11,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.language_routes import language_routes
 from .api.category_routes import category_routes
+from .api.service_routes import service_routes
 
 from .seeds import seed_commands
 
@@ -36,6 +37,8 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(language_routes, url_prefix='/api/language')
 app.register_blueprint(category_routes, url_prefix='/api/category')
+app.register_blueprint(service_routes, url_prefix='/api/services')
+
 
 
 db.init_app(app)
