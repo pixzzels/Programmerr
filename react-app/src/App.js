@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 // import SignUpForm from "./components/auth/SignUpForm";
 // import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/User";
+// import UsersList from "./components/UsersList";
+// import User from "./components/User";
 import { authenticate } from "./store/session";
 import SplashPage from "./components/SplashPage";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
 import CategoryPage from "./components/CategoryPage";
+import ServicePage from "./components/ServicePage";
 
 function App() {
     const user = useSelector(state => state.session.user)
@@ -40,6 +41,10 @@ function App() {
                 <Route path="/category/:id">
                     <CategoryPage />
                 </Route>
+
+                {/* <Route path="/service/:id">
+                    <ServicePage />
+                </Route> */}
 
                 <ProtectedRoute path="/profile" >
                     <ProfilePage />

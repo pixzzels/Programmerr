@@ -5,6 +5,7 @@ import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLangua
 import { loadLanguages } from '../../store/language'
 import LogoutButton from '../auth/LogoutButton';
 import './ProfilePage.css';
+import NavBar from '../NavBar';
 
 function SingleSkill({ skill }) {
     const dispatch = useDispatch();
@@ -99,10 +100,8 @@ function ProfilePage() {
     const [skillLevel, setSkillLevel] = useState('');
 
     const [edu, setEdu] = useState('');
-
-
-    const ref = useRef(null);
     const userId = user.id
+
 
     useEffect(() => {
         dispatch(loadUser(userId))
@@ -120,19 +119,6 @@ function ProfilePage() {
         dispatch(loadSkills(userId))
     }, [dispatch])
 
-
-    const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            setshowDropDown(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
 
     const handleUpdateTagline = (e) => {
         e.preventDefault();
@@ -178,38 +164,8 @@ function ProfilePage() {
     return (
         <>
             <div className="main-profile-wrapper">
-                <nav className="navbar-container">
-                    <div className="navbar__header">
-
-                        <div className="navbar__logo">
-                            <NavLink className="navbar__logo-name" to={`/`}>Programmerr</NavLink>
-                            <span><i className="fas fa-circle navbar__logo-dot"></i></span>
-                        </div>
-
-                        <div className="navbar-buttons">
-                            {/* <LogoutButton /> */}
-                            <button className="profile-img-btn" onClick={() => setshowDropDown(!showDropDown)}><img src={user.profile_img}></img></button>
-                        </div>
-                        {showDropDown &&
-                            <>
-                                <div ref={ref} className="profile-drop-down">
-                                    <NavLink className="profile-drop-down__nav-link" to={`/profile`}>Profile</NavLink>
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
-                                    {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
-                                    <NavLink className="profile-drop-down__nav-link" to={`/users/${user.id}`} style={{ borderTop: "1px solid #7A7D85" }}>Become a Seller</NavLink>
-                                    <LogoutButton />
-
-
-                                </div>
-                            </>
-                        }
-
-                    </div>
-                    <div className="navbar__categories">
-
-                    </div>
-                </nav>
+                <NavBar />
+                      
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="main-profile-container">
 
