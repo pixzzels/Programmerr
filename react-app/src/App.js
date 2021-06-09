@@ -42,9 +42,9 @@ function App() {
                     <CategoryPage />
                 </Route>
 
-                {/* <Route path="/service/:id">
+                <Route path="/service/:id">
                     <ServicePage />
-                </Route> */}
+                </Route>
 
                 <ProtectedRoute path="/profile" >
                     <ProfilePage />

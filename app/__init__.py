@@ -37,7 +37,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(language_routes, url_prefix='/api/language')
 app.register_blueprint(category_routes, url_prefix='/api/category')
-app.register_blueprint(service_routes, url_prefix='/api/services')
+app.register_blueprint(service_routes, url_prefix='/api/service')
 
 
 
