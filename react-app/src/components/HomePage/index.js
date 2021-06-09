@@ -43,7 +43,7 @@ function HomePage() {
                     {showDropDown &&
                         <>
                             <div ref={ref} className="profile-drop-down">
-                                <NavLink className="profile-drop-down__nav-link" to={`/profile`}>Profile</NavLink>
+                                <NavLink className="profile-drop-down__nav-link" to={`/profile/`}>Profile</NavLink>
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
                                 {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
