@@ -46,7 +46,7 @@ function App() {
                     <ServicePage />
                 </Route>
 
-                <ProtectedRoute path="/profile" >
+                <ProtectedRoute path="/profile/:id" >
                     <ProfilePage />
                 </ProtectedRoute>
                 {/* <ProtectedRoute path="/" exact={true} >

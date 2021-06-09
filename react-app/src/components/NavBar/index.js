@@ -50,14 +50,12 @@ function NavBar() {
                 {showDropDown &&
                     <>
                         <div ref={ref} className="profile-drop-down-home">
-                            <NavLink className="profile-drop-down__nav-link" to={`/profile/`}>Profile</NavLink>
+                            <NavLink className="profile-drop-down__nav-link" to={`/profile/${user.id}`}>Profile</NavLink>
                             {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Dashboard</NavLink> */}
                             {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Manage Requests</NavLink> */}
                             {/* <NavLink className="profile-drop-down__nav-link"  to={`/users/${user.id}`}>Post a Request</NavLink> */}
                             {/* <NavLink className="profile-drop-down__nav-link"  to={`/profile`} style={{borderTop:"1px solid #7A7D85"}}>Become a Seller</NavLink> */}
                             <LogoutButton />
-
-
                         </div>
                     </>
                 }
