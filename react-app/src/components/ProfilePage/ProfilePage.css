@@ -425,9 +425,11 @@
 /*------Profile-right-------------------------------------------------------*/
 
 .profile-container-right {
-    border: 1px solid green;
     width: 756px;
     height: 2000px;
+    /* border: 1px solid green; */
+    border-radius: 3px;
+
     /* background-color: #fff; */
 }
 
@@ -440,6 +442,8 @@
     background-color: #fff;
     padding: 20px 24px;
     align-items: center;
+    border: 1px solid #ddd;
+
 }
 
 .profile-container-right-header > p {
@@ -447,7 +451,7 @@
     font-size: 15px;
 }
 
-.profile-container-right-header > button {
+.profile-container-create-new-service {
     width: 137px;
     height: 34px;
     background-color: #1DBF73;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import NavBar from '../NavBar';
@@ -99,7 +99,9 @@ function ProfilePage() {
     const [skillLevel, setSkillLevel] = useState('');
 
     const [edu, setEdu] = useState('');
-    const userId = user.id
+    // const userId = user.id
+    const { id } = useParams()
+    const userId = id
 
 
     useEffect(() => {
@@ -171,10 +173,10 @@ function ProfilePage() {
                         <div className="profile-container-left">
                             <div className="profile-card">
                                 <div className="profile-card__image-container">
-                                    <img className="profile-card__image" src={user.profile_img}></img>
+                                    <img className="profile-card__image" src={userProfile.profile_img}></img>
                                 </div>
                                 <div className="profile-card__tagline-container">
-                                    <div className="bold" style={{ fontSize: "20px", marginBottom: "10px" }}>{user.username}</div>
+                                    <div className="bold" style={{ fontSize: "20px", marginBottom: "10px" }}>{userProfile.username}</div>
                                     <div className={"profile-card__tagline " + (showTaglineDD === true ? "hidden" : "")}>{userProfile.tag_line}</div>
                                     <i onClick={() => setShowTaglineDD(true)} className={"fas fa-pencil-alt " + (showTaglineDD === true ? "hidden" : "")}></i>
                                     {showTaglineDD &&
@@ -200,7 +202,7 @@ function ProfilePage() {
 
                                     <div className="profile-card__member-since">
                                         <div>Member Since:</div>
-                                        <div className="bold">{(user.date_created).slice(7, -13)}</div>
+                                        <div className="bold">{(userProfile.date_created).slice(7, -13)}</div>
                                     </div>
                                 </div>
 
@@ -378,8 +380,9 @@ function ProfilePage() {
                         <div className="profile-container-right">
                             <div className="profile-container-right-header">
                                 <p className="profile">It looks like you don't have any active Gigs. Get selling!</p>
-                                <button>Create a New Gig</button>
-
+                                <NavLink to="/new-service">
+                                    <button className="profile-container-create-new-service">Create a New Gig</button>
+                                </NavLink>
                             </div>
 
                         </div>
