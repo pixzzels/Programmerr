@@ -164,7 +164,7 @@ function ProfilePage() {
         <>
             <div className="main-profile-wrapper">
                 <NavBar />
-                      
+
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="main-profile-container">
 
@@ -196,10 +196,12 @@ function ProfilePage() {
                                             </div>
                                         </>
                                     }
-                                </div>
-                                <div className="profile-card__member-since">
-                                    <div>Member Since:</div>
-                                    <div className="bold">{(user.date_created).slice(7, -13)}</div>
+
+
+                                    <div className="profile-card__member-since">
+                                        <div>Member Since:</div>
+                                        <div className="bold">{(user.date_created).slice(7, -13)}</div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -248,7 +250,7 @@ function ProfilePage() {
                                 <div className="info-card__language info-card">
                                     <div className="info-card__header">
                                         <span className="info-card__name">Lanugages</span>
-                                        <div className="tooltip hidden">You can make up to 4 selections.</div>
+                                        <div className="tooltip-lang hidden">You can make up to 4 selections.</div>
                                         <button className="info-card-show-form-btn" type="button"
                                             style={showLanguageDD ? { visibility: "hidden" } : {}}
                                             onClick={() => setShowLanguageDD(true)}

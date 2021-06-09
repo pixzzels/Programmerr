@@ -63,11 +63,13 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-bottom: 10px;
 }
 
 .profile-card__member-since {
-    position: absolute;
-    top: 475px;
+    /* position: absolute; */
+    /* top: 475px; */
+    margin-top: 40px;
     display: flex;
     width: 340px;
     justify-content: space-between;
@@ -334,6 +336,39 @@
     outline: none;
     resize: none;
     font-size: 16px;
+}
+
+.info-card__header:hover .tooltip-lang {
+    display: inline;
+}
+
+.tooltip-lang {
+    position: absolute;
+    bottom: 40px;
+    width: 310px;
+    height: fit-content;
+    /* line-height: 20px; */
+    padding: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    background: #272727;
+    border: 4px solid #272727;
+    border-radius: 5px;
+    text-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 10px 5px;
+}
+
+.tooltip-lang:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #272727 transparent transparent transparent;
+    top: 20px;
+    left: 20px;
 }
 
 /*------Information-card__skill-------------------------------------------*/
