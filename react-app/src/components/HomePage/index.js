@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+import categoryReducer, { loadCategories } from '../../store/category';
 import LogoutButton from '../auth/LogoutButton';
 import "./HomePage.css"
 
 function HomePage() {
+    const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user)
+    const categories = useSelector(state => state.category.categories)
+    // console.log(categories)
+
     const [showDropDown, setshowDropDown] = useState(false);
     const ref = useRef(null);
 
-
+    useEffect(() => {
+        dispatch(loadCategories())
+    })
 
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -25,18 +32,20 @@ function HomePage() {
         };
     }, []);
 
-    console.log(user)
+    if (!categories) return null
+
+
     return (
         <>
-            <nav className="navbar-container sticky">
-                <div className="navbar__header">
+            <nav className="navbar-container-home sticky">
+                <div className="navbar__header-home">
 
                     <div className="navbar__logo">
-                        <span className="navbar__logo-name">Programmerr</span>
+                        <NavLink className="navbar__logo-name-home" to={`/`}>Programmerr</NavLink>
                         <span><i className="fas fa-circle navbar__logo-dot"></i></span>
                     </div>
 
-                    <div className="navbar-buttons">
+                    <div className="navbar-buttons-home">
                         {/* <LogoutButton /> */}
                         <button className="profile-img-btn" onClick={() => setshowDropDown(!showDropDown)}><img src={user.profile_img}></img></button>
                     </div>
@@ -56,11 +65,22 @@ function HomePage() {
                     }
 
                 </div>
-                <div className="navbar__categories">
+                <div className="navbar__categories-home">
+                    {categories && categories.map((category => {
+                        return (
+                            <NavLink to={`/category/${category.id}`} className="navbar__category-home" key={category.id}>{category.name}</NavLink>
+                        )
 
+                    }))
+
+                    }
                 </div>
             </nav>
-            <h1>Logged IN!</h1>
+            <div className="homepage_container">
+                <div>
+                    
+                </div>
+            </div>
         </>
     )
 }

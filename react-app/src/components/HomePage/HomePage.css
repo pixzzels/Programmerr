@@ -10,12 +10,14 @@
 
 /*------NAV-------------------------------------------------------*/
 
-.navbar-container {
-    padding: 0px 100px;
-    background: transparent;
+.navbar-container-home {
+    background: white;
+    max-width: 1400px;
 }
 
-.navbar__header {
+.navbar__header-home {
+    padding: 0px 100px;
+    border-bottom: 1px solid #8a8c92;
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -28,12 +30,14 @@
     color: #1DBF73;
 }
 
-.navbar__logo-name {
+.navbar__logo-name-home {
     font-size: 36px;
     font-weight: bold;
+    text-decoration: none;
+    color: #4e4e4e;
 }
 
-.navbar-buttons {
+.navbar-buttons-home {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,6 +57,43 @@
     height: 35px;
     width: 35px;
     border-radius: 50%;
+}
+
+.navbar__categories-home {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0px 100px;
+    color: #62646a;
+    font-size: 16px;
+    background-color: white;
+    border-bottom: 1px solid #8a8c92;
+    font-size: 16px;
+}
+
+.navbar__category-home {
+    padding: 8px 0px;
+    text-decoration: none;
+    color: #8a8c92;
+    font-weight: 400;
+}
+
+.navbar__category-home:after {
+    content: '';
+    display: block;
+    margin: auto;
+    height: 3px;
+    margin-top: 10px;
+    width: 0px;
+    background: transparent;
+    transition: width .5s ease, background-color .2s ease;
+}
+
+.navbar__category-home:hover:after {
+    width: 100%;
+    background: #1DBF73;
 }
 
 /*------NAV-Dropdown-------------------------------------------------------*/

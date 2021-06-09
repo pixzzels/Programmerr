@@ -182,7 +182,7 @@ function ProfilePage() {
                     <div className="navbar__header">
 
                         <div className="navbar__logo">
-                            <span className="navbar__logo-name">Programmerr</span>
+                            <NavLink className="navbar__logo-name" to={`/`}>Programmerr</NavLink>
                             <span><i className="fas fa-circle navbar__logo-dot"></i></span>
                         </div>
 
