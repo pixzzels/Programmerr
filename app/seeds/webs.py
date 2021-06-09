@@ -90,6 +90,104 @@ def seed_webs():
     db.session.add(web_programming_27)
     db.session.add(web_programming_28)
 
+    web_programming_29 = Web(type="Standard", title="A WEB APP", description="In standuard catagory i will make a web app of your requirements professionally.",
+                             delivery_time=2, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=20)
+    web_programming_30 = Web(type="Standard", title="Standard", description="Responsive web app with modern design and database connectivity",
+                             delivery_time=2, pages=4, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=495)
+    web_programming_31 = Web(type="Standard", title="Standard", description="Everything from Basic + API integration + GIS Data Processing",
+                             delivery_time=14, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=1500)
+    web_programming_32 = Web(type="Standard", title="Standard", description="Complex web application with complete routing and Api integration.",
+                             delivery_time=14, pages=3, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=100)
+    web_programming_33 = Web(type="Standard", title="Medium level online academy site", description="Courses, students, teachers and admin modules",
+                             delivery_time=3, pages=3, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=250)
+    web_programming_34 = Web(type="Standard", title="Standard", description="Simple design 3 pages Web app with database by simple crud. Please discuss before placing order.",
+                             delivery_time=3, pages=3, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=1, price=55)
+    web_programming_35 = Web(type="Standard", title="MEDIUM", description="I will make a calculator with formula applied. (5-7 fields)",
+                             delivery_time=6, pages=2, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=60)
+    web_programming_36 = Web(type="Standard", title="A bit more involved", description="I will create a tool, write an involved script, and introduce some functionality.",
+                             delivery_time=7, pages=1, design_custom=True, content_upload=False, responsive_design=True, source_code=True, revisions=3, price=300)
+    web_programming_37 = Web(type="Standard", title="Google Map in Dynamic Web Page", description="I will create a map in a dynamic web page with marks from db and info window or bootstrap modal.",
+                             delivery_time=7, pages=0, design_custom=False, content_upload=True, responsive_design=True, source_code=True, revisions=3, price=315)
+    web_programming_38 = Web(type="Standard", title="Standard", description="5 pages website", delivery_time=12, pages=4,
+                             design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=2, price=345)
+    web_programming_39 = Web(type="Standard", title="Calculator", description="Calculator with an average complexity of calculations",
+                             delivery_time=6, pages=1, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=888, price=165)
+    web_programming_40 = Web(type="Standard", title="standard", description="Add new Feature in your existing website - Please contact me before placing order",
+                             delivery_time=5, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=3, price=350)
+    web_programming_41 = Web(type="Standard", title="Customized Interactive Chart", description="1 customized interactive chart. Price listed only serves as a reference.",
+                             delivery_time=5, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=3, price=70)
+    web_programming_42 = Web(type="Standard", title="Feature-rich Monday App", description="Hustle-free project with UI/UX, PM, and quality delivery included",
+                             delivery_time=30, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=2, price=4500)
+    web_programming_43 = Web(type="Standard", title="Average form/calculator", description="Price for average calculator, up to 30 inputs, up to 10 formulas.",
+                             delivery_time=10, pages=1, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=5, price=170)
+    web_programming_44 = Web(type="Standard", title="Migration to New Server", description="Migrate Existing ERPNext to new Server + Basic",
+                             delivery_time=5, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=1, price=100)
+    db.session.add(web_programming_29)
+    db.session.add(web_programming_30)
+    db.session.add(web_programming_31)
+    db.session.add(web_programming_32)
+    db.session.add(web_programming_33)
+    db.session.add(web_programming_34)
+    db.session.add(web_programming_35)
+    db.session.add(web_programming_36)
+    db.session.add(web_programming_37)
+    db.session.add(web_programming_38)
+    db.session.add(web_programming_39)
+    db.session.add(web_programming_40)
+    db.session.add(web_programming_41)
+    db.session.add(web_programming_42)
+    db.session.add(web_programming_43)
+    db.session.add(web_programming_44)
+
+    web_programming_45 = Web(type="Premium", title="A Complete WEB App", description="In premium i will make a whole web app with all functions requirements with design database and stuf",
+                             delivery_time=10, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=100)
+    web_programming_46 = Web(type="Premium", title="Premium", description="Complete modern full-stack frontend and backend app.",
+                             delivery_time=5, pages=10, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=2, price=995)
+    web_programming_47 = Web(type="Premium", title="Premium", description="Everything from Standard + Geoprocessing Service + User Authentication + custom features",
+                             delivery_time=30, pages=1, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=0, price=3000)
+    web_programming_48 = Web(type="Premium", title="Premium", description="Full fledge we application with multiple pages including routing, responsive, progressive and apis.",
+                             delivery_time=21, pages=5, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=2, price=200)
+    web_programming_49 = Web(type="Premium", title="High level online academy site", description="Courses, students, teachers, certificates, quizzes, chat forums and admin modules",
+                             delivery_time=7, pages=10, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=400)
+    web_programming_50 = Web(type="Premium", title="Premium", description="Advanced dynamic web application with advanced features. Please discuss before placing order.",
+                             delivery_time=15, pages=7, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=2, price=240)
+    web_programming_51 = Web(type="Premium", title="LARGE", description="I will make a calculator with formula applied. 8+ fields)",
+                             delivery_time=10, pages=8, design_custom=True, content_upload=True, responsive_design=True, source_code=True, revisions=888, price=100)
+    web_programming_52 = Web(type="Premium", title="Real Project", description="I will completely design, develop, and test your new idea or feature, with some business strategy.",
+                             delivery_time=90, pages=1, design_custom=True, content_upload=False, responsive_design=True, source_code=True, revisions=5, price=3000)
+    web_programming_53 = Web(type="Premium", title="Google Map with Admin Portal", description="I will create a map in a dynamic web page with marks, info window/bootstrap modal and admin portal.",
+                             delivery_time=14, pages=0, design_custom=False, content_upload=True, responsive_design=True, source_code=True, revisions=3, price=755)
+    web_programming_54 = Web(type="Premium", title="Premium", description="10 pages website", delivery_time=22, pages=10,
+                             design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=3, price=850)
+    web_programming_55 = Web(type="Premium", title="Complex calculator", description="Custom calculator with complex calculations + complex functionality + options page + ...",
+                             delivery_time=7, pages=2, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=888, price=555)
+    web_programming_56 = Web(type="Premium", title="PREMIUM", description="Fix Bugs or Add new Feature + Speed improvement and on page SEO for up to 20 pages",
+                             delivery_time=10, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=5, price=985)
+    web_programming_57 = Web(type="Premium", title="Complex Interactive Chart", description="Up to 3 customized interactive charts. Price listed only serves as a reference.",
+                             delivery_time=7, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=5, price=150)
+    web_programming_58 = Web(type="Premium", title="SaaS Monday App", description="Make Your Monday App Make You Money. Subscription model, authentication, admin panel included",
+                             delivery_time=45, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=2, price=7000)
+    web_programming_59 = Web(type="Premium", title="Advanced form/calculator", description="Complex calculator up to 50 inputs and buttons, 30 formulas. Need more? Please, contact me.",
+                             delivery_time=14, pages=1, design_custom=False, content_upload=False, responsive_design=False, source_code=False, revisions=888, price=300)
+    web_programming_60 = Web(type="Premium", title="Debranding", description="Replace all traces of ERPNext and Frappe + logo with your Company Name from front-end",
+                             delivery_time=7, pages=0, design_custom=False, content_upload=False, responsive_design=False, source_code=True, revisions=1, price=200)
+
+    db.session.add(web_programming_45)
+    db.session.add(web_programming_46)
+    db.session.add(web_programming_47)
+    db.session.add(web_programming_48)
+    db.session.add(web_programming_49)
+    db.session.add(web_programming_50)
+    db.session.add(web_programming_51)
+    db.session.add(web_programming_52)
+    db.session.add(web_programming_53)
+    db.session.add(web_programming_54)
+    db.session.add(web_programming_55)
+    db.session.add(web_programming_56)
+    db.session.add(web_programming_57)
+    db.session.add(web_programming_58)
+    db.session.add(web_programming_59)
+    db.session.add(web_programming_60)
     db.session.commit()
 
 
