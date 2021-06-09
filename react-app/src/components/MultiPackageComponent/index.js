@@ -17,24 +17,26 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
 
     return (
         <div className="packages-info-main">
-            <div className="packages-info-headers">
+            { basic && standard && premium &&
+                <div className="packages-info-headers">
 
-                <div className={packageType.type === 'Basic' ? "packages-info-header-selected" : "packages-info-header"}
-                    onClick={() => setPackageType(basic)}
-                >Basic
+                    <div className={packageType.type === 'Basic' ? "packages-info-header-selected" : "packages-info-header"}
+                        onClick={() => setPackageType(basic)}
+                    >Basic
                 </div>
 
-                <div className={packageType.type === 'Standard' ? "packages-info-header-selected" : "packages-info-header"}
-                    onClick={() => setPackageType(standard)}
-                >Standard
+                    <div className={packageType.type === 'Standard' ? "packages-info-header-selected" : "packages-info-header"}
+                        onClick={() => setPackageType(standard)}
+                    >Standard
                 </div>
 
-                <div className={packageType.type === 'Premium' ? "packages-info-header-selected" : "packages-info-header"}
-                    onClick={() => setPackageType(premium)}
-                >Premium
+                    <div className={packageType.type === 'Premium' ? "packages-info-header-selected" : "packages-info-header"}
+                        onClick={() => setPackageType(premium)}
+                    >Premium
                 </div>
 
-            </div>
+                </div>
+            }
             <form className="service-request-submit-form" onSubmit={handleRequestService}>
                 <div className="service-request__content">
 
@@ -59,25 +61,26 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
                     </div>
 
                     <div className="service-request__features">
-                        {console.log(packageType)}
+                        {packageType.pages != 0 &&
+                            <li className="service-request__feature">
+                                <i className="fas fa-check" style={packageType.pages > 0 ? { color: "#1DBF73" } : { color: "#62646A" }}></i>
+                                {packageType.pages + (packageType.pages === 1 ? " Page" : " Pages")}
+                            </li>
+                        }
                         <li className="service-request__feature">
-                            <i className="fas fa-check" style={packageType.pages > 0 ? {color:"#1DBF73"} : {color:"#62646A"}}></i>
-                            {packageType.pages + (packageType.pages === 1 ? " Page" : " Pages")}
-                        </li>
-                        <li className="service-request__feature">
-                            <i className="fas fa-check" style={packageType.design_custom === true ? {color:"#1DBF73"} : {color:"#62646A"}}></i>
+                            <i className="fas fa-check" style={packageType.design_custom === true ? { color: "#1DBF73" } : { color: "#62646A" }}></i>
                             Design Customization
                         </li>
                         <li className="service-request__feature">
-                            <i className="fas fa-check" style={packageType.content_upload === true ? {color:"#1DBF73"} : {color:"#62646A"}}></i>
+                            <i className="fas fa-check" style={packageType.content_upload === true ? { color: "#1DBF73" } : { color: "#62646A" }}></i>
                             Content Upload
                         </li>
                         <li className="service-request__feature">
-                            <i className="fas fa-check" style={packageType.responsive_design === true ? {color:"#1DBF73"} : {color:"#62646A"}}></i>
+                            <i className="fas fa-check" style={packageType.responsive_design === true ? { color: "#1DBF73" } : { color: "#62646A" }}></i>
                             Responsive Design
                         </li>
                         <li className="service-request__feature">
-                            <i className="fas fa-check" style={packageType.source_code === true ? {color:"#1DBF73"} : {color:"#62646A"}}></i>
+                            <i className="fas fa-check" style={packageType.source_code === true ? { color: "#1DBF73" } : { color: "#62646A" }}></i>
                             Include Source Code
                         </li>
                     </div>
@@ -88,7 +91,7 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
 
                 </div>
             </form>
-        </div>
+        </div >
     )
 };
 
