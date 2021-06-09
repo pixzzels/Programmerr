@@ -9,7 +9,7 @@ const loadAllLanguages = data => ({
 
 export const loadLanguages = () => async (dispatch) => {
 
-    const response = await fetch(`/api/language`, {
+    const response = await fetch(`/api/language/`, {
         headers: { 'Content-Type': 'application/json' }
     })
 
