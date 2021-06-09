@@ -1,7 +1,6 @@
 from app.models import db, Web
 
 
-# Adds a demo user, you can add other users here if you want
 def seed_webs():
 
     web_programming_1 = Web(type="Basic", title="Basic PHP coding", description="In this i will give you simple php codes with mysql in a way you want.",

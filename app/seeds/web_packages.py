@@ -1,7 +1,6 @@
 from app.models import db, WebPackage
 
 
-# Adds a demo user, you can add other users here if you want
 def seed_web_packages():
 
     web_package_1 = WebPackage(
