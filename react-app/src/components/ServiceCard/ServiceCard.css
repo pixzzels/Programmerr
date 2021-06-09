@@ -1,0 +1,85 @@
+.card-wrapper {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.card-layout {
+    width: 19.35em;
+    height: 22.9em;
+    border: 1px solid #ddd;
+}
+
+.card__link {
+    text-decoration: none;
+    color: black;
+}
+
+.card__listing_img {
+    width: 19.28em;
+    height: 11.6em;
+
+}
+
+.card__user-info {
+    display: flex;
+    align-items: center;
+    padding: 12px 12px 8px;
+}
+
+.card__user-image {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+.card__user-username {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.card__user-username:hover {
+    text-decoration: underline;
+}
+
+.card__service-title {
+    margin-top: 5px;
+    padding: 0px 12px 5px;
+    font-size: 16px;
+    height: 43px; 
+    overflow: hidden;
+    line-height: 22px;
+}
+
+.card__service-rating {
+    height: 40px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #FFBE5B;
+}
+
+
+.card-layout > .card-footer {
+    display: flex;
+    justify-content: space-between;
+    height: 44px;
+    padding: 10px 12px;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    color: #62646A;
+}
+
+.card__service-price-static {
+    padding-top: 2px;
+    font-size: 12px;
+}
+
+.card__service-price {
+    padding-left: 8px;
+    font-size: 18px;
+}
+
+.card-wrapper:hover .card__service-title {
+    color: #1DBF73;
+}

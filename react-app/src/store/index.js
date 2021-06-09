@@ -4,12 +4,14 @@ import session from "./session";
 import user from "./user";
 import language from "./language";
 import category from "./category";
+import service from "./service";
 
 const rootReducer = combineReducers({
     session,
     user,
     language,
-    category
+    category,
+    service
 });
 
 
