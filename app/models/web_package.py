@@ -34,9 +34,16 @@ class WebPackage(db.Model):
     )
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "web_basic": self.web_basic.to_dict(),
-            "web_standard": self.web_standard.to_dict() or {},
-            "web_premium": self.web_premium.to_dict() or {},
-        }
+        if self.web_standard:
+            return {
+                "id": self.id,
+                "web_basic": self.web_basic.to_dict(),
+                "web_standard": self.web_standard.to_dict(),
+                "web_premium": self.web_premium.to_dict(),
+            }
+        else:
+            return {
+                "id": self.id,
+                "web_basic": self.web_basic.to_dict(),
+                
+            }

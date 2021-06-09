@@ -55,7 +55,7 @@ const serviceReducer = (state = initialState, action) => {
 
             newState["service"] = action.data
             return {
-                ...newState, ...state
+                ...newState
             }
         }
 

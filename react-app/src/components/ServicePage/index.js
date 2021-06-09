@@ -2,23 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { loadService } from '../../store/service';
+import MultiPackageComponent from '../MultiPackageComponent';
 import NavBar from '../NavBar';
 import './ServicePage.css'
 
 function ServicePage() {
     const dispatch = useDispatch();
     const service = useSelector(state => state.service.service)
-    console.log(service)
+    // console.log(service)
 
     const { id } = useParams();
+    console.log(id)
     useEffect(() => {
         dispatch(loadService(id))
-    }, [dispatch])
+    }, [dispatch, id])
 
     if (!service) return null;
     if (!service.reviews[0]) return null;
 
-    console.log(service.reviews[0])
+    // console.log(service.reviews[0])
 
 
     return (
@@ -69,11 +71,13 @@ function ServicePage() {
                     </div>
 
                     <div className="service-page__info-container">
-                        <h2 className="service-page__section-header">What people loved about this seller</h2>
+                        <h2 className="service-page__section-header">About This Service</h2>
                         <div className="service-page__description">{service.description}</div>
                         <div className="service-page__megadata">
                             <div style={{ color: "#95979D" }}>Programming Language</div>
-                            <div className="megadata__programming-language">{service.service_language.name}</div>
+                            {service.service_language.id != 1 &&
+                                <div className="megadata__programming-language">{service.service_language.name}</div>
+                            }
                         </div>
                     </div>
 
@@ -98,7 +102,7 @@ function ServicePage() {
                         </div>
 
                         <div className="about-seller__stats">
-                            <div style={{ display: "flex", paddingBottom:"16px" }}>
+                            <div style={{ display: "flex", paddingBottom: "16px" }}>
                                 <span style={{
                                     color: "#7A7D85",
                                 }}>Memeber Since:
@@ -120,7 +124,12 @@ function ServicePage() {
 
                 </div>
                 <div className="service-page__packages-container">
+                    <MultiPackageComponent 
+                    basic={service.web_package.web_basic}
+                    standard={service.web_package.web_standard}
+                    premium={service.web_package.web_premium}
 
+                    />
                 </div>
             </div>
         </>

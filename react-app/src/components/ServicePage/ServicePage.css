@@ -1,13 +1,15 @@
 .service-page__wrapper {
-    margin: 0px 271.5px;
+    margin: 0px auto;
     padding: 32px 32px 0px;
     display: flex;
-    max-width: 1300px;
+    justify-content: center;
+    /* max-width: 1300px; */
 }
 
 .service-page__main {
     margin-right: 1.2%;
     width: 44.6em;
+    /* width: 57.42%; */
     /* height: 280em; */
     /* border: 1px solid pink; */
     display: flex;
@@ -71,6 +73,7 @@
 .service-page__section-header {
     font-size: 20px;
     padding-bottom: 25px;
+    margin: 0px;
     color: 404145
 }
 
@@ -128,7 +131,7 @@
 
 .service-page__description {
     font-size: 15px;
-    line-height: 25px;
+    line-height: 35px;
     color: #62646A;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
@@ -137,10 +140,11 @@
 .service-page__megadata {
     display: flex;
     flex-direction: column;
-    height: 24px;
-    line-height: 24px;
+    height: 100px;
+    line-height: 28px;
     padding-top: 20px;
     font-size: 16px;
+    padding-bottom: 30px;
 }
 
 .megadata__programming-language {
@@ -203,7 +207,15 @@
     padding-top: 15px;
     line-height: 30px;
     border-top: 1px solid #ddd;
-
     color: #62646A;
-
 }
+
+/*-------------service-page__packages-----------------------------------------*/
+
+.service-page__packages-container {
+    width: 25.9em;
+    height: fit-content;
+    margin-left: 100px;
+    border: 1px solid #ddd;
+}
+
