@@ -11,7 +11,8 @@
 /*------NAV-------------------------------------------------------*/
 
 .navbar-container-home {
-    background: transparent;
+    background: white;
+    max-width: 1400px;
 }
 
 .navbar__header-home {
@@ -63,6 +64,7 @@
     justify-content: space-between;
     height: 40px;
     width: 100%;
+    max-width: 1400px;
     padding: 0px 100px;
     color: #62646a;
     font-size: 16px;

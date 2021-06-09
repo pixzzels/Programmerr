@@ -76,7 +76,11 @@ function HomePage() {
                     }
                 </div>
             </nav>
-            <h1>Logged IN!</h1>
+            <div className="homepage_container">
+                <div>
+                    
+                </div>
+            </div>
         </>
     )
 }
