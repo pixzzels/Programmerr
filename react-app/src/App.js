@@ -13,6 +13,7 @@ import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
 import CategoryPage from "./components/CategoryPage";
 import ServicePage from "./components/ServicePage";
+import NewService from "./components/NewService";
 
 function App() {
     const user = useSelector(state => state.session.user)
@@ -46,7 +47,15 @@ function App() {
                     <ServicePage />
                 </Route>
 
-                <ProtectedRoute path="/profile/:id" >
+                <Route path="/profile/:username">
+                    <ServicePage />
+                </Route>
+
+                <ProtectedRoute path="/new-service" >
+                    <NewService />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact={true} path="/profile" >
                     <ProfilePage />
                 </ProtectedRoute>
                 {/* <ProtectedRoute path="/" exact={true} >

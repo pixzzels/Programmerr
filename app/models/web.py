@@ -7,7 +7,7 @@ class Web(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String, nullable=False)
-    title = db.Column(db.String, nullable=False)
+    title = db.Column(db.String(87), nullable=False)
     description = db.Column(db.String, nullable=False)
     delivery_time = db.Column(db.Integer, nullable=False)
     pages = db.Column(db.Integer, nullable=False)

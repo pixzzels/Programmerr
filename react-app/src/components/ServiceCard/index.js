@@ -19,7 +19,7 @@ function ServiceCard({ service }) {
                     </NavLink>
                     <div className="card__user-info">
                         <img className="card__user-image" src={service.user.profile_img}></img>
-                        <NavLink className="card__link" to={`/profile/${service.user.id}`}>
+                        <NavLink className="card__link" to={`/profile/${service.user.username}`}>
                             <div className="card__user-username">{service.user.username}</div>
                         </NavLink>
 

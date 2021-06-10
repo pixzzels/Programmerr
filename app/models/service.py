@@ -5,8 +5,9 @@ class Service(db.Model):
     __tablename__ = "Services"
 
     id = db.Column(db.Integer, primary_key=True)
+    publish = db.Column(db.Boolean())
     title = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
+    description = db.Column(db.String)
     listing_img = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(
@@ -29,6 +30,7 @@ class Service(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "publish": self.publish,
             "title": self.title,
             "description": self.description,
             "listing_img": self.listing_img,
@@ -41,4 +43,15 @@ class Service(db.Model):
             "reviews": [review.to_dict() for review in self.reviews],
             "web_package": self.web_package.to_dict(),
             "service_language": self.service_language.to_dict()
+        }
+
+    def dict_overview(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "user_id": self.user_id,
+            "category_id": self.category_id,
+            "service_language_id": self.service_language_id,
+            "time_created": self.time_created,
+            "user": self.user.to_dict(),
         }

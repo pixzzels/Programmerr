@@ -7,7 +7,7 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css'
 
 
-function NavBar() {
+function NavBar({ showCategory = true }) {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user)
@@ -25,7 +25,7 @@ function NavBar() {
             setshowDropDown(false);
         }
     };
-    
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
         return () => {
@@ -62,17 +62,21 @@ function NavBar() {
 
             </div>
             <hr></hr>
-            <div className="navbar__categories-home">
-                {categories && categories.map((category => {
-                    return (
-                        <NavLink to={`/category/${category.id}`} className="navbar__category-home" key={category.id}>{category.name}</NavLink>
-                    )
+            {showCategory &&
+                <>
+                    <div className="navbar__categories-home">
+                        {categories && categories.map((category => {
+                            return (
+                                <NavLink to={`/category/${category.id}`} className="navbar__category-home" key={category.id}>{category.name}</NavLink>
+                            )
 
-                }))
+                        }))
 
-                }
-            </div>
-            <hr style={{marginBottom:"0px"}}></hr>
+                        }
+                    </div>
+                    <hr style={{ marginBottom: "0px" }}></hr>
+                </>
+            }
         </nav>
     );
 }

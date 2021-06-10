@@ -81,8 +81,6 @@ function ProfilePage() {
         return lang[0];
     })
 
-    console.log(userProfile)
-
     const [showDropDown, setshowDropDown] = useState(false);
     const [showTaglineDD, setShowTaglineDD] = useState(false);
     const [showDescriptionDD, setShowDescriptionDD] = useState(false);
@@ -100,8 +98,8 @@ function ProfilePage() {
 
     const [edu, setEdu] = useState('');
     // const userId = user.id
-    const { id } = useParams()
-    const userId = id
+    // const { id } = useParams()
+    const userId = user.id
 
 
     useEffect(() => {
