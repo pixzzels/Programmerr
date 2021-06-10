@@ -18,6 +18,12 @@ def user(id):
     users = User.query.get(id)
     return users.to_dict()
 
+@user_routes.route('/public/<username>')
+def user_public(username):
+    users = User.query.filter(User.username == username).all()
+    print("FLAAAG", [user.to_dict() for user in users])
+    return jsonify([user.to_dict() for user in users])
+
 
 @user_routes.route('/tagline/<int:userId>', methods=["PUT"])
 @login_required
