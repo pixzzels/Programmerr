@@ -47,11 +47,15 @@ function App() {
                     <ServicePage />
                 </Route>
 
+                <Route path="/profile/:username">
+                    <ServicePage />
+                </Route>
+
                 <ProtectedRoute path="/new-service" >
                     <NewService />
                 </ProtectedRoute>
 
-                <ProtectedRoute path="/profile/:id" >
+                <ProtectedRoute exact={true} path="/profile" >
                     <ProfilePage />
                 </ProtectedRoute>
                 {/* <ProtectedRoute path="/" exact={true} >

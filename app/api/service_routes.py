@@ -7,7 +7,7 @@ service_routes = Blueprint('services', __name__)
 
 @service_routes.route('/')
 def all_services():
-    services = Service.query.all()
+    services = Service.query.filter(Service.publish == True).all()
     return jsonify([service.to_dict() for service in services])
 
 
