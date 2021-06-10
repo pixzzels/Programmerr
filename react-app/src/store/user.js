@@ -1,4 +1,5 @@
 const LOAD_USER = 'user/LOAD_USER';
+const LOAD_PUBLIC_USER = 'user/LOAD_PUBLIC_USER';
 const UPDATE_TAGLINE = 'user/UPDATE_TAGLINE';
 const UPDATE_DESCRIPTION = 'user/UPDATE_DESCRIPTION';
 const LOAD_USER_LANGUAGE = 'user/LOAD_USER_LANGUAGE';
@@ -11,6 +12,11 @@ const REMOVE_SKILL = 'user/REMOVE_SKILL';
 
 const loadUserInfo = data => ({
     type: LOAD_USER,
+    data
+})
+
+const loadPublicUserInfo = data => ({
+    type: LOAD_PUBLIC_USER,
     data
 })
 
@@ -60,13 +66,25 @@ export const loadUser = (userId) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' }
     })
 
-    if (!response.ok) {
-        throw response
-    }
+    if (!response.ok) throw response
 
     const data = await response.json();
-
     dispatch(loadUserInfo(data));
+    return data;
+};
+
+export const loadPublicUser = (username) => async (dispatch) => {
+
+    const response = await fetch(`/api/users/public/${username}`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    console.log('data', data)
+
+    dispatch(loadPublicUserInfo(data));
     return data;
 };
 
@@ -210,6 +228,20 @@ const userReducer = (state = initialState, action) => {
                 ...newState, ...state
             }
         }
+
+        case LOAD_PUBLIC_USER: {
+            // console.log("hello")
+            newState = {}
+
+            newState["publicProfile"] = action.data
+            // console.log(newState)
+            // console.log("action.data", action.data)
+            
+            return {
+                ...newState
+            }
+        }
+        
         case UPDATE_TAGLINE: {
             return {
                 ...state,

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
 import { loadLanguages } from '../../store/language'
 import NavBar from '../NavBar';
@@ -57,7 +57,6 @@ function SingleLanguage({ language }) {
                         value={language.id}
 
                         onClick={() => {
-                            // setLanguageId(language.id)
                             handleLanguageDelete(language.id)
                         }}
                     ></i>
@@ -81,7 +80,6 @@ function ProfilePage() {
         return lang[0];
     })
 
-    const [showDropDown, setshowDropDown] = useState(false);
     const [showTaglineDD, setShowTaglineDD] = useState(false);
     const [showDescriptionDD, setShowDescriptionDD] = useState(false);
     const [showLanguageDD, setShowLanguageDD] = useState(false);
@@ -97,8 +95,6 @@ function ProfilePage() {
     const [skillLevel, setSkillLevel] = useState('');
 
     const [edu, setEdu] = useState('');
-    // const userId = user.id
-    // const { id } = useParams()
     const userId = user.id
 
 

@@ -75,7 +75,7 @@ export const addOverviewService = (info) => async dispatch => {
     if (!response.ok) throw response
 
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     dispatch(addOVService(data));
     return data
 };

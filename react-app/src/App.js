@@ -14,6 +14,8 @@ import ProfilePage from "./components/ProfilePage";
 import CategoryPage from "./components/CategoryPage";
 import ServicePage from "./components/ServicePage";
 import NewService from "./components/NewService";
+import PublicProfile from "./components/PublicProfile";
+
 
 function App() {
     const user = useSelector(state => state.session.user)
@@ -48,7 +50,7 @@ function App() {
                 </Route>
 
                 <Route path="/profile/:username">
-                    <ServicePage />
+                    <PublicProfile />
                 </Route>
 
                 <ProtectedRoute path="/new-service" >
@@ -58,6 +60,9 @@ function App() {
                 <ProtectedRoute exact={true} path="/profile" >
                     <ProfilePage />
                 </ProtectedRoute>
+                <Route>
+                    <PageNotFound />
+                </Route>
                 {/* <ProtectedRoute path="/" exact={true} >
                     <h1>My Home Page</h1>
                 </ProtectedRoute> */}
