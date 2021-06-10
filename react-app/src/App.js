@@ -15,6 +15,8 @@ import CategoryPage from "./components/CategoryPage";
 import ServicePage from "./components/ServicePage";
 import NewService from "./components/NewService";
 import PublicProfile from "./components/PublicProfile";
+import PageNotFound from "./components/PageNotFound";
+
 
 
 function App() {
