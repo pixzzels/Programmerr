@@ -45,5 +45,4 @@ class WebPackage(db.Model):
             return {
                 "id": self.id,
                 "web_basic": self.web_basic.to_dict(),
-                
             }

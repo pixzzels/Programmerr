@@ -7,7 +7,7 @@ def seed_users():
 
     demo = User(seller=True, username="demo", email="demo@programmerr.com", password="password", profile_img=fake.image_url(), tag_line=fake.sentence(nb_words=7),
                 description=fake.paragraph(nb_sentences=6), date_created=fake.date_between(start_date="-20y", end_date="today"))
-    pixzzels = User(username="pixzzels", email="pixzzels@programmerr.com", password="password", profile_img="https://i.ibb.co/0VSMPp5/pixyc.png",tag_line="Hey there: )",description="paragraph(nb_sentences=6)",date_created=fake.date_between(start_date="-20y", end_date="today"))
+    pixzzels = User(username="pixzzels", email="pixzzels@programmerr.com", password="password", profile_img="https://i.ibb.co/0VSMPp5/pixyc.png",tag_line="Hey there: )",description=fake.paragraph(nb_sentences=6),date_created=fake.date_between(start_date="-20y", end_date="today"))
     aimanas0409=User(seller=True, username="aimanas0409", email="aimanas0409@programmerr.com", password=fake.password(length = 10), profile_img=fake.image_url(), tag_line="I am a Software Engineer and a BEST WEB DESIGNER and DEVELOPER",
                     description="Hello Fiver I am ANAS! I am best Web developer and Application Developer with experience of 5 Years and now doing Freelance Work so If you want best websites and Web Apps so feel free to Contact me.I am a software engineer so i can do much more things so contact me I will never DISAPPOINT YOU", date_created=fake.date_between(start_date = "-20y", end_date = "today"))
     dariusstephen=User(seller=True, username="dariusstephen", email="dariusstephen@programmerr.com", password=fake.password(length = 10), profile_img=fake.image_url(), tag_line="Web Dev",
