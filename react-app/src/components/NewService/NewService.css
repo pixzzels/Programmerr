@@ -1,0 +1,46 @@
+
+/*-------New Service Navbar_________________________________________-*/
+
+.new-service__navbar-wrapper {
+    border-bottom: 1px solid #ddd;
+}
+
+.new-service__navbar {
+    margin: auto;
+    margin-top: 0px;
+    background: white;
+    padding: 0px 32px;
+    height: 53px;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+}
+
+.new-service__navbar-list {
+    text-decoration: none;
+    color: #7e7e7e;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.new-service__navbar-list:hover {
+    color: #1DBF73;
+    cursor: pointer;
+}
+
+.new-service__overview-wrapper {
+    margin: auto;
+    width: 730px;
+
+}
+
+.new-service__header-overview {
+}
+
+.new-service__overview-content {
+    /* margin: auto; */
+    width: 730px;
+    height: fit-content;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

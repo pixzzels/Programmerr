@@ -5,6 +5,7 @@ class Service(db.Model):
     __tablename__ = "Services"
 
     id = db.Column(db.Integer, primary_key=True)
+    publish = db.Column(db.Boolean())
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     listing_img = db.Column(db.String)
@@ -29,6 +30,7 @@ class Service(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "publish": self.publish,
             "title": self.title,
             "description": self.description,
             "listing_img": self.listing_img,
