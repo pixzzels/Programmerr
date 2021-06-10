@@ -1,5 +1,6 @@
 const LOAD_SERVICES = 'service/LOAD_SERVICES';
 const LOAD_SERVICE = 'service/LOAD_SERVICE';
+const LOAD_PROGRAMMING_LANG = 'service/LOAD_PROGRAMMING_LANG';
 
 const loadAllServices = data => ({
     type: LOAD_SERVICES,
@@ -11,7 +12,10 @@ const loadOneService = data => ({
     data
 })
 
-
+const loadProgrammingLang = data => ({
+    type: LOAD_PROGRAMMING_LANG,
+    data
+})
 
 
 export const loadServices = () => async (dispatch) => {
@@ -36,6 +40,18 @@ export const loadService = (id) => async (dispatch) => {
     return data;
 };
 
+export const loadProgramingLanguages = () => async (dispatch) => {
+
+    const response = await fetch(`/api/service/programming-lang`)
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(loadProgrammingLang(data));
+    return data;
+};
+
+
 const initialState = []
 
 const serviceReducer = (state = initialState, action) => {
@@ -56,6 +72,15 @@ const serviceReducer = (state = initialState, action) => {
             newState["service"] = action.data
             return {
                 ...newState
+            }
+        }
+
+        case LOAD_PROGRAMMING_LANG: {
+            newState = {}
+
+            newState["programmingLangs"] = action.data
+            return {
+                ...newState, ...state
             }
         }
 

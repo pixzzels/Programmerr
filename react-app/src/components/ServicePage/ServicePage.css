@@ -191,6 +191,7 @@
     display: flex;
     align-items: center;
     padding-bottom: 24px;
+    
 }
 
 .about-seller__details {
@@ -198,6 +199,7 @@
     flex-direction: column;
     padding-left: 15px;
     color: #62646A;
+    
 }
 
 .about-seller__profile_img {
@@ -233,6 +235,7 @@
     padding: 35px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    margin-bottom: 500px;
 }
 
 .about-seller__stats-description {

@@ -30,7 +30,7 @@ function ServicePage() {
             <div className="service-page__navbar-wrapper">
                 <nav className="service-page__navbar">
                     <ul >
-                        <a className="service-page__navbar-list" href="#overview">Overview</a>
+                        <a className="service-page__navbar-list" name="#overview" href="#overview">Overview</a>
                         <a className="service-page__navbar-list" href="#description">Description</a>
                         <a className="service-page__navbar-list" href="#about-seller">About Seller</a>
                         <a className="service-page__navbar-list" href="#reviews">Reviews</a>
@@ -39,8 +39,8 @@ function ServicePage() {
                 </nav>
             </div>
             <div className='service-page__wrapper'>
-                <div className="service-page__main">
-                    <div className="service-page__overview" id="#overview">
+                <div className="service-page__main" id="overview">
+                    <div className="service-page__overview">
                         <h1 className="service-page__title">{service.title}</h1>
 
                         <div className="service-page__seller-info">
@@ -78,18 +78,18 @@ function ServicePage() {
                                         {" " + service.reviews[0].score.toFixed(1)}
                                     </div>
                                 </div>
-                                <div className="review__description">
+                                <div className="review__description" id="description">
                                     {service.reviews[0].description}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="service-page__info-container" id="#description">
+                    <div className="service-page__info-container">
                         <h2 className="service-page__section-header">About This Service</h2>
                         <div className="service-page__description">{service.description}</div>
                         <div className="service-page__megadata">
-                            <div style={{ color: "#95979D" }}>Programming Language</div>
+                            <div style={{ color: "#95979D" }} id="about-seller">Programming Language</div>
                             {service.service_language.id != 1 &&
                                 <div className="megadata__programming-language">{service.service_language.name}</div>
                             }
