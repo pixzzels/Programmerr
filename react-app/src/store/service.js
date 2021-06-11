@@ -2,7 +2,8 @@ const LOAD_SERVICES = 'service/LOAD_SERVICES';
 const LOAD_SERVICE = 'service/LOAD_SERVICE';
 const LOAD_PROGRAMMING_LANG = 'service/LOAD_PROGRAMMING_LANG';
 const ADD_OVERVIEW_SERVICE = 'service/ADD_OVERVIEW_SERVICE';
-const LOAD_USER_NEW_SERVICE = 'service/LOAD_USER_NEW_SERVICE';
+// const LOAD_USER_NEW_SERVICE = 'service/LOAD_USER_NEW_SERVICE';
+const LOAD_SERVICE_EDIT = 'service/LOAD_SERVICE_EDIT';
 const UPDATE_OVERVIEW_SERVICE = 'service/UPDATE_OVERVIEW_SERVICE';
 const UPDATE_BASIC_WEB_SERVICE = 'service/UPDATE_BASIC_WEB_SERVICE';
 const UPDATE_STANDARD_WEB_SERVICE = 'service/UPDATE_STANDARD_WEB_SERVICE';
@@ -20,8 +21,13 @@ const loadOneService = data => ({
     data
 });
 
-const loadUServices = data => ({
-    type: LOAD_USER_NEW_SERVICE,
+// const loadUServices = data => ({
+//     type: LOAD_USER_NEW_SERVICE,
+//     data
+// });
+
+const loadUserServiceEdit = data => ({
+    type: LOAD_SERVICE_EDIT,
     data
 });
 
@@ -77,13 +83,23 @@ export const loadService = (id) => async (dispatch) => {
     return data;
 };
 
-export const loadUserServices = (id) => async (dispatch) => {
-    const response = await fetch(`/api/service/user/${id}`)
+// export const loadUserServices = (id) => async (dispatch) => {
+//     const response = await fetch(`/api/service/user/${id}`)
+//     if (!response.ok) throw response
+
+//     const data = await response.json();
+//     // console.log("data", data)
+//     dispatch(loadUServices(data.pop()));
+//     return data;
+// };
+
+export const loadServiceEdit = (serviceId) => async (dispatch) => {
+    const response = await fetch(`/api/service/user/edit/${serviceId}`)
     if (!response.ok) throw response
 
     const data = await response.json();
     // console.log("data", data)
-    dispatch(loadUServices(data.pop()));
+    dispatch(loadUserServiceEdit(data));
     return data;
 };
 
@@ -265,10 +281,19 @@ const serviceReducer = (state = initialState, action) => {
             }
         }
 
-        case LOAD_USER_NEW_SERVICE: {
+        // case LOAD_USER_NEW_SERVICE: {
+        //     newState = {}
+        //     // console.log("action.data", action.data)
+        //     newState["newService"] = action.data
+        //     return {
+        //         ...newState, ...state
+        //     }
+        // }
+
+        case LOAD_SERVICE_EDIT: {
             newState = {}
             // console.log("action.data", action.data)
-            newState["newService"] = action.data
+            newState["editService"] = action.data
             return {
                 ...newState, ...state
             }
@@ -288,7 +313,27 @@ const serviceReducer = (state = initialState, action) => {
             console.log("state", state)
             newState = {
                 ...state,
-                newService: action.data
+                editService: action.data
+            }
+            return newState;
+        }
+
+        case UPDATE_STANDARD_WEB_SERVICE: {
+            console.log(action.data)  
+            console.log("state", state)
+            newState = {
+                ...state,
+                editService: action.data
+            }
+            return newState;
+        }
+
+        case UPDATE_PREMIUM_WEB_SERVICE: {
+            console.log(action.data)  
+            console.log("state", state)
+            newState = {
+                ...state,
+                editService: action.data
             }
             return newState;
         }

@@ -38,6 +38,16 @@ def user_services(id):
     return jsonify([service.dict_overview() for service in services])
 
 
+@service_routes.route('/user/edit/<int:serviceId>')
+def user_service_edit(serviceId):
+    service = Service.query.get(serviceId)
+    # print("FLAAG", [service.dict_overview() for service in services])
+    if service.web_package_id:
+        return service.to_dict()
+    else:
+        return service.dict_overview()
+
+
 @service_routes.route('/update/overview/<int:serviceId>', methods=["PUT"])
 @login_required
 def update_service_overview(serviceId):

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadProgramingLanguages, updateOverviewService, loadUserServices, updateBasicPackage, updateStandardPackage, updatePremiumPackage } from '../../store/service';
+import { useParams } from "react-router-dom";
+
+import { loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage, updatePremiumPackage, loadServiceEdit } from '../../store/service';
 import NavBar from '../NavBar';
 
 import './EditService.css';
@@ -12,7 +14,8 @@ function EditService() {
     const userId = useSelector(state => state.session.user.id)
     const programmingLangs = useSelector(state => state.service.programmingLangs)
     const categories = useSelector(state => state.category.categories)
-    const userService = useSelector(state => state.service.newService)
+    const userService = useSelector(state => state.service.editService)
+    console.log("userService", userService)
     const services = useSelector(state => state.service)
     // console.log("services", services)
     // console.log(userServices)
@@ -70,8 +73,9 @@ function EditService() {
     const [standardPrice, setStandardPrice] = useState('')
     const [premiumPrice, setPremiumPrice] = useState('')
     // const ref = useRef(null);
-    console.log(multiplePackages)
-
+    // console.log(multiplePackages)
+    const { serviceId }  = useParams();
+    console.log(serviceId)
 
     // const [programmingLang, setProgrammingLang] = useState()
 
@@ -80,8 +84,12 @@ function EditService() {
         dispatch(loadProgramingLanguages())
     }, [dispatch])
 
+    // useEffect(() => {
+    //     dispatch(loadUserServices(userId))
+    // }, [dispatch])
+
     useEffect(() => {
-        dispatch(loadUserServices(userId))
+        dispatch(loadServiceEdit(serviceId))
     }, [dispatch])
 
     const daysDelivery = [
