@@ -11,10 +11,11 @@ import { authenticate } from "./store/session";
 import SplashPage from "./components/SplashPage";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
+import PublicProfile from "./components/PublicProfile";
 import CategoryPage from "./components/CategoryPage";
 import ServicePage from "./components/ServicePage";
 import NewService from "./components/NewService";
-import PublicProfile from "./components/PublicProfile";
+import EditService from "./components/EditService";
 import PageNotFound from "./components/PageNotFound";
 
 
@@ -55,7 +56,11 @@ function App() {
                     <PublicProfile />
                 </Route>
 
-                <ProtectedRoute path="/new-service" >
+                <ProtectedRoute  exact={true} path="/new-service/edit" >
+                    <EditService />
+                </ProtectedRoute>
+
+                <ProtectedRoute  exact={true} path="/new-service" >
                     <NewService />
                 </ProtectedRoute>
 
