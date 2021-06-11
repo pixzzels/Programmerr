@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { loadProgramingLanguages, updateOverviewService, loadUserServices } from '../../store/service';
+import { loadProgramingLanguages, updateOverviewService, loadUserServices, updateBasicPackage, updateStandardPackage, updatePremiumPackage } from '../../store/service';
 import NavBar from '../NavBar';
 
 import './EditService.css';
@@ -19,7 +18,7 @@ function EditService() {
     // console.log(userServices)
 
     // overview
-    const [content, setContent] = useState('overview')
+    const [content, setContent] = useState('pricing')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
     const [serviceLang, setServiceLang] = useState()
@@ -84,7 +83,6 @@ function EditService() {
         dispatch(loadUserServices(userId))
     }, [dispatch])
 
-
     const daysDelivery = [
         "1 Day Delivery ", "2 Days Delivery", "3 Days Delivery", "4 Days Delivery", "5 Days Delivery", "6 Days Delivery", "7 Days Delivery", "8 Days Delivery", "9 Days Delivery", "10 Days Delivery", "14 Days Delivery", "21 Days Delivery", "30 Days Delivery", "45 Days Delivery", "60 Days Delivery", "75 Days Delivery", "90 Days Delivery"
     ]
@@ -130,11 +128,37 @@ function EditService() {
             const categoryId = parseInt(category)
             const userTitle = "I will " + title
             const serviceId = userService.id
-            console.log(serviceId)
+            // console.log(serviceId)
             dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId }))
-            // setContent('pricing')
+            setContent('pricing')
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
+    }
+
+    const handlePricingSubmit = () => {
+        const serviceId = userService.id
+        const dayDelivery = parseInt(basicDelivery.slice(0, 1))
+        const sdayDelivery = parseInt(standardDelivery.slice(0, 1))
+        const pdayDelivery = parseInt(premiumDelivery.slice(0, 1))
+
+        // console.log(dayDelivery)
+        dispatch(updateBasicPackage({
+            basicTitle, basicDescription, dayDelivery, basicPages, basicDesignCustom,
+            basicContentUpload, basicResponsiveDesign, basicSourceCode, basicRevisions, basicPrice, serviceId
+        }))
+
+        dispatch(updateStandardPackage({
+            standardTitle, standardDescription, sdayDelivery, standardPages, standardDesignCustom,
+            standardContentUpload, standardResponsiveDesign, standardSourceCode, standardRevisions, standardPrice, serviceId
+        }))
+
+
+        dispatch(updatePremiumPackage({
+            premiumTitle, premiumDescription, pdayDelivery, premiumPages, premiumDesignCustom,
+            premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
+        }))
+
+        setContent('description')
     }
 
     // if (!userServices) return null;
@@ -657,7 +681,7 @@ function EditService() {
 
                     <footer className="overview__gig-title-footer">
                         <button className="new-service__overview-btn-submit"
-                            onClick={handleOverviewSubmit}
+                            onClick={handlePricingSubmit}
                         >Save & Continue</button>
                     </footer>
                 </div>

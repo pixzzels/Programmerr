@@ -4,36 +4,56 @@ const LOAD_PROGRAMMING_LANG = 'service/LOAD_PROGRAMMING_LANG';
 const ADD_OVERVIEW_SERVICE = 'service/ADD_OVERVIEW_SERVICE';
 const LOAD_USER_NEW_SERVICE = 'service/LOAD_USER_NEW_SERVICE';
 const UPDATE_OVERVIEW_SERVICE = 'service/UPDATE_OVERVIEW_SERVICE';
+const UPDATE_BASIC_WEB_SERVICE = 'service/UPDATE_BASIC_WEB_SERVICE';
+const UPDATE_STANDARD_WEB_SERVICE = 'service/UPDATE_STANDARD_WEB_SERVICE';
+const UPDATE_PREMIUM_WEB_SERVICE = 'service/UPDATE_PREMIUM_WEB_SERVICE';
+
+
 
 const loadAllServices = data => ({
     type: LOAD_SERVICES,
     data
-})
+});
 
 const loadOneService = data => ({
     type: LOAD_SERVICE,
     data
-})
+});
 
 const loadUServices = data => ({
     type: LOAD_USER_NEW_SERVICE,
     data
-})
+});
 
 const loadProgrammingLang = data => ({
     type: LOAD_PROGRAMMING_LANG,
     data
-})
+});
 
 const addOVService = data => ({
     type: ADD_OVERVIEW_SERVICE,
     data
-})
+});
 
 const updateOVService = data => ({
     type: UPDATE_OVERVIEW_SERVICE,
     data
-})
+});
+
+const updateBasicPricing = data => ({
+    type: UPDATE_BASIC_WEB_SERVICE,
+    data
+});
+
+const updateStandardPricing = data => ({
+    type: UPDATE_STANDARD_WEB_SERVICE,
+    data
+});
+
+const updatePremiumPricing = data => ({
+    type: UPDATE_PREMIUM_WEB_SERVICE,
+    data
+});
 
 export const loadServices = () => async (dispatch) => {
 
@@ -126,6 +146,102 @@ export const updateOverviewService = (info) => async dispatch => {
     return data
 };
 
+export const updateBasicPackage = (info) => async dispatch => {
+    const { basicTitle, basicDescription, dayDelivery, basicPages, basicDesignCustom,
+        basicContentUpload, basicResponsiveDesign, basicSourceCode, basicRevisions, basicPrice, serviceId
+    } = info
+    // console.log(language_id, languageLevel, userId)
+
+    const response = await fetch(`/api/service/update/basic/${serviceId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: "Basic",
+            title: basicTitle,
+            description: basicDescription,
+            delivery_time: dayDelivery,
+            pages: basicPages,
+            design_custom: basicDesignCustom,
+            content_upload: basicContentUpload,
+            responsive_design: basicResponsiveDesign,
+            source_code: basicSourceCode,
+            revisions: basicRevisions, 
+            price: basicPrice
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    // console.log(data)
+    dispatch(updateBasicPricing(data));
+    return data
+};
+
+export const updateStandardPackage = (info) => async dispatch => {
+    const { standardTitle, standardDescription, sdayDelivery, standardPages, standardDesignCustom,
+        standardContentUpload, standardResponsiveDesign, standardSourceCode, standardRevisions, standardPrice, serviceId
+    } = info
+    // console.log(language_id, languageLevel, userId)
+
+    const response = await fetch(`/api/service/update/standard/${serviceId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: "Standard",
+            title: standardTitle,
+            description: standardDescription,
+            delivery_time: sdayDelivery,
+            pages: standardPages,
+            design_custom: standardDesignCustom,
+            content_upload: standardContentUpload,
+            responsive_design: standardResponsiveDesign,
+            source_code: standardSourceCode,
+            revisions: standardRevisions, 
+            price: standardPrice
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    // console.log(data)
+    dispatch(updateStandardPricing(data));
+    return data
+};
+
+export const updatePremiumPackage = (info) => async dispatch => {
+    const { premiumTitle, premiumDescription, pdayDelivery, premiumPages, premiumDesignCustom,
+        premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
+    } = info
+    // console.log(language_id, languageLevel, userId)
+
+    const response = await fetch(`/api/service/update/premium/${serviceId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: "Premium",
+            title: premiumTitle,
+            description: premiumDescription,
+            delivery_time: pdayDelivery,
+            pages: premiumPages,
+            design_custom: premiumDesignCustom,
+            content_upload: premiumContentUpload,
+            responsive_design: premiumResponsiveDesign,
+            source_code: premiumSourceCode,
+            revisions: premiumRevisions, 
+            price: premiumPrice
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    // console.log(data)
+    dispatch(updatePremiumPricing(data));
+    return data
+};
+
 const initialState = []
 
 const serviceReducer = (state = initialState, action) => {
@@ -167,13 +283,12 @@ const serviceReducer = (state = initialState, action) => {
             }
         }
 
-        // case ADD_OVERVIEW_SERVICE: {
-        //     newState = {}
-        //     newState["newService"] = action.data
-        //     return {
-        //         ...newState, ...state
-        //     }
-        // }
+        case UPDATE_BASIC_WEB_SERVICE: {
+            newState = {
+                ...state,
+                newService: [action.data]
+            }
+        }
 
         default:
             return state;
