@@ -21,7 +21,6 @@ def user(id):
 @user_routes.route('/public/<username>')
 def user_public(username):
     users = User.query.filter(User.username == username).all()
-    print("FLAAAG", [user.to_dict() for user in users])
     return jsonify([user.to_dict() for user in users])
 
 

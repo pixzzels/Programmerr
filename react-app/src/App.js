@@ -56,7 +56,7 @@ function App() {
                     <PublicProfile />
                 </Route>
 
-                <ProtectedRoute  exact={true} path="/new-service/edit" >
+                <ProtectedRoute  exact={true} path="/new-service/edit/:serviceId" >
                     <EditService />
                 </ProtectedRoute>
 

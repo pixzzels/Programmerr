@@ -1,29 +1,37 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { loadProgramingLanguages, addOverviewService } from '../../store/service';
+import { useParams } from "react-router-dom";
+
+import { loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage, updatePremiumPackage, loadServiceEdit } from '../../store/service';
 import NavBar from '../NavBar';
 
-import './EditService.css'
+import './EditService.css';
+import './Pricing.css';
+
 
 function EditService() {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
     const programmingLangs = useSelector(state => state.service.programmingLangs)
     const categories = useSelector(state => state.category.categories)
+    const userService = useSelector(state => state.service.editService)
+    // console.log("userService", userService)
+    const services = useSelector(state => state.service)
+    // console.log("services", services)
+    // console.log(userServices)
 
     // overview
     const [content, setContent] = useState('pricing')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
+    const [serviceLang, setServiceLang] = useState()
+    const [refresh, setRefresh] = useState(false);
+
 
     // pricing
-    // const [deliveryBasicDD, setDeliveryBasicDD] = useState(false);
-    // const [deliveryStandardDD, setDeliveryStandardDD] = useState(false);
-    // const [deliveryPremiumDD, setDeliveryPremiumDD] = useState(false);
+
 
     const [multiplePackages, setMutliplePackages] = useState(true);
-    const [add, setAdd] = useState(true);
 
     const [basicTitle, setBasicTitle] = useState('')
     const [standardTitle, setStandardTitle] = useState('')
@@ -65,7 +73,9 @@ function EditService() {
     const [standardPrice, setStandardPrice] = useState('')
     const [premiumPrice, setPremiumPrice] = useState('')
     // const ref = useRef(null);
-
+    // console.log(multiplePackages)
+    const { serviceId } = useParams();
+    // console.log(serviceId)
 
     // const [programmingLang, setProgrammingLang] = useState()
 
@@ -74,24 +84,74 @@ function EditService() {
         dispatch(loadProgramingLanguages())
     }, [dispatch])
 
-    // // handle show hide dropdown using event listener
-    // const handleClickOutside = (event) => {
-    //     if (ref.current && !ref.current.contains(event.target)) {
-    //         setDeliveryBasicDD(false);
-    //         setDeliveryStandardDD(false);
-    //         setDeliveryPremiumDD(false);
-    //     }
-    // };
-
     // useEffect(() => {
-    //     document.addEventListener('click', handleClickOutside, true);
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true);
-    //     };
-    // }, []);
+    //     dispatch(loadUserServices(userId))
+    // }, [dispatch])
 
-    // handle overview subit - POST to backend
+    useEffect(() => {
+        dispatch(loadServiceEdit(serviceId))
+    }, [dispatch])
 
+
+    useEffect(() => {
+        if (userService) {
+            if (userService.web_package) {
+                if (userService.web_package.web_basic) {
+                    setBasicTitle(userService.web_package.web_basic.title)
+                    setBasicDescription(userService.web_package.web_basic.description)
+                    if (userService.web_package.web_basic.delivery_time === 1) {
+                        setBasicDelivery(userService.web_package.web_basic.delivery_time + " Day Delivery ")
+                    } else {
+                        setBasicDelivery(userService.web_package.web_basic.delivery_time + " Days Delivery")
+                    }
+                    setBasicPages(userService.web_package.web_basic.pages)
+                    setBasicDesignCustom(userService.web_package.web_basic.design_custom)
+                    setBasicContentUpload(userService.web_package.web_basic.content_upload)
+                    setBasicResponsiveDesign(userService.web_package.web_basic.responsive_design)
+                    setBasicSourceCode(userService.web_package.web_basic.source_code)
+                    setBasicRevisions(userService.web_package.web_basic.revisions)
+                    setBasicPrice(userService.web_package.web_basic.price)
+                }
+
+                if (userService.web_package.web_standard) {
+                    setStandardTitle(userService.web_package.web_standard.title)
+                    setStandardDescription(userService.web_package.web_standard.description)
+                    if (userService.web_package.web_standard.delivery_time === 1) {
+                        setStandardDelivery(userService.web_package.web_standard.delivery_time + " Day Delivery ")
+                    } else {
+                        setStandardDelivery(userService.web_package.web_standard.delivery_time + " Days Delivery")
+                    }
+                    setStandardPages(userService.web_package.web_standard.pages)
+                    setStandardDesignCustom(userService.web_package.web_standard.design_custom)
+                    setStandardContentUpload(userService.web_package.web_standard.content_upload)
+                    setStandardResponsiveDesign(userService.web_package.web_standard.responsive_design)
+                    setStandardSourceCode(userService.web_package.web_standard.source_code)
+                    setStandardRevisions(userService.web_package.web_standard.revisions)
+                    setStandardPrice(userService.web_package.web_standard.price)
+                }
+
+                if (userService.web_package.web_premium) {
+                    if (userService.web_package.web_premium.delivery_time === 1) {
+                        setPremiumDelivery(userService.web_package.web_premium.delivery_time + " Day Delivery ")
+                    } else {
+                        setPremiumDelivery(userService.web_package.web_premium.delivery_time + " Days Delivery")
+                    }
+                    setPremiumTitle(userService.web_package.web_premium.title)
+                    setPremiumDescription(userService.web_package.web_premium.description)
+                    setPremiumPages(userService.web_package.web_premium.pages)
+                    setPremiumDesignCustom(userService.web_package.web_premium.design_custom)
+                    setPremiumContentUpload(userService.web_package.web_premium.content_upload)
+                    setPremiumResponsiveDesign(userService.web_package.web_premium.responsive_design)
+                    setPremiumSourceCode(userService.web_package.web_premium.source_code)
+                    setPremiumRevisions(userService.web_package.web_premium.revisions)
+                    setPremiumPrice(userService.web_package.web_premium.price)
+                    setMutliplePackages(!multiplePackages)
+                }
+            }
+        }
+    }, [userService])
+
+    console.log(basicDesignCustom)
     const daysDelivery = [
         "1 Day Delivery ", "2 Days Delivery", "3 Days Delivery", "4 Days Delivery", "5 Days Delivery", "6 Days Delivery", "7 Days Delivery", "8 Days Delivery", "9 Days Delivery", "10 Days Delivery", "14 Days Delivery", "21 Days Delivery", "30 Days Delivery", "45 Days Delivery", "60 Days Delivery", "75 Days Delivery", "90 Days Delivery"
     ]
@@ -99,10 +159,6 @@ function EditService() {
     const numberOfPages = [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ]
-
-    if (!add) {
-        return <Redirect to="/new-service/edit" />
-    }
 
 
     const handleOverviewSubmit = () => {
@@ -140,12 +196,71 @@ function EditService() {
         if (programmingLang && category && title.length > 15) {
             const categoryId = parseInt(category)
             const userTitle = "I will " + title
-            dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId }))
-            // setContent('pricing')
-            setAdd(false)
+            const serviceId = userService.id
+            // console.log(serviceId)
+            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId }))
+            setContent('pricing')
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
     }
+
+    const handlePricingSubmit = (e) => {
+        e.preventDefault()
+        const serviceId = userService.id
+        const dayDelivery = parseInt(basicDelivery.slice(0, 1))
+        let sdayDelivery;
+        let pdayDelivery;
+
+        dispatch(updateBasicPackage({
+            basicTitle, basicDescription, dayDelivery, basicPages, basicDesignCustom,
+            basicContentUpload, basicResponsiveDesign, basicSourceCode, basicRevisions, basicPrice, serviceId
+        }))
+
+        if (!multiplePackages) {
+            sdayDelivery = parseInt(standardDelivery.slice(0, 1))
+            pdayDelivery = parseInt(premiumDelivery.slice(0, 1))
+            dispatch(updateStandardPackage({
+                standardTitle, standardDescription, sdayDelivery, standardPages, standardDesignCustom,
+                standardContentUpload, standardResponsiveDesign, standardSourceCode, standardRevisions, standardPrice, serviceId
+            }))
+
+            dispatch(updatePremiumPackage({
+                premiumTitle, premiumDescription, pdayDelivery, premiumPages, premiumDesignCustom,
+                premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
+            }))
+        }
+
+        setContent('pricing')
+    }
+
+    // if (!userServices) return null;
+    // if (!programmingLangs) return null;
+    // const editingService = userServices.pop();
+    // console.log("editingService", editingService)
+    // console.log(userService)
+    if (!userService) return null;
+    if (!refresh && title === '' && !category) {
+        setTitle(userService.title.slice(7))
+        // const test = document.getElementById("programmingLang-" + userService.service_language_id)
+        // console.log("test", "programmingLang-" + userService.service_language_id)
+        setCategory(userService.category_id)
+        setServiceLang(userService.service_language_id)
+        setRefresh(true)
+    }
+    // setTitle(userService.title)
+    // console.log("hi")
+
+
+
+    // const programmingLangs = services.programmingLangs
+    // // const userServices = useSelector(state => state.service.userServices)
+    // const userServices = services.userServices
+    // if (userServices) {
+    //     const userService = userServices.pop()
+
+    //     console.log("userService", userService)
+    // }
+
 
     let component;
     if (content === 'overview') {
@@ -161,7 +276,7 @@ function EditService() {
                             className="overview__gig-title-input"
                             name="gig-title"
                             maxLength="80"
-                            value={title != '' ? title : ''}
+                            value={title}
                             placeholder="do something I'm really good at"
                             onChange={(e) => setTitle(e.target.value)}
                         >
@@ -185,10 +300,13 @@ function EditService() {
                             onChange={(e) => setCategory(e.target.value)}
                             required
                         >
-                            <option value="" defaultValue>SELECT A CATEGORY</option>
+                            <option value="">SELECT A CATEGORY</option>
                             {categories && categories.map((category => {
                                 return (
-                                    <option value={category.id} key={category.id}>{(category.name).toUpperCase()}</option>
+                                    <option value={category.id} key={category.id}
+                                        selected={userService.category_id === category.id ? true : false}
+                                    >
+                                        {(category.name).toUpperCase()}</option>
                                 )
                             }))
                             }
@@ -219,8 +337,11 @@ function EditService() {
                                     return (
                                         <>
                                             <div className="overview__megadata-programming-lang-option" key={language.id}>
-                                                <input style={{ marginRight: "10px" }} type="radio" name="programming-language" value={language.id}
-                                                ></input>
+                                                <input style={{ marginRight: "10px" }} type="radio" name="programming-language" id={"programmingLang-" + language.id} value={language.id}
+                                                    checked={serviceLang === language.id ? true : false}
+                                                    onClick={() => setServiceLang(language.id)}
+                                                >
+                                                </input>
                                                 <label htmlFor={language.name}>{language.name}</label>
                                                 <br></br>
                                             </div>
@@ -252,11 +373,11 @@ function EditService() {
                         <div>
                             <span style={{ marginRight: "10px" }}>3 Packages</span>
 
-                            <label class="switch">
+                            <label className="switch">
                                 <input type="checkbox"
                                     onClick={(e) => setMutliplePackages(!e.target.checked)}
                                 ></input>
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                             </label>
                         </div>
                     </div>
@@ -273,9 +394,11 @@ function EditService() {
 
                         <div className="nsp new-service__package-basic nsp-col-2 nsp-row1">BASIC</div>
                         <div className="nsp package-basic-title nsp-col-2 nsp-row2">
+                            <div className="error-star"></div>
                             <textarea
                                 className="package-textarea"
                                 placeholder="Name your package"
+                                value={basicTitle}
                                 onChange={(e) => setBasicTitle(e.target.value)}
                             >
                             </textarea>
@@ -284,6 +407,7 @@ function EditService() {
                             <textarea
                                 className="package-textarea"
                                 placeholder="Describe the details of what you're offering"
+                                value={basicDescription}
                                 onChange={(e) => setBasicDescription(e.target.value)}
                             >
                             </textarea>
@@ -292,12 +416,15 @@ function EditService() {
                             <select
                                 className="package-select"
                                 onChange={(e) => setBasicDelivery(e.target.value)}
+                                required
                             >
-                                <option value="" defaultValue>Delivery Time</option>
+                                <option value="" >Delivery Time</option>
 
                                 {daysDelivery.map((day) => {
                                     return (
-                                        <option className="package-select-option" key={day} value={day}>{day}</option>
+                                        <option className="package-select-option" key={day} value={day}
+                                            selected={basicDelivery === day ? true : false}
+                                        >{day}</option>
                                     )
                                 })
                                 }
@@ -313,7 +440,9 @@ function EditService() {
                                 {numberOfPages.map((page) => {
                                     return (
                                         <>
-                                            <option className="package-select-option" key={page} value={page}>{page}</option>
+                                            <option className="package-select-option" key={page} value={page}
+                                                selected={basicPages === page ? true : false}
+                                            >{page}</option>
                                         </>
                                     )
                                 })
@@ -324,6 +453,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={basicDesignCustom}
                                 onClick={(e) => setBasicDesignCustom(e.target.checked)}
                             >
                             </input>
@@ -332,6 +462,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={basicContentUpload}
                                 onClick={(e) => setBasicContentUpload(e.target.checked)}
                             >
                             </input>
@@ -340,6 +471,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={basicResponsiveDesign}
                                 onClick={(e) => setBasicResponsiveDesign(e.target.checked)}
                             >
                             </input>
@@ -348,6 +480,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={basicSourceCode}
                                 onClick={(e) => setBasicSourceCode(e.target.checked)}
                             >
                             </input>
@@ -357,18 +490,29 @@ function EditService() {
                                 className="package-select"
                                 onChange={(e) => setBasicRevisions(e.target.value)}
                             >
-                                <option value="" defaultValue>Select</option>
-                                <option className="package-select-option" value={0}>0</option>
-                                <option className="package-select-option" value={1}>1</option>
-                                <option className="package-select-option" value={2}>2</option>
-                                <option className="package-select-option" value={3}>3</option>
-                                <option className="package-select-option" value={4}>4</option>
-                                <option className="package-select-option" value={5}>5</option>
-                                <option className="package-select-option" value={6}>6</option>
-                                <option className="package-select-option" value={7}>7</option>
-                                <option className="package-select-option" value={8}>8</option>
-                                <option className="package-select-option" value={9}>9</option>
-                                <option className="package-select-option" value={888}>Unlimited</option>
+                                <option value="">Select</option>
+                                <option className="package-select-option" value={0}
+                                    selected={basicRevisions === 0 ? true : false}>0</option>
+                                <option className="package-select-option" value={1}
+                                    selected={basicRevisions === 1 ? true : false}>1</option>
+                                <option className="package-select-option" value={2}
+                                    selected={basicRevisions === 2 ? true : false}>2</option>
+                                <option className="package-select-option" value={3}
+                                    selected={basicRevisions === 3 ? true : false}>3</option>
+                                <option className="package-select-option" value={4}
+                                    selected={basicRevisions === 4 ? true : false}>4</option>
+                                <option className="package-select-option" value={5}
+                                    selected={basicRevisions === 5 ? true : false}>5</option>
+                                <option className="package-select-option" value={6}
+                                    selected={basicRevisions === 6 ? true : false}>6</option>
+                                <option className="package-select-option" value={7}
+                                    selected={basicRevisions === 7 ? true : false}>7</option>
+                                <option className="package-select-option" value={8}
+                                    selected={basicRevisions === 8 ? true : false}>8</option>
+                                <option className="package-select-option" value={9}
+                                    selected={basicRevisions === 9 ? true : false}>9</option>
+                                <option className="package-select-option" value={888}
+                                    selected={basicRevisions === 888 ? true : false}>Unlimited</option>
                             </select>
                         </div>
                         <div className="nsp package-basic-price nsp-col-2 nsp-row11 package-price-input-wrap">
@@ -379,6 +523,7 @@ function EditService() {
                                 min="5"
                                 max="10000"
                                 step="5"
+                                value={basicPrice}
                                 onChange={(e) => setBasicPrice(e.target.value)}
                             >
                             </input>
@@ -396,6 +541,7 @@ function EditService() {
                                 //readOnly={multiplePackages} 
                                 className="package-textarea"
                                 placeholder="Name your package"
+                                value={standardTitle}
                                 onChange={(e) => setStandardTitle(e.target.value)}
                             >
                             </textarea>
@@ -405,6 +551,7 @@ function EditService() {
                                 //readOnly={multiplePackages} 
                                 className="package-textarea"
                                 placeholder="Describe the details of what you're offering"
+                                value={standardDescription}
                                 onChange={(e) => setStandardDescription(e.target.value)}
                             >
                             </textarea>
@@ -420,7 +567,10 @@ function EditService() {
                                 {daysDelivery.map((day) => {
                                     return (
                                         <>
-                                            <option key={day} value={day}>{day}</option>
+                                            <option key={day} value={day}
+                                                selected={standardDelivery === day ? true : false}
+
+                                            >{day}</option>
                                         </>
                                     )
                                 })
@@ -438,7 +588,9 @@ function EditService() {
                                 {numberOfPages.map((page) => {
                                     return (
                                         <>
-                                            <option className="package-select-option" key={page} value={page}>{page}</option>
+                                            <option className="package-select-option" key={page} value={page}
+                                                selected={standardPages === page ? true : false}
+                                            >{page}</option>
                                         </>
                                     )
                                 })
@@ -449,6 +601,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={standardDesignCustom}
                                 onClick={(e) => setStandardDesignCustom(e.target.checked)}
                             >
                             </input>
@@ -457,6 +610,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={standardContentUpload}
                                 onClick={(e) => setStandardContentUpload(e.target.checked)}
                             >
                             </input>
@@ -465,6 +619,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={standardResponsiveDesign}
                                 onClick={(e) => setStandardResponsiveDesign(e.target.checked)}
                             >
                             </input>
@@ -473,6 +628,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={standardSourceCode}
                                 onClick={(e) => setStandardSourceCode(e.target.checked)}
                             >
                             </input>
@@ -483,17 +639,28 @@ function EditService() {
                                 onChange={(e) => setStandardRevisions(e.target.value)}
                             >
                                 <option value="" defaultValue>Select</option>
-                                <option className="package-select-option" value={0}>0</option>
-                                <option className="package-select-option" value={1}>1</option>
-                                <option className="package-select-option" value={2}>2</option>
-                                <option className="package-select-option" value={3}>3</option>
-                                <option className="package-select-option" value={4}>4</option>
-                                <option className="package-select-option" value={5}>5</option>
-                                <option className="package-select-option" value={6}>6</option>
-                                <option className="package-select-option" value={7}>7</option>
-                                <option className="package-select-option" value={8}>8</option>
-                                <option className="package-select-option" value={9}>9</option>
-                                <option className="package-select-option" value={888}>Unlimited</option>
+                                <option className="package-select-option" value={0}
+                                    selected={standardRevisions === 0 ? true : false}>0</option>
+                                <option className="package-select-option" value={1}
+                                    selected={standardRevisions === 1 ? true : false}>1</option>
+                                <option className="package-select-option" value={2}
+                                    selected={standardRevisions === 2 ? true : false}>2</option>
+                                <option className="package-select-option" value={3}
+                                    selected={standardRevisions === 3 ? true : false}>3</option>
+                                <option className="package-select-option" value={4}
+                                    selected={standardRevisions === 4 ? true : false}>4</option>
+                                <option className="package-select-option" value={5}
+                                    selected={standardRevisions === 5 ? true : false}>5</option>
+                                <option className="package-select-option" value={6}
+                                    selected={standardRevisions === 6 ? true : false}>6</option>
+                                <option className="package-select-option" value={7}
+                                    selected={standardRevisions === 7 ? true : false}>7</option>
+                                <option className="package-select-option" value={8}
+                                    selected={standardRevisions === 8 ? true : false}>8</option>
+                                <option className="package-select-option" value={9}
+                                    selected={standardRevisions === 9 ? true : false}>9</option>
+                                <option className="package-select-option" value={888}
+                                    selected={standardRevisions === 88 ? true : false}>Unlimited</option>
                             </select>
                         </div>
                         <div className="nsp package-standard-price nsp-col-3 nsp-row11 package-price-input-wrap">
@@ -504,6 +671,7 @@ function EditService() {
                                 min="5"
                                 max="10000"
                                 step="5"
+                                value={standardPrice}
                                 onChange={(e) => setStandardPrice(e.target.value)}
                             >
                             </input>
@@ -516,6 +684,7 @@ function EditService() {
                                 //readOnly={multiplePackages} 
                                 className="package-textarea"
                                 placeholder="Name your package"
+                                value={premiumTitle}
                                 onChange={(e) => setPremiumTitle(e.target.value)}
                             >
                             </textarea>
@@ -525,6 +694,7 @@ function EditService() {
                                 //readOnly={multiplePackages} 
                                 className="package-textarea"
                                 placeholder="Describe the details of what you're offering"
+                                value={premiumDescription}
                                 onChange={(e) => setPremiumDescription(e.target.value)}
                             >
                             </textarea>
@@ -540,7 +710,9 @@ function EditService() {
                                 {daysDelivery.map((day) => {
                                     return (
                                         <>
-                                            <option key={day} value={day}>{day}</option>
+                                            <option key={day} value={day}
+                                                selected={premiumDelivery === day ? true : false}
+                                            >{day}</option>
                                         </>
                                     )
                                 })
@@ -558,7 +730,9 @@ function EditService() {
                                 {numberOfPages.map((page) => {
                                     return (
                                         <>
-                                            <option className="package-select-option" key={page} value={page}>{page}</option>
+                                            <option className="package-select-option" key={page} value={page}
+                                                selected={premiumPages === page ? true : false}
+                                            >{page}</option>
                                         </>
                                     )
                                 })
@@ -569,6 +743,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={premiumDesignCustom}
                                 onClick={(e) => setPremiumDesignCustom(e.target.checked)}
                             >
                             </input>
@@ -577,6 +752,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={premiumContentUpload}
                                 onClick={(e) => setPremiumContentUpload(e.target.checked)}
                             >
                             </input>
@@ -585,6 +761,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={premiumResponsiveDesign}
                                 onClick={(e) => setPremiumResponsiveDesign(e.target.checked)}
                             >
                             </input>
@@ -593,6 +770,7 @@ function EditService() {
                             <input
                                 className="package-checkbox"
                                 type="checkbox"
+                                checked={premiumSourceCode}
                                 onClick={(e) => setPremiumSourceCode(e.target.checked)}
                             >
                             </input>
@@ -603,17 +781,28 @@ function EditService() {
                                 onChange={(e) => setPremiumRevisions(e.target.value)}
                             >
                                 <option value="" defaultValue>Select</option>
-                                <option className="package-select-option" value={0}>0</option>
-                                <option className="package-select-option" value={1}>1</option>
-                                <option className="package-select-option" value={2}>2</option>
-                                <option className="package-select-option" value={3}>3</option>
-                                <option className="package-select-option" value={4}>4</option>
-                                <option className="package-select-option" value={5}>5</option>
-                                <option className="package-select-option" value={6}>6</option>
-                                <option className="package-select-option" value={7}>7</option>
-                                <option className="package-select-option" value={8}>8</option>
-                                <option className="package-select-option" value={9}>9</option>
-                                <option className="package-select-option" value={888}>Unlimited</option>
+                                <option className="package-select-option" value={0}
+                                selected={premiumRevisions === 0 ? true : false}>0</option>
+                                <option className="package-select-option" value={1}
+                                selected={premiumRevisions === 1 ? true : false}>1</option>
+                                <option className="package-select-option" value={2}
+                                selected={premiumRevisions === 2 ? true : false}>2</option>
+                                <option className="package-select-option" value={3}
+                                selected={premiumRevisions === 3 ? true : false}>3</option>
+                                <option className="package-select-option" value={4}
+                                selected={premiumRevisions === 4 ? true : false}>4</option>
+                                <option className="package-select-option" value={5}
+                                selected={premiumRevisions === 5 ? true : false}>5</option>
+                                <option className="package-select-option" value={6}
+                                selected={premiumRevisions === 6 ? true : false}>6</option>
+                                <option className="package-select-option" value={7}
+                                selected={premiumRevisions === 7 ? true : false}>7</option>
+                                <option className="package-select-option" value={8}
+                                selected={premiumRevisions === 8 ? true : false}>8</option>
+                                <option className="package-select-option" value={9}
+                                selected={premiumRevisions === 9 ? true : false}>9</option>
+                                <option className="package-select-option" value={888}
+                                selected={premiumRevisions === 888 ? true : false}>Unlimited</option>
                             </select>
                         </div>
                         <div className="nsp package-premium-price nsp-col-4 nsp-row11 package-price-input-wrap">
@@ -624,6 +813,7 @@ function EditService() {
                                 min="5"
                                 max="10000"
                                 step="5"
+                                value={premiumPrice}
                                 onChange={(e) => setPremiumPrice(e.target.value)}
                             >
                             </input>
@@ -633,7 +823,7 @@ function EditService() {
 
                     <footer className="overview__gig-title-footer">
                         <button className="new-service__overview-btn-submit"
-                            onClick={handleOverviewSubmit}
+                            onClick={handlePricingSubmit}
                         >Save & Continue</button>
                     </footer>
                 </div>
@@ -641,7 +831,6 @@ function EditService() {
 
     }
 
-    if (!programmingLangs) return null;
     return (
 
         <>
