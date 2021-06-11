@@ -29,3 +29,26 @@ def add_new_service_overview():
     db.session.add(new_service)
     db.session.commit()
     return new_service.dict_overview()
+
+
+
+@service_routes.route('/user/<int:id>')
+def user_services(id):
+    services = Service.query.filter(Service.user_id == id).all()
+    # print("FLAAG", [service.dict_overview() for service in services])
+    return jsonify([service.dict_overview() for service in services])
+
+
+@service_routes.route('/update/overview/<int:serviceId>', methods=["PUT"])
+@login_required
+def update_service_overview(serviceId):
+    service = Service.query.get(serviceId)
+
+    service.title = request.json["title"]
+    service.titcategory_idle = request.json["category_id"]
+    service.service_language_id = request.json["service_language_id"]
+
+
+    db.session.add(service)
+    db.session.commit()
+    return service.dict_overview()

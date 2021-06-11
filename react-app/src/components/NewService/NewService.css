@@ -22,10 +22,6 @@
     margin-right: 20px;
 }
 
-.new-service__navbar-list:hover {
-    color: #1DBF73;
-    cursor: pointer;
-}
 
 .new-service__overview-wrapper {
     margin: auto;
@@ -39,7 +35,7 @@
     margin-bottom: 24px;
 }
 
-/*--------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/ 
 .new-service__chara-count {
     font-size: 12px;
     color: #95979D;

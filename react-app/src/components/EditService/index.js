@@ -1,29 +1,35 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loadProgramingLanguages, addOverviewService } from '../../store/service';
+import { loadProgramingLanguages, updateOverviewService, loadUserServices } from '../../store/service';
 import NavBar from '../NavBar';
 
-import './EditService.css'
+import './EditService.css';
+import './Pricing.css';
+
 
 function EditService() {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
     const programmingLangs = useSelector(state => state.service.programmingLangs)
     const categories = useSelector(state => state.category.categories)
+    const userService = useSelector(state => state.service.newService)
+    const services = useSelector(state => state.service)
+    // console.log("services", services)
+    // console.log(userServices)
 
     // overview
-    const [content, setContent] = useState('pricing')
+    const [content, setContent] = useState('overview')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
+    const [serviceLang, setServiceLang] = useState()
+    const [refresh, setRefresh] = useState(false);
+
 
     // pricing
-    // const [deliveryBasicDD, setDeliveryBasicDD] = useState(false);
-    // const [deliveryStandardDD, setDeliveryStandardDD] = useState(false);
-    // const [deliveryPremiumDD, setDeliveryPremiumDD] = useState(false);
+
 
     const [multiplePackages, setMutliplePackages] = useState(true);
-    const [add, setAdd] = useState(true);
 
     const [basicTitle, setBasicTitle] = useState('')
     const [standardTitle, setStandardTitle] = useState('')
@@ -74,23 +80,10 @@ function EditService() {
         dispatch(loadProgramingLanguages())
     }, [dispatch])
 
-    // // handle show hide dropdown using event listener
-    // const handleClickOutside = (event) => {
-    //     if (ref.current && !ref.current.contains(event.target)) {
-    //         setDeliveryBasicDD(false);
-    //         setDeliveryStandardDD(false);
-    //         setDeliveryPremiumDD(false);
-    //     }
-    // };
+    useEffect(() => {
+        dispatch(loadUserServices(userId))
+    }, [dispatch])
 
-    // useEffect(() => {
-    //     document.addEventListener('click', handleClickOutside, true);
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true);
-    //     };
-    // }, []);
-
-    // handle overview subit - POST to backend
 
     const daysDelivery = [
         "1 Day Delivery ", "2 Days Delivery", "3 Days Delivery", "4 Days Delivery", "5 Days Delivery", "6 Days Delivery", "7 Days Delivery", "8 Days Delivery", "9 Days Delivery", "10 Days Delivery", "14 Days Delivery", "21 Days Delivery", "30 Days Delivery", "45 Days Delivery", "60 Days Delivery", "75 Days Delivery", "90 Days Delivery"
@@ -99,10 +92,6 @@ function EditService() {
     const numberOfPages = [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ]
-
-    if (!add) {
-        return <Redirect to="/new-service/edit" />
-    }
 
 
     const handleOverviewSubmit = () => {
@@ -140,12 +129,41 @@ function EditService() {
         if (programmingLang && category && title.length > 15) {
             const categoryId = parseInt(category)
             const userTitle = "I will " + title
-            dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId }))
+            const serviceId = userService.id
+            console.log(serviceId)
+            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId }))
             // setContent('pricing')
-            setAdd(false)
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
     }
+
+    // if (!userServices) return null;
+    // if (!programmingLangs) return null;
+    // const editingService = userServices.pop();
+    // console.log("editingService", editingService)
+    // console.log(userService)
+    if (!userService) return null;
+    if (!refresh && title === '' && !category) {
+        setTitle(userService.title.slice(7))
+        // const test = document.getElementById("programmingLang-" + userService.service_language_id)
+        // console.log("test", "programmingLang-" + userService.service_language_id)
+        setCategory(userService.category_id)
+        setServiceLang(userService.service_language_id)
+        setRefresh(true)
+    }
+    // setTitle(userService.title)
+    // console.log("hi")
+
+
+
+    // const programmingLangs = services.programmingLangs
+    // // const userServices = useSelector(state => state.service.userServices)
+    // const userServices = services.userServices
+    // if (userServices) {
+    //     const userService = userServices.pop()
+
+    //     console.log("userService", userService)
+    // }
 
     let component;
     if (content === 'overview') {
@@ -161,7 +179,7 @@ function EditService() {
                             className="overview__gig-title-input"
                             name="gig-title"
                             maxLength="80"
-                            value={title != '' ? title : ''}
+                            value={title}
                             placeholder="do something I'm really good at"
                             onChange={(e) => setTitle(e.target.value)}
                         >
@@ -185,10 +203,13 @@ function EditService() {
                             onChange={(e) => setCategory(e.target.value)}
                             required
                         >
-                            <option value="" defaultValue>SELECT A CATEGORY</option>
+                            <option value="">SELECT A CATEGORY</option>
                             {categories && categories.map((category => {
                                 return (
-                                    <option value={category.id} key={category.id}>{(category.name).toUpperCase()}</option>
+                                    <option value={category.id} key={category.id}
+                                        selected={userService.category_id === category.id ? true : false}
+                                    >
+                                        {(category.name).toUpperCase()}</option>
                                 )
                             }))
                             }
@@ -219,8 +240,11 @@ function EditService() {
                                     return (
                                         <>
                                             <div className="overview__megadata-programming-lang-option" key={language.id}>
-                                                <input style={{ marginRight: "10px" }} type="radio" name="programming-language" value={language.id}
-                                                ></input>
+                                                <input style={{ marginRight: "10px" }} type="radio" name="programming-language" id={"programmingLang-" + language.id} value={language.id}
+                                                    checked={serviceLang === language.id ? true : false}
+                                                    onClick={() => setServiceLang(language.id)}
+                                                >
+                                                </input>
                                                 <label htmlFor={language.name}>{language.name}</label>
                                                 <br></br>
                                             </div>
@@ -252,11 +276,11 @@ function EditService() {
                         <div>
                             <span style={{ marginRight: "10px" }}>3 Packages</span>
 
-                            <label class="switch">
+                            <label className="switch">
                                 <input type="checkbox"
                                     onClick={(e) => setMutliplePackages(!e.target.checked)}
                                 ></input>
-                                <span class="slider round"></span>
+                                <span className="slider round"></span>
                             </label>
                         </div>
                     </div>
@@ -641,7 +665,6 @@ function EditService() {
 
     }
 
-    if (!programmingLangs) return null;
     return (
 
         <>
