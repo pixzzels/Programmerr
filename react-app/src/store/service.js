@@ -112,9 +112,9 @@ const serviceReducer = (state = initialState, action) => {
             }
         }
 
-        // case ADD_OVERVIEW_SERVICE: {
-
-        // }
+        case ADD_OVERVIEW_SERVICE: {
+            
+        }
 
         default:
             return state;
