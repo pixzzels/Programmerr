@@ -49,6 +49,7 @@ def update_service_overview(serviceId):
 
     db.session.add(service)
     db.session.commit()
+
     return service.dict_overview()
 
 

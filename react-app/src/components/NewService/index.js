@@ -17,13 +17,14 @@ function NewService() {
     const [category, setCategory] = useState()
 
     const [add, setAdd] = useState(true);
+    const [id, setId] = useState();
 
     useEffect(() => {
         dispatch(loadProgramingLanguages())
     }, [dispatch])
 
     if (!add) {
-        return <Redirect to="/new-service/edit" />
+        return <Redirect to={`/new-service/edit/${id}`} />
     }
 
     const handleOverviewSubmit = () => {
@@ -63,8 +64,15 @@ function NewService() {
             const userTitle = "I will " + title
             const publish = false
             dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId, publish }))
+                .then(res => {
+                    console.log("res", res)
+                    setId(res.id)
+                    setAdd(false)
+                })
             // setContent('pricing')
-            setAdd(false)
+            // setAdd(false)
+            // console.log(newService)
+            // setId(newService.id)
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
     }

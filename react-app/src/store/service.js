@@ -284,10 +284,13 @@ const serviceReducer = (state = initialState, action) => {
         }
 
         case UPDATE_BASIC_WEB_SERVICE: {
+            console.log(action.data)  
+            console.log("state", state)
             newState = {
                 ...state,
-                newService: [action.data]
+                newService: action.data
             }
+            return newState;
         }
 
         default:

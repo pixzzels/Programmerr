@@ -70,6 +70,7 @@ function EditService() {
     const [standardPrice, setStandardPrice] = useState('')
     const [premiumPrice, setPremiumPrice] = useState('')
     // const ref = useRef(null);
+    console.log(multiplePackages)
 
 
     // const [programmingLang, setProgrammingLang] = useState()
@@ -135,30 +136,33 @@ function EditService() {
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
     }
 
-    const handlePricingSubmit = () => {
+    const handlePricingSubmit = (e) => {
+        e.preventDefault()
         const serviceId = userService.id
         const dayDelivery = parseInt(basicDelivery.slice(0, 1))
-        const sdayDelivery = parseInt(standardDelivery.slice(0, 1))
-        const pdayDelivery = parseInt(premiumDelivery.slice(0, 1))
+        let sdayDelivery;
+        let pdayDelivery;
 
-        // console.log(dayDelivery)
         dispatch(updateBasicPackage({
             basicTitle, basicDescription, dayDelivery, basicPages, basicDesignCustom,
             basicContentUpload, basicResponsiveDesign, basicSourceCode, basicRevisions, basicPrice, serviceId
         }))
 
-        dispatch(updateStandardPackage({
-            standardTitle, standardDescription, sdayDelivery, standardPages, standardDesignCustom,
-            standardContentUpload, standardResponsiveDesign, standardSourceCode, standardRevisions, standardPrice, serviceId
-        }))
+        if (!multiplePackages) {
+            sdayDelivery = parseInt(standardDelivery.slice(0, 1))
+            pdayDelivery = parseInt(premiumDelivery.slice(0, 1))
+            dispatch(updateStandardPackage({
+                standardTitle, standardDescription, sdayDelivery, standardPages, standardDesignCustom,
+                standardContentUpload, standardResponsiveDesign, standardSourceCode, standardRevisions, standardPrice, serviceId
+            }))
 
+            dispatch(updatePremiumPackage({
+                premiumTitle, premiumDescription, pdayDelivery, premiumPages, premiumDesignCustom,
+                premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
+            }))
+        }
 
-        dispatch(updatePremiumPackage({
-            premiumTitle, premiumDescription, pdayDelivery, premiumPages, premiumDesignCustom,
-            premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
-        }))
-
-        setContent('description')
+        setContent('pricing')
     }
 
     // if (!userServices) return null;
@@ -321,6 +325,7 @@ function EditService() {
 
                         <div className="nsp new-service__package-basic nsp-col-2 nsp-row1">BASIC</div>
                         <div className="nsp package-basic-title nsp-col-2 nsp-row2">
+                            <div className="error-star"></div>
                             <textarea
                                 className="package-textarea"
                                 placeholder="Name your package"
