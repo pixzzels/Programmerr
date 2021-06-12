@@ -97,7 +97,7 @@ function NewService() {
                             className="overview__gig-title-input"
                             name="gig-title"
                             maxLength="80"
-                            value={title != '' ? title : ''}
+                            value={title !== '' ? title : ''}
                             placeholder="do something I'm really good at"
                             onChange={(e) => setTitle(e.target.value)}
                         >

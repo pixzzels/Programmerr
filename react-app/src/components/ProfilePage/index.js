@@ -94,7 +94,7 @@ function ProfilePage() {
     const [skill, setSkill] = useState('');
     const [skillLevel, setSkillLevel] = useState('');
 
-    const [edu, setEdu] = useState('');
+    // const [edu, setEdu] = useState('');
     const userId = user.id
 
 
@@ -167,7 +167,7 @@ function ProfilePage() {
                         <div className="profile-container-left">
                             <div className="profile-card">
                                 <div className="profile-card__image-container">
-                                    <img className="profile-card__image" src={userProfile.profile_img}></img>
+                                    <img className="profile-card__image" src={userProfile.profile_img} alt="profile image"></img>
                                 </div>
                                 <div className="profile-card__tagline-container">
                                     <div className="bold" style={{ fontSize: "20px", marginBottom: "10px" }}>{userProfile.username}</div>

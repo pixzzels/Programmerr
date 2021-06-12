@@ -45,7 +45,7 @@ function NavBar({ showCategory = true }) {
 
                 <div className="navbar-buttons-home">
                     {/* <LogoutButton /> */}
-                    <button className="profile-img-btn" onClick={() => setshowDropDown(!showDropDown)}><img src={user.profile_img}></img></button>
+                    <button className="profile-img-btn" onClick={() => setshowDropDown(!showDropDown)} alt="profile image"><img src={user.profile_img}></img></button>
                 </div>
                 {showDropDown &&
                     <>

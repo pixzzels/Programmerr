@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
-import { NavLink } from 'react-router-dom';
 import { loadServices } from '../../store/service';
 import NavBar from '../NavBar';
 import ServiceCard from '../ServiceCard';
@@ -10,14 +8,12 @@ import "./HomePage.css"
 function HomePage() {
     const dispatch = useDispatch();
 
-    // const user = useSelector(state => state.session.user)
     const services = useSelector(state => state.service.services)
 
     useEffect(() => {
         dispatch(loadServices())
     }, [dispatch])
-
-
+    
     if (!services) return null
 
     return (

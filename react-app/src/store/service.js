@@ -73,13 +73,12 @@ const updateServicePublish = data => ({
 })
 
 export const loadServices = () => async (dispatch) => {
-
     const response = await fetch(`/api/service/`)
 
     if (!response.ok) throw response
 
     const data = await response.json();
-    dispatch(loadAllServices(data));
+    dispatch(loadAllServices(data.reverse()));
     return data;
 };
 
