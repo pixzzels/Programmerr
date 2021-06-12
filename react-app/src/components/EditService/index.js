@@ -1,12 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
-import { loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage, updatePremiumPackage, loadServiceEdit } from '../../store/service';
+import {
+    loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage,
+    updatePremiumPackage, loadServiceEdit, updateServiceDescription, setServicePublish
+} from '../../store/service';
 import NavBar from '../NavBar';
 
 import './EditService.css';
 import './Pricing.css';
+import './Description.css';
+
 
 
 function EditService() {
@@ -15,22 +21,15 @@ function EditService() {
     const programmingLangs = useSelector(state => state.service.programmingLangs)
     const categories = useSelector(state => state.category.categories)
     const userService = useSelector(state => state.service.editService)
-    // console.log("userService", userService)
-    const services = useSelector(state => state.service)
-    // console.log("services", services)
-    // console.log(userServices)
 
     // overview
-    const [content, setContent] = useState('pricing')
+    const [content, setContent] = useState('description')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
     const [serviceLang, setServiceLang] = useState()
     const [refresh, setRefresh] = useState(false);
 
-
     // pricing
-
-
     const [multiplePackages, setMutliplePackages] = useState(true);
 
     const [basicTitle, setBasicTitle] = useState('')
@@ -72,14 +71,15 @@ function EditService() {
     const [basicPrice, setBasicPrice] = useState('')
     const [standardPrice, setStandardPrice] = useState('')
     const [premiumPrice, setPremiumPrice] = useState('')
-    // const ref = useRef(null);
-    // console.log(multiplePackages)
+
+    // description 
+    const [serviceDescription, setServiceDescription] = useState('')
+
+    // requirements
+    const [publish, setPublish] = useState();
+    const [redirect, setRedirect] = useState(false);
+
     const { serviceId } = useParams();
-    // console.log(serviceId)
-
-    // const [programmingLang, setProgrammingLang] = useState()
-
-
     useEffect(() => {
         dispatch(loadProgramingLanguages())
     }, [dispatch])
@@ -92,7 +92,7 @@ function EditService() {
         dispatch(loadServiceEdit(serviceId))
     }, [dispatch])
 
-
+    // prepopulate pricing 
     useEffect(() => {
         if (userService) {
             if (userService.web_package) {
@@ -148,18 +148,19 @@ function EditService() {
                     setMutliplePackages(!multiplePackages)
                 }
             }
+            if (userService.description) {
+                setServiceDescription(userService.description)
+            }
         }
     }, [userService])
 
-    console.log(basicDesignCustom)
-    const daysDelivery = [
-        "1 Day Delivery ", "2 Days Delivery", "3 Days Delivery", "4 Days Delivery", "5 Days Delivery", "6 Days Delivery", "7 Days Delivery", "8 Days Delivery", "9 Days Delivery", "10 Days Delivery", "14 Days Delivery", "21 Days Delivery", "30 Days Delivery", "45 Days Delivery", "60 Days Delivery", "75 Days Delivery", "90 Days Delivery"
-    ]
+    if (redirect) {
+        return <Redirect to={`/profile`} />
+    }
 
-    const numberOfPages = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    ]
+    const daysDelivery = ["1 Day Delivery ", "2 Days Delivery", "3 Days Delivery", "4 Days Delivery", "5 Days Delivery", "6 Days Delivery", "7 Days Delivery", "8 Days Delivery", "9 Days Delivery", "10 Days Delivery", "14 Days Delivery", "21 Days Delivery", "30 Days Delivery", "45 Days Delivery", "60 Days Delivery", "75 Days Delivery", "90 Days Delivery"]
 
+    const numberOfPages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     const handleOverviewSubmit = () => {
         if (!category) {
@@ -233,11 +234,18 @@ function EditService() {
         setContent('pricing')
     }
 
-    // if (!userServices) return null;
-    // if (!programmingLangs) return null;
-    // const editingService = userServices.pop();
-    // console.log("editingService", editingService)
-    // console.log(userService)
+    const handleDescriptionSubmit = (e) => {
+        e.preventDefault();
+        dispatch(updateServiceDescription({ serviceDescription, serviceId }))
+        setContent('requirements')
+    };
+
+    const handleServicePublish = () => {
+        setPublish(true)
+        dispatch(setServicePublish({ publish, serviceId }))
+        setRedirect(true)
+    }
+
     if (!userService) return null;
     if (!refresh && title === '' && !category) {
         setTitle(userService.title.slice(7))
@@ -247,20 +255,6 @@ function EditService() {
         setServiceLang(userService.service_language_id)
         setRefresh(true)
     }
-    // setTitle(userService.title)
-    // console.log("hi")
-
-
-
-    // const programmingLangs = services.programmingLangs
-    // // const userServices = useSelector(state => state.service.userServices)
-    // const userServices = services.userServices
-    // if (userServices) {
-    //     const userService = userServices.pop()
-
-    //     console.log("userService", userService)
-    // }
-
 
     let component;
     if (content === 'overview') {
@@ -782,27 +776,27 @@ function EditService() {
                             >
                                 <option value="" defaultValue>Select</option>
                                 <option className="package-select-option" value={0}
-                                selected={premiumRevisions === 0 ? true : false}>0</option>
+                                    selected={premiumRevisions === 0 ? true : false}>0</option>
                                 <option className="package-select-option" value={1}
-                                selected={premiumRevisions === 1 ? true : false}>1</option>
+                                    selected={premiumRevisions === 1 ? true : false}>1</option>
                                 <option className="package-select-option" value={2}
-                                selected={premiumRevisions === 2 ? true : false}>2</option>
+                                    selected={premiumRevisions === 2 ? true : false}>2</option>
                                 <option className="package-select-option" value={3}
-                                selected={premiumRevisions === 3 ? true : false}>3</option>
+                                    selected={premiumRevisions === 3 ? true : false}>3</option>
                                 <option className="package-select-option" value={4}
-                                selected={premiumRevisions === 4 ? true : false}>4</option>
+                                    selected={premiumRevisions === 4 ? true : false}>4</option>
                                 <option className="package-select-option" value={5}
-                                selected={premiumRevisions === 5 ? true : false}>5</option>
+                                    selected={premiumRevisions === 5 ? true : false}>5</option>
                                 <option className="package-select-option" value={6}
-                                selected={premiumRevisions === 6 ? true : false}>6</option>
+                                    selected={premiumRevisions === 6 ? true : false}>6</option>
                                 <option className="package-select-option" value={7}
-                                selected={premiumRevisions === 7 ? true : false}>7</option>
+                                    selected={premiumRevisions === 7 ? true : false}>7</option>
                                 <option className="package-select-option" value={8}
-                                selected={premiumRevisions === 8 ? true : false}>8</option>
+                                    selected={premiumRevisions === 8 ? true : false}>8</option>
                                 <option className="package-select-option" value={9}
-                                selected={premiumRevisions === 9 ? true : false}>9</option>
+                                    selected={premiumRevisions === 9 ? true : false}>9</option>
                                 <option className="package-select-option" value={888}
-                                selected={premiumRevisions === 888 ? true : false}>Unlimited</option>
+                                    selected={premiumRevisions === 888 ? true : false}>Unlimited</option>
                             </select>
                         </div>
                         <div className="nsp package-premium-price nsp-col-4 nsp-row11 package-price-input-wrap">
@@ -831,6 +825,54 @@ function EditService() {
 
     }
 
+    if (content === 'description') {
+        component =
+            <div className="new-service__description-wrapper">
+                <div className="new-service__header">Description</div>
+                <div className="new-service__overview-content">
+
+                    <div className="new-service__description-small-container">
+                        <label className="description__label" htmlFor="gig-description">Briefly describe your gig</label>
+                        <textarea
+                            className="description__gig-description-input"
+                            name="gig-description"
+                            maxLength="1200"
+                            value={serviceDescription}
+                            onChange={(e) => setServiceDescription(e.target.value)}
+                        >
+                        </textarea>
+                    </div>
+                    <footer className="overview__gig-title-footer">
+                        <div className="new-service__chara-count" style={{ marginRight: "20px", marginTop: "15px" }}>
+                            <div id="title-error" className="error-message" style={{ float: "left" }}></div>
+                            {serviceDescription.length + "/1200 characters"}
+                        </div>
+                    </footer>
+
+                </div>
+
+                <footer className="overview__gig-title-footer">
+                    <button className="new-service__overview-btn-submit"
+                        onClick={handleDescriptionSubmit}
+                    >Save & Continue</button>
+                </footer>
+
+            </div>
+    }
+
+    if (content === 'requirements') {
+        component =
+            <div className="new-service__description-wrapper">
+                <div className="new-service__header">Requirements</div>
+                <footer className="overview__gig-title-footer">
+                    <button className="new-service__overview-btn-submit"
+                        onClick={handleServicePublish}
+                    >Publish!</button>
+                </footer>
+
+            </div>
+    }
+
     return (
 
         <>
@@ -838,10 +880,22 @@ function EditService() {
             <div className="new-service__navbar-wrapper">
 
                 <nav className="new-service__navbar">
-                    <div className="new-service__navbar-list" onClick={() => setContent('overview')}>Overview</div>
-                    <div className="new-service__navbar-list" onClick={() => setContent('pricing')}>Pricing</div>
-                    <div className="new-service__navbar-list" onClick={() => setContent('description')}>Description & FAQ</div>
-                    <div className="new-service__navbar-list" onClick={() => setContent('requirements')}>Requirements</div>
+                    <div className="new-service__navbar-list"
+                        onClick={() => setContent('overview')}
+                        style={content === 'overview' ? { color: "#1DBF73" } : {}}
+                    >Overview</div>
+                    <div className="new-service__navbar-list"
+                        onClick={() => setContent('pricing')}
+                        style={content === 'pricing' ? { color: "#1DBF73" } : {}}
+                    >Pricing</div>
+                    <div className="new-service__navbar-list"
+                        onClick={() => setContent('description')}
+                        style={content === 'description' ? { color: "#1DBF73" } : {}}
+                    >Description</div>
+                    <div className="new-service__navbar-list"
+                        onClick={() => setContent('requirements')}
+                        style={content === 'requirements' ? { color: "#1DBF73" } : {}}
+                    >Requirements</div>
                 </nav>
 
             </div>

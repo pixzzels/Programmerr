@@ -1,0 +1,29 @@
+
+.new-service__description-wrapper {
+    margin: auto;
+    width: fit-content;
+    margin-top: 50px;
+}
+
+.description__label {
+    padding: 10px;
+    padding-left: 0px;
+    color: #62646A;
+    margin-left: 20px;
+
+
+}
+
+.description__gig-description-input {
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    height: 220px;
+    width: 635px;
+    border: 1px solid #c5c6c9;
+    color: #7A7D85;
+    border-radius: 3px;
+    margin-top: 20px;
+    padding: 15px;
+    margin-left: 20px;
+}   

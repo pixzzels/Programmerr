@@ -8,7 +8,8 @@ const UPDATE_OVERVIEW_SERVICE = 'service/UPDATE_OVERVIEW_SERVICE';
 const UPDATE_BASIC_WEB_SERVICE = 'service/UPDATE_BASIC_WEB_SERVICE';
 const UPDATE_STANDARD_WEB_SERVICE = 'service/UPDATE_STANDARD_WEB_SERVICE';
 const UPDATE_PREMIUM_WEB_SERVICE = 'service/UPDATE_PREMIUM_WEB_SERVICE';
-
+const UPDATE_SERVICE_DESCRIPTION = 'service/UPDATE_SERVICE_DESCRIPTION';
+const UPDATE_SERVICE_PUBLISH = 'service/UPDATE_SERVICE_PUBLISH';
 
 
 const loadAllServices = data => ({
@@ -61,6 +62,16 @@ const updatePremiumPricing = data => ({
     data
 });
 
+const updateSDescription = data => ({
+    type: UPDATE_SERVICE_DESCRIPTION,
+    data
+});
+
+const updateServicePublish = data => ({
+    type: UPDATE_SERVICE_PUBLISH,
+    data
+})
+
 export const loadServices = () => async (dispatch) => {
 
     const response = await fetch(`/api/service/`)
@@ -102,7 +113,6 @@ export const loadServiceEdit = (serviceId) => async (dispatch) => {
     dispatch(loadUserServiceEdit(data));
     return data;
 };
-
 
 export const loadProgramingLanguages = () => async (dispatch) => {
 
@@ -258,6 +268,42 @@ export const updatePremiumPackage = (info) => async dispatch => {
     return data
 };
 
+export const updateServiceDescription = (info) => async dispatch => {
+    const { serviceDescription, serviceId } = info
+
+    const response = await fetch(`/api/service/update/description/${serviceId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            description: serviceDescription
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(updateSDescription(data));
+    return data
+};
+
+export const setServicePublish = (info) => async dispatch => {
+    const { publish, serviceId } = info
+
+    const response = await fetch(`/api/service/publish/${serviceId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            publish
+        })
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(updateServicePublish(data));
+    return data
+};
+
 const initialState = []
 
 const serviceReducer = (state = initialState, action) => {
@@ -309,8 +355,6 @@ const serviceReducer = (state = initialState, action) => {
         }
 
         case UPDATE_BASIC_WEB_SERVICE: {
-            console.log(action.data)  
-            console.log("state", state)
             newState = {
                 ...state,
                 editService: action.data
@@ -319,8 +363,6 @@ const serviceReducer = (state = initialState, action) => {
         }
 
         case UPDATE_STANDARD_WEB_SERVICE: {
-            console.log(action.data)  
-            console.log("state", state)
             newState = {
                 ...state,
                 editService: action.data
@@ -329,8 +371,14 @@ const serviceReducer = (state = initialState, action) => {
         }
 
         case UPDATE_PREMIUM_WEB_SERVICE: {
-            console.log(action.data)  
-            console.log("state", state)
+            newState = {
+                ...state,
+                editService: action.data
+            }
+            return newState;
+        }
+
+        case UPDATE_SERVICE_DESCRIPTION: {
             newState = {
                 ...state,
                 editService: action.data
