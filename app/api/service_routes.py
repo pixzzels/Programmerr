@@ -190,3 +190,29 @@ def update_premium_package(serviceId):
     db.session.add(webPremium)
     db.session.commit()
     return service.to_dict()
+
+
+@service_routes.route('/update/description/<int:serviceId>', methods=["PUT"])
+@login_required
+def update_service_description(serviceId):
+    service = Service.query.get(serviceId)
+
+    service.description = request.json["description"]
+
+    db.session.add(service)
+    db.session.commit()
+
+    return service.dict_overview()
+
+
+@service_routes.route('/publish/<int:serviceId>', methods=["PUT"])
+@login_required
+def update_service_publish(serviceId):
+    service = Service.query.get(serviceId)
+
+    service.publish = request.json["publish"]
+
+    db.session.add(service)
+    db.session.commit()
+
+    return service.dict_overview()

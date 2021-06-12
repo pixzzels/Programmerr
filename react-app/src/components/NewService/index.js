@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loadProgramingLanguages, addOverviewService } from '../../store/service';
@@ -69,12 +69,7 @@ function NewService() {
                     setId(res.id)
                     setAdd(false)
                 })
-            // setContent('pricing')
-            // setAdd(false)
-            // console.log(newService)
-            // setId(newService.id)
         }
-        // console.log("title", title, "category", category, "prgramminglang", programmingLang)
     }
 
     if (!programmingLangs) return null;
@@ -86,7 +81,7 @@ function NewService() {
                 <nav className="new-service__navbar">
                     <div style={{ color: "#1DBF73" }} className="new-service__navbar-list">Overview</div>
                     <div className="new-service__navbar-list">Pricing</div>
-                    <div className="new-service__navbar-list">Description & FAQ</div>
+                    <div className="new-service__navbar-list">Description</div>
                     <div className="new-service__navbar-list">Requirements</div>
                 </nav>
 
