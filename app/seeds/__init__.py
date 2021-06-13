@@ -6,6 +6,8 @@ from .categories import seed_categories, undo_categories
 from .service_languages import seed_service_languages, undo_service_languages
 from .webs import seed_webs, undo_webs
 from .web_packages import seed_web_packages, undo_web_packages
+from .bugs import seed_bugs, undo_bugs
+from .bug_packages import seed_bug_packages, undo_bug_packages
 from .services import seed_services, undo_services
 # from .languages import seed_languages, undo_languages
 # Creates a seed group to hold our commands
@@ -21,6 +23,8 @@ def seed():
     seed_service_languages()
     seed_webs()
     seed_web_packages()
+    seed_bugs()
+    seed_bug_packages()
     seed_services()
     seed_reviews()
     # Add other seed functions here
@@ -34,6 +38,8 @@ def undo():
     undo_service_languages()
     undo_webs()
     undo_web_packages()
+    undo_bugs()
+    undo_bug_packages()
     undo_services()
     undo_reviews()
     # Add other undo functions here
