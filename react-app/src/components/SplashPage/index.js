@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
-import { NavLink } from 'react-router-dom';
 import { loadServices } from '../../store/service';
-import NavBar from '../NavBar';
 import ServiceCard from '../ServiceCard';
 import LoginFormModal from '../LoginFormModal';
 import "./SplashPage.css"
@@ -12,14 +9,11 @@ function SplashPage() {
 
     const dispatch = useDispatch();
 
-    // const user = useSelector(state => state.session.user)
     const services = useSelector(state => state.service.services)
 
     useEffect(() => {
         dispatch(loadServices())
     }, [dispatch])
-
-
     
     const [showJesse, setShowJesse] = useState(1)
     const [showBrad, setShowBrad] = useState(0)
@@ -114,15 +108,15 @@ function SplashPage() {
                     <div className="heros">
                         <div className={"hero jesse " + (showJesse == 0 ? "hidden" : "")} style={{ backgroundColor: "#5880a5", opacity: showJesse }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png"></img> */}
+                            {/* <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png" alt="jesse image"></img> */}
                         </div>
                         <div className={"hero brad " + (showBrad == 0 ? "hidden" : "")} style={{ backgroundColor: "#58a581", opacity: showBrad }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png"></img> */}
+                            {/* <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png" alt="brad image"></img> */}
                         </div>
                         <div className={"hero eunice " + (showEunice === 0 ? "hidden" : "")} style={{ backgroundColor: "#a5587c", opacity: showEunice }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png"></img> */}
+                            {/* <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png" alt="eunice image"></img> */}
                         </div>
                     </div>
 

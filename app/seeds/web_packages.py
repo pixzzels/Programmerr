@@ -48,34 +48,112 @@ def seed_web_packages():
     web_package_28 = WebPackage(
         web_basic_id=28, web_standard_id=44, web_premium_id=60)
 
-    db.session.add( web_package_1)
-    db.session.add( web_package_2)
-    db.session.add( web_package_3)
-    db.session.add( web_package_4)
-    db.session.add( web_package_5)
-    db.session.add( web_package_6)
-    db.session.add( web_package_7)
-    db.session.add( web_package_8)
-    db.session.add( web_package_9)
-    db.session.add( web_package_10)
-    db.session.add( web_package_11)
-    db.session.add( web_package_12)
-    db.session.add( web_package_13)
-    db.session.add( web_package_14)
-    db.session.add( web_package_15)
-    db.session.add( web_package_16)
-    db.session.add( web_package_17)
-    db.session.add( web_package_18)
-    db.session.add( web_package_19)
-    db.session.add( web_package_20)
-    db.session.add( web_package_21)
-    db.session.add( web_package_22)
-    db.session.add( web_package_23)
-    db.session.add( web_package_24)
-    db.session.add( web_package_25)
-    db.session.add( web_package_26)
-    db.session.add( web_package_27)
-    db.session.add( web_package_28)
+    db.session.add(web_package_1)
+    db.session.add(web_package_2)
+    db.session.add(web_package_3)
+    db.session.add(web_package_4)
+    db.session.add(web_package_5)
+    db.session.add(web_package_6)
+    db.session.add(web_package_7)
+    db.session.add(web_package_8)
+    db.session.add(web_package_9)
+    db.session.add(web_package_10)
+    db.session.add(web_package_11)
+    db.session.add(web_package_12)
+    db.session.add(web_package_13)
+    db.session.add(web_package_14)
+    db.session.add(web_package_15)
+    db.session.add(web_package_16)
+    db.session.add(web_package_17)
+    db.session.add(web_package_18)
+    db.session.add(web_package_19)
+    db.session.add(web_package_20)
+    db.session.add(web_package_21)
+    db.session.add(web_package_22)
+    db.session.add(web_package_23)
+    db.session.add(web_package_24)
+    db.session.add(web_package_25)
+    db.session.add(web_package_26)
+    db.session.add(web_package_27)
+    db.session.add(web_package_28)
+
+    web_package_29 = WebPackage(
+        web_basic_id=61, web_standard_id=88, web_premium_id=109)
+    web_package_30 = WebPackage(web_basic_id=62)
+    web_package_31 = WebPackage(web_basic_id=63)
+    web_package_32 = WebPackage(
+        web_basic_id=64, web_standard_id=89, web_premium_id=110)
+    web_package_33 = WebPackage(
+        web_basic_id=65, web_standard_id=90, web_premium_id=111)
+    web_package_34 = WebPackage(
+        web_basic_id=66, web_standard_id=91, web_premium_id=112)
+    web_package_35 = WebPackage(
+        web_basic_id=67, web_standard_id=92, web_premium_id=113)
+    web_package_36 = WebPackage(
+        web_basic_id=68, web_standard_id=93, web_premium_id=114)
+    web_package_37 = WebPackage(web_basic_id=69)
+    web_package_38 = WebPackage(web_basic_id=70)
+    web_package_39 = WebPackage(
+        web_basic_id=71, web_standard_id=94, web_premium_id=115)
+    web_package_40 = WebPackage(
+        web_basic_id=72, web_standard_id=95, web_premium_id=116)
+    web_package_41 = WebPackage(
+        web_basic_id=73, web_standard_id=96, web_premium_id=117)
+    web_package_42 = WebPackage(
+        web_basic_id=74, web_standard_id=97, web_premium_id=118)
+    web_package_43 = WebPackage(
+        web_basic_id=75, web_standard_id=98, web_premium_id=119)
+    web_package_44 = WebPackage(
+        web_basic_id=76, web_standard_id=99, web_premium_id=120)
+    web_package_45 = WebPackage(web_basic_id=77)
+    web_package_46 = WebPackage(
+        web_basic_id=78, web_standard_id=100, web_premium_id=121)
+    web_package_47 = WebPackage(
+        web_basic_id=79, web_standard_id=101, web_premium_id=122)
+    web_package_48 = WebPackage(
+        web_basic_id=80, web_standard_id=102, web_premium_id=123)
+    web_package_49 = WebPackage(
+        web_basic_id=81, web_standard_id=103, web_premium_id=124)
+    web_package_50 = WebPackage(
+        web_basic_id=82, web_standard_id=104, web_premium_id=125)
+    web_package_51 = WebPackage(
+        web_basic_id=83, web_standard_id=105, web_premium_id=126)
+    web_package_52 = WebPackage(
+        web_basic_id=84, web_standard_id=106, web_premium_id=127)
+    web_package_53 = WebPackage(
+        web_basic_id=85, web_standard_id=107, web_premium_id=128)
+    web_package_54 = WebPackage(
+        web_basic_id=86, web_standard_id=108, web_premium_id=129)
+    web_package_55 = WebPackage(web_basic_id=87)
+
+    db.session.add(web_package_29)
+    db.session.add(web_package_30)
+    db.session.add(web_package_31)
+    db.session.add(web_package_31)
+    db.session.add(web_package_32)
+    db.session.add(web_package_33)
+    db.session.add(web_package_34)
+    db.session.add(web_package_35)
+    db.session.add(web_package_36)
+    db.session.add(web_package_37)
+    db.session.add(web_package_38)
+    db.session.add(web_package_39)
+    db.session.add(web_package_40)
+    db.session.add(web_package_41)
+    db.session.add(web_package_42)
+    db.session.add(web_package_43)
+    db.session.add(web_package_44)
+    db.session.add(web_package_45)
+    db.session.add(web_package_46)
+    db.session.add(web_package_47)
+    db.session.add(web_package_48)
+    db.session.add(web_package_49)
+    db.session.add(web_package_50)
+    db.session.add(web_package_51)
+    db.session.add(web_package_52)
+    db.session.add(web_package_53)
+    db.session.add(web_package_54)
+    db.session.add(web_package_55)
 
     db.session.commit()
 

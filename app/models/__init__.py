@@ -8,6 +8,8 @@ from .category import Category
 from .service_language import ServiceLanguage
 from .web import Web
 from .web_package import WebPackage
+from .bug import Bug
+from .bug_package import BugPackage
 from .service import Service
 from .requirement import Requirement
 from .review import Review

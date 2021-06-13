@@ -49,6 +49,8 @@ def seed_service_languages():
     kotlin = ServiceLanguage(name="Kotlin")
     db.session.add(kotlin)
 
+    multi = ServiceLanguage(name="Multiple Languages")
+    db.session.add(multi)
     db.session.commit()
 
 

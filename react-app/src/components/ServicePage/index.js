@@ -9,6 +9,7 @@ import './ServicePage.css'
 function ServicePage() {
     const dispatch = useDispatch();
     const service = useSelector(state => state.service.service)
+    const [review, setReview] = useState();
     // console.log(service)
 
     const { id } = useParams();
@@ -18,8 +19,17 @@ function ServicePage() {
         dispatch(loadService(id))
     }, [dispatch, id])
 
+    useEffect(() => {
+        if (service) {
+            if (service.reviews) {
+                setReview(service.reviews[0])
+            }
+        }
+
+    }, [service])
+
     if (!service) return null;
-    if (!service.reviews[0]) return null;
+    // if (!service.reviews[0]) return null;
 
     // console.log(service.reviews[0])
 
@@ -44,46 +54,50 @@ function ServicePage() {
                         <h1 className="service-page__title">{service.title}</h1>
 
                         <div className="service-page__seller-info">
-                            <img className="seller-info__profile-img" src={service.user.profile_img}></img>
+                            <img className="seller-info__profile-img" src={service.user.profile_img} alt="profile image"></img>
                             <NavLink className="service-card__link" to={`/profile/${service.user.id}`}>
                                 <div className="seller-info__seller-name">{service.user.username}</div>
                             </NavLink>
                             <p style={{ paddingLeft: "10px", color: "#ddd" }}>{"|"}</p>
-                            <div className="seller-info__review-score">
-                                <i className="fas fa-star"></i>
-                                {" " + service.reviews[0].score.toFixed(1)}
-                            </div>
+                            {review &&
+                                <div className="seller-info__review-score">
+                                    <i className="fas fa-star"></i>
+                                    {" " + review.score.toFixed(1)}
+                                </div>
+                            }
                         </div>
 
 
                     </div>
 
                     <div className="service-page__listing-img-container">
-                        <img className="service-page__listing-img" src={service.listing_img}></img>
+                        <img className="service-page__listing-img" src={service.listing_img} alt="service image"></img>
 
                     </div>
 
-                    <div className="service-page__review-snippet">
-                        <h2 className="service-page__section-header">What people loved about this seller</h2>
-                        <div className="service-page__review">
-                            <div style={{ width: "32px" }}>
-                                <img className="review__profile_img" src={service.user.profile_img}></img>
+                    {review &&
+                        <div className="service-page__review-snippet">
+                            <h2 className="service-page__section-header">What people loved about this seller</h2>
+                            <div className="service-page__review">
+                                <div style={{ width: "32px" }}>
+                                    <img className="review__profile_img" src={service.user.profile_img} alt="profile image"></img>
 
-                            </div>
-                            <div>
-                                <div className="review__owner-info">
-                                    <span className="review__owner-username">{service.reviews[0].owner}</span>
-                                    <div className="service-page__rating">
-                                        <i className="fas fa-star" style={{ marginRight: "8px" }}></i>
-                                        {" " + service.reviews[0].score.toFixed(1)}
-                                    </div>
                                 </div>
-                                <div className="review__description" id="description">
-                                    {service.reviews[0].description}
+                                <div>
+                                    <div className="review__owner-info">
+                                        <span className="review__owner-username">{review.owner}</span>
+                                        <div className="service-page__rating">
+                                            <i className="fas fa-star" style={{ marginRight: "8px" }}></i>
+                                            {" " + review.score.toFixed(1)}
+                                        </div>
+                                    </div>
+                                    <div className="review__description" id="description">
+                                        {review.description}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
 
                     <div className="service-page__info-container">
                         <h2 className="service-page__section-header">About This Service</h2>
@@ -100,7 +114,7 @@ function ServicePage() {
                     <div className="service-page__about-seller">
                         <h2 className="service-page__section-header">About The Seller</h2>
                         <div className="about-seller__info">
-                            <img className="about-seller__profile_img" src={service.user.profile_img}></img>
+                            <img className="about-seller__profile_img" src={service.user.profile_img} alt="profile image"></img>
                             <div className="about-seller__details">
                                 <NavLink className="service-card__link" to={`/profile/${service.user.id}`}>
                                     <div className="about-seller__seller-name">{service.user.username}</div>
@@ -108,10 +122,12 @@ function ServicePage() {
                                 <div className="about-seller__tagline">
                                     {service.user.tag_line}
                                 </div>
-                                <div className="about-seller__review-score">
-                                    <i className="fas fa-star"></i>
-                                    {" " + service.reviews[0].score.toFixed(1)}
-                                </div>
+                                {review &&
+                                    <div className="about-seller__review-score">
+                                        <i className="fas fa-star"></i>
+                                        {" " + review.score.toFixed(1)}
+                                    </div>
+                                }
 
                             </div>
                         </div>

@@ -2,7 +2,8 @@ const LOAD_SERVICES = 'service/LOAD_SERVICES';
 const LOAD_SERVICE = 'service/LOAD_SERVICE';
 const LOAD_PROGRAMMING_LANG = 'service/LOAD_PROGRAMMING_LANG';
 const ADD_OVERVIEW_SERVICE = 'service/ADD_OVERVIEW_SERVICE';
-// const LOAD_USER_NEW_SERVICE = 'service/LOAD_USER_NEW_SERVICE';
+
+// user edit services
 const LOAD_SERVICE_EDIT = 'service/LOAD_SERVICE_EDIT';
 const UPDATE_OVERVIEW_SERVICE = 'service/UPDATE_OVERVIEW_SERVICE';
 const UPDATE_BASIC_WEB_SERVICE = 'service/UPDATE_BASIC_WEB_SERVICE';
@@ -11,6 +12,8 @@ const UPDATE_PREMIUM_WEB_SERVICE = 'service/UPDATE_PREMIUM_WEB_SERVICE';
 const UPDATE_SERVICE_DESCRIPTION = 'service/UPDATE_SERVICE_DESCRIPTION';
 const UPDATE_SERVICE_PUBLISH = 'service/UPDATE_SERVICE_PUBLISH';
 
+// user profile services
+const LOAD_USER_SERVICES = 'service/LOAD_USER_SERVICES';
 
 const loadAllServices = data => ({
     type: LOAD_SERVICES,
@@ -21,11 +24,6 @@ const loadOneService = data => ({
     type: LOAD_SERVICE,
     data
 });
-
-// const loadUServices = data => ({
-//     type: LOAD_USER_NEW_SERVICE,
-//     data
-// });
 
 const loadUserServiceEdit = data => ({
     type: LOAD_SERVICE_EDIT,
@@ -72,14 +70,18 @@ const updateServicePublish = data => ({
     data
 })
 
-export const loadServices = () => async (dispatch) => {
+const loadAllUserOwnedServices = data => ({
+    type: LOAD_USER_SERVICES,
+    data
+})
 
+export const loadServices = () => async (dispatch) => {
     const response = await fetch(`/api/service/`)
 
     if (!response.ok) throw response
 
     const data = await response.json();
-    dispatch(loadAllServices(data));
+    dispatch(loadAllServices(data.reverse()));
     return data;
 };
 
@@ -93,16 +95,6 @@ export const loadService = (id) => async (dispatch) => {
     dispatch(loadOneService(data));
     return data;
 };
-
-// export const loadUserServices = (id) => async (dispatch) => {
-//     const response = await fetch(`/api/service/user/${id}`)
-//     if (!response.ok) throw response
-
-//     const data = await response.json();
-//     // console.log("data", data)
-//     dispatch(loadUServices(data.pop()));
-//     return data;
-// };
 
 export const loadServiceEdit = (serviceId) => async (dispatch) => {
     const response = await fetch(`/api/service/user/edit/${serviceId}`)
@@ -191,7 +183,7 @@ export const updateBasicPackage = (info) => async dispatch => {
             content_upload: basicContentUpload,
             responsive_design: basicResponsiveDesign,
             source_code: basicSourceCode,
-            revisions: basicRevisions, 
+            revisions: basicRevisions,
             price: basicPrice
         })
     })
@@ -223,7 +215,7 @@ export const updateStandardPackage = (info) => async dispatch => {
             content_upload: standardContentUpload,
             responsive_design: standardResponsiveDesign,
             source_code: standardSourceCode,
-            revisions: standardRevisions, 
+            revisions: standardRevisions,
             price: standardPrice
         })
     })
@@ -255,7 +247,7 @@ export const updatePremiumPackage = (info) => async dispatch => {
             content_upload: premiumContentUpload,
             responsive_design: premiumResponsiveDesign,
             source_code: premiumSourceCode,
-            revisions: premiumRevisions, 
+            revisions: premiumRevisions,
             price: premiumPrice
         })
     })
@@ -304,6 +296,17 @@ export const setServicePublish = (info) => async dispatch => {
     return data
 };
 
+export const loadUserOwnedServices = (userId) => async (dispatch) => {
+
+    const response = await fetch(`/api/service/owned/${userId}`)
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(loadAllUserOwnedServices(data));
+    return data;
+};
+
 const initialState = []
 
 const serviceReducer = (state = initialState, action) => {
@@ -311,7 +314,6 @@ const serviceReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SERVICES: {
             newState = {}
-
             newState["services"] = action.data
             return {
                 ...newState, ...state
@@ -320,25 +322,14 @@ const serviceReducer = (state = initialState, action) => {
 
         case LOAD_SERVICE: {
             newState = {}
-
             newState["service"] = action.data
             return {
                 ...newState
             }
         }
 
-        // case LOAD_USER_NEW_SERVICE: {
-        //     newState = {}
-        //     // console.log("action.data", action.data)
-        //     newState["newService"] = action.data
-        //     return {
-        //         ...newState, ...state
-        //     }
-        // }
-
         case LOAD_SERVICE_EDIT: {
             newState = {}
-            // console.log("action.data", action.data)
             newState["editService"] = action.data
             return {
                 ...newState, ...state
@@ -347,7 +338,6 @@ const serviceReducer = (state = initialState, action) => {
 
         case LOAD_PROGRAMMING_LANG: {
             newState = {}
-
             newState["programmingLangs"] = action.data
             return {
                 ...newState, ...state
@@ -384,6 +374,14 @@ const serviceReducer = (state = initialState, action) => {
                 editService: action.data
             }
             return newState;
+        }
+
+        case LOAD_USER_SERVICES: {
+            newState = {}
+            newState["userServices"] = action.data
+            return {
+                ...newState, ...state
+            }
         }
 
         default:
