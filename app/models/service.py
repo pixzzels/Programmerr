@@ -28,22 +28,38 @@ class Service(db.Model):
     reviews = db.relationship("Review", back_populates="service")
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "publish": self.publish,
-            "title": self.title,
-            "description": self.description,
-            "listing_img": self.listing_img,
-            "user_id": self.user_id,
-            "category_id": self.category_id,
-            "service_language_id": self.service_language_id,
-            "web_package_id": self.web_package_id,
-            "time_created": self.time_created,
-            "user": self.user.to_dict(),
-            "reviews": [review.to_dict() for review in self.reviews],
-            "web_package": self.web_package.to_dict(),
-            "service_language": self.service_language.to_dict()
-        }
+        if self.web_package_id:
+            return {
+                "id": self.id,
+                "publish": self.publish,
+                "title": self.title,
+                "description": self.description,
+                "listing_img": self.listing_img,
+                "user_id": self.user_id,
+                "category_id": self.category_id,
+                "service_language_id": self.service_language_id,
+                "web_package_id": self.web_package_id,
+                "time_created": self.time_created,
+                "user": self.user.to_dict(),
+                "reviews": [review.to_dict() for review in self.reviews],
+                "web_package": self.web_package.to_dict(),
+                "service_language": self.service_language.to_dict()
+            }
+        else:
+            return {
+                "id": self.id,
+                "publish": self.publish,
+                "title": self.title,
+                "description": self.description,
+                "listing_img": self.listing_img,
+                "user_id": self.user_id,
+                "category_id": self.category_id,
+                "service_language_id": self.service_language_id,
+                "time_created": self.time_created,
+                "user": self.user.to_dict(),
+                "reviews": [review.to_dict() for review in self.reviews],
+                "service_language": self.service_language.to_dict()
+            }
 
     def dict_overview(self):
         return {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import './ServiceCard.css';
+import './UserServiceCard.css';
 
-function ServiceCard({ service }) {
+function UserServiceCard({ service }) {
 
     const [price, setPrice] = useState();
     const [review, setReview] = useState();
@@ -27,24 +27,18 @@ function ServiceCard({ service }) {
 
     return (
         <>
-            <div className="card-wrapper">
-                <div className="card-layout">
+            <div className="user-service-card-wrapper">
+                <div className="user-service-card-layout">
 
                     <NavLink className="card__link" to={`/service/${service.id}`}>
-                        <img className="card__listing_img" src={service.listing_img} alt="service image"></img>
+                        <img className="user-service-card__listing_img" src={service.listing_img} alt="service image"></img>
                     </NavLink>
-                    <div className="card__user-info">
-                        <img className="card__user-image" src={service.user.profile_img} alt="profile"></img>
-                        <NavLink className="card__link" to={`/profile/${service.user.username}`}>
-                            <div className="card__user-username">{service.user.username}</div>
-                        </NavLink>
 
-                    </div>
                     <NavLink className="card__link" to={`/service/${service.id}`}>
-                        <div className="card__service-title" >{service.title}</div>
+                        <div className="user-service-card__service-title" >{service.title}</div>
                     </NavLink>
 
-                    <div className="card__service-rating">
+                    <div className="user-service-card__service-rating">
                         {review &&
                             <>
                                 < i className="fas fa-star"></i>
@@ -52,11 +46,11 @@ function ServiceCard({ service }) {
                             </>
                         }
                     </div>
-                    <footer className="card-footer">
-                        <i className="fas fa-heart" style={{ color: "#c5c5c5" }}></i>
-                        <div>
+                    <footer className="user-service-card-footer">
+                        <i className="fas fa-ellipsis-h"></i>
+                        <div style={{color:"#1DBF73"}}>
                             <span className="card__service-price-static">STARTING AT</span>
-                            <span className="card__service-price">${price}</span>
+                            <span className="card__service-price" style={{fontWeight:'bold'}}>${price}</span>
                         </div>
                     </footer>
                 </div>
@@ -65,5 +59,5 @@ function ServiceCard({ service }) {
     )
 }
 
-export default ServiceCard;
+export default UserServiceCard;
 

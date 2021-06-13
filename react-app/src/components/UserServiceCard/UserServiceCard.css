@@ -1,0 +1,40 @@
+.user-service-card-wrapper {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    /* margin-right: 20px;
+    margin-bottom: 20px; */
+}
+
+.user-service-card-layout {
+    width: 232px;
+    height: 260px;
+    border: 1px solid #ddd;
+    /* margin: 10px; */
+}
+
+.user-service-card__listing_img {
+    width: 230px;
+    height: 142px;
+}
+
+.user-service-card__service-title {
+    width: 206px;
+    height: 40px;
+    margin: 6px 12px 32px;
+    font-size: 15px;
+    color: #303030
+}
+
+.user-service-card-footer {
+    display: flex;
+    justify-content: space-between;
+    height: 44px;
+    padding: 0px 12px 10px;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    color: #62646A;
+    font-size: 20px;
+    margin-bottom: 10px;
+}

@@ -462,6 +462,40 @@
     font-size: 13px;
 }
 
+/*------Service-container-------------------------------------------------------*/
+
+.profile-services-container {
+    width: 756px;
+}
+
+.profile-container-right-services-headers {
+    display: flex;
+    /* justify-content: space-between; */
+    height: 66px;
+    background-color: #fff;
+    padding: 0px 25px;
+    align-items: center;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #62646A;
+    font-weight: 500;
+}
+
+.profile-container-right-services-header {
+    padding: 23px 0px;
+}
+.profile-container-right-services-header:hover {
+    cursor: pointer;
+    color: #1DBF73;
+}
+
+.profile-services {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
 /*------Media Screen-------------------------------------------------------*/
 
 @media only screen and (max-width: 1259px) {

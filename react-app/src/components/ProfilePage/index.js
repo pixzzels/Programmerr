@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages, deleteUserLanguage, addSkill, loadSkills, deleteUserSkill } from '../../store/user'
+import {
+    loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages,
+    deleteUserLanguage, addSkill, loadSkills, deleteUserSkill
+} from '../../store/user'
+import { loadUserOwnedServices } from '../../store/service';
 import { loadLanguages } from '../../store/language'
 import NavBar from '../NavBar';
+import UserServiceCard from '../UserServiceCard';
 import './ProfilePage.css';
 
 function SingleSkill({ skill }) {
@@ -74,17 +79,21 @@ function ProfilePage() {
     const userProfile = useSelector(state => state.user.profile)
     const userLanguages = useSelector(state => state.user.languages)
     const userSkills = useSelector(state => state.user.skills)
+    const userOwned = useSelector(state => state.service.userServices)
+
 
     const languages = useSelector(state => {
         const lang = Object.values(state.language)
         return lang[0];
     })
 
+    const [active, setActive] = useState(true);
+
     const [showTaglineDD, setShowTaglineDD] = useState(false);
     const [showDescriptionDD, setShowDescriptionDD] = useState(false);
     const [showLanguageDD, setShowLanguageDD] = useState(false);
     const [showSkillDD, setShowSkillDD] = useState(false);
-    const [showEduDD, setShowEduDD] = useState(false);
+    // const [showEduDD, setShowEduDD] = useState(false);
 
 
     const [tagline, setTagline] = useState('');
@@ -94,13 +103,15 @@ function ProfilePage() {
     const [skill, setSkill] = useState('');
     const [skillLevel, setSkillLevel] = useState('');
 
+
+
     // const [edu, setEdu] = useState('');
     const userId = user.id
 
 
     useEffect(() => {
         dispatch(loadUser(userId))
-    }, [dispatch])
+    }, [dispatch, userId])
 
     useEffect(() => {
         dispatch(loadLanguages())
@@ -108,11 +119,15 @@ function ProfilePage() {
 
     useEffect(() => {
         dispatch(loadUserLanguages(userId))
-    }, [dispatch])
+    }, [dispatch, userId])
 
     useEffect(() => {
         dispatch(loadSkills(userId))
-    }, [dispatch])
+    }, [dispatch, userId])
+
+    useEffect(() => {
+        dispatch(loadUserOwnedServices(userId))
+    }, [dispatch, userId])
 
 
     const handleUpdateTagline = (e) => {
@@ -121,7 +136,6 @@ function ProfilePage() {
         if (tagline === '') {
             return
         };
-        // console.log(tagline, userId)
         dispatch(updateTagline({ tagline, userId }));
     };
 
@@ -154,6 +168,7 @@ function ProfilePage() {
     if (!userProfile) return null;
     if (!userLanguages) return null;
     if (!userSkills) return null;
+    if (!userOwned) return null;
 
 
     return (
@@ -372,12 +387,52 @@ function ProfilePage() {
                         </div>
 
                         <div className="profile-container-right">
-                            <div className="profile-container-right-header">
-                                <p className="profile">It looks like you don't have any active Gigs. Get selling!</p>
-                                <NavLink to="/new-service">
-                                    <button className="profile-container-create-new-service">Create a New Gig</button>
-                                </NavLink>
-                            </div>
+                            {userOwned.length < 1 &&
+                                <div className="profile-container-right-header">
+                                    <p className="profile">It looks like you don't have any active Gigs. Get selling!</p>
+                                    <NavLink to="/new-service">
+                                        <button className="profile-container-create-new-service">Create a New Gig</button>
+                                    </NavLink>
+                                </div>
+                            }
+                            {userOwned &&
+                                <>
+                                    <div className="profile-container-right-services-headers">
+                                        <div className="profile-container-right-services-header"
+                                            style={active ? { marginRight: "35px", color: "#1DBF73", borderBottom: "3px solid #1DBF73" } : { marginRight: "35px" }}
+                                            onClick={() => setActive(true)}
+                                        >ACTIVE GIGS</div>
+                                        <div className="profile-container-right-services-header"
+                                            style={!active ? { color: "#1DBF73", borderBottom: "3px solid #1DBF73" } : {}}
+                                            onClick={() => setActive(false)}
+                                        >DRAFTS</div>
+                                    </div>
+                                    <div className="profile-services-container">
+                                        {active &&
+                                            <div className="profile-services">
+                                                {userOwned.map((service) => {
+                                                    if (service.publish === true) {
+                                                        return (
+                                                            <UserServiceCard service={service} />
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                        }
+                                        {!active &&
+                                            <div className="profile-services">
+                                                {userOwned.map((service) => {
+                                                    if (service.publish === false) {
+                                                        return (
+                                                            <UserServiceCard service={service} />
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                        }
+                                    </div>
+                                </>
+                            }
 
                         </div>
                     </div>

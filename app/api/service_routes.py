@@ -13,35 +13,49 @@ def all_services():
 
 @service_routes.route('/<int:id>')
 def one_service(id):
+    """
+    Gets a service based on id.
+    """
     service = Service.query.get(id)
     return service.to_dict()
 
 
 @service_routes.route('/programming-lang')
 def programming_languages():
+    """
+    Gets all programming languages in database.
+    """
     services = ServiceLanguage.query.all()
     return jsonify([service.to_dict() for service in services])
 
 
 @service_routes.route('/add/overview', methods=["POST"])
 def add_new_service_overview():
+    """
+    Adds a new service
+    """
     new_service = Service(**request.json)
     db.session.add(new_service)
     db.session.commit()
     return new_service.dict_overview()
 
 
-@service_routes.route('/user/<int:id>')
+@service_routes.route('/owned/<int:id>')
 def user_services(id):
+    """
+    Gets all services associated with a user
+    """
     services = Service.query.filter(Service.user_id == id).all()
-    # print("FLAAG", [service.dict_overview() for service in services])
-    return jsonify([service.dict_overview() for service in services])
+    
+    return jsonify([service.to_dict() for service in services])
 
 
 @service_routes.route('/user/edit/<int:serviceId>')
 def user_service_edit(serviceId):
+    """
+    Gets service to edit
+    """
     service = Service.query.get(serviceId)
-    # print("FLAAG", [service.dict_overview() for service in services])
     if service.web_package_id:
         return service.to_dict()
     else:
