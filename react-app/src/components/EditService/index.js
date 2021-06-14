@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
@@ -199,9 +199,8 @@ function EditService() {
             const userTitle = "I will " + title
             const serviceId = userService.id
             // console.log(serviceId)
-            const listing_img = "https://i.ibb.co/4WsGpQL/Screen-Shot-2021-06-13-at-4-30-50-AM.png"
 
-            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId, listing_img  }))
+            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId }))
             setContent('pricing')
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
@@ -239,12 +238,12 @@ function EditService() {
     const handleDescriptionSubmit = (e) => {
         e.preventDefault();
         dispatch(updateServiceDescription({ serviceDescription, serviceId }))
-        setContent('requirements')
+        setContent('publish')
     };
 
     const handleServicePublish = () => {
         const publish = true
-        dispatch(setServicePublish({ publish, serviceId}))
+        dispatch(setServicePublish({ publish, serviceId }))
         setRedirect(true)
     }
 
@@ -862,14 +861,18 @@ function EditService() {
             </div>
     }
 
-    if (content === 'requirements') {
+    if (content === 'publish') {
         component =
             <div className="new-service__description-wrapper">
-                <div className="new-service__header">Requirements</div>
+                <div className="new-service__header">Publish</div>
                 <footer className="overview__gig-title-footer">
                     <button className="new-service__overview-btn-submit"
                         onClick={handleServicePublish}
-                    >Publish!</button>
+                    >Publish!
+                    </button>
+                    <NavLink className="card__link" to="/profile">
+                        <button className="new-service__overview-btn-submit" style={{marginRight:"15px"}}>Save & Return</button>
+                    </NavLink>
                 </footer>
 
             </div>
@@ -895,8 +898,8 @@ function EditService() {
                         style={content === 'description' ? { color: "#1DBF73" } : {}}
                     >Description</div>
                     <div className="new-service__navbar-list"
-                        onClick={() => setContent('requirements')}
-                        style={content === 'requirements' ? { color: "#1DBF73" } : {}}
+                        onClick={() => setContent('publish')}
+                        style={content === 'publish' ? { color: "#1DBF73" } : {}}
                     >Requirements</div>
                 </nav>
 
