@@ -63,7 +63,9 @@ function NewService() {
             const categoryId = parseInt(category)
             const userTitle = "I will " + title
             const publish = false
-            dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId, publish }))
+            const listing_img = "https://i.ibb.co/4WsGpQL/Screen-Shot-2021-06-13-at-4-30-50-AM.png"
+
+            dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId, publish, listing_img }))
                 .then(res => {
                     console.log("res", res)
                     setId(res.id)

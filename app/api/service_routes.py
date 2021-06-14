@@ -46,7 +46,7 @@ def user_services(id):
     Gets all services associated with a user
     """
     services = Service.query.filter(Service.user_id == id).all()
-    
+
     return jsonify([service.to_dict() for service in services])
 
 
@@ -222,6 +222,9 @@ def update_service_description(serviceId):
 @service_routes.route('/publish/<int:serviceId>', methods=["PUT"])
 @login_required
 def update_service_publish(serviceId):
+    """
+    Changes a service publish to be true or false
+    """
     service = Service.query.get(serviceId)
 
     service.publish = request.json["publish"]
@@ -229,4 +232,17 @@ def update_service_publish(serviceId):
     db.session.add(service)
     db.session.commit()
 
+    return service.dict_overview()
+
+
+@service_routes.route('/delete/<int:serviceId>', methods=["DELETE"])
+@login_required
+def delete_service(serviceId):
+    """
+    Deletes a service
+    """
+    service = Service.query.get(serviceId)
+
+    db.session.delete(service)
+    db.session.commit()
     return service.dict_overview()
