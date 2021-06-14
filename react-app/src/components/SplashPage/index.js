@@ -67,14 +67,14 @@ function SplashPage() {
             <div className="hero-container-side">
                 <p style={{ fontSize: "48px" }}><b>Find the perfect </b><i style={{ fontFamily: "DomaineDisplay" }}>freelance</i> <b>coding <br></br>services for your business</b></p>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                    <input
+                    {/* <input
                         className="search-bar"
                         type='search'
                         placeholder='Try "web development"'>
-                    </input>
-                    <button className="search-icon">
+                    </input> */}
+                    {/* <button className="search-icon">
                         Search
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </>

@@ -56,6 +56,10 @@ function App() {
                     <PublicProfile />
                 </Route>
 
+                <Route path="/about-me">
+                    
+                </Route>
+
                 <ProtectedRoute  exact={true} path="/new-service/edit/:serviceId" >
                     <EditService />
                 </ProtectedRoute>

@@ -52,7 +52,9 @@ function ServiceCard({ service }) {
                         }
                     </div>
                     <footer className="card-footer">
-                        <i className="fas fa-heart" style={{ color: "#c5c5c5" }}></i>
+                        {/* <i className="fas fa-heart" style={{ color: "#c5c5c5" }}></i> */}
+                        <i style={{ color: "#c5c5c5" }}></i>
+
                         <div>
                             <span className="card__service-price-static">STARTING AT</span>
                             <span className="card__service-price">${price}</span>

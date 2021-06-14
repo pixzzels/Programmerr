@@ -73,6 +73,8 @@ function NavBar({ showCategory = true }) {
                         }))
 
                         }
+                        <div className="navbar__category-home" style={{marginRight:"600px"}}></div>
+                        {/* <NavLink to={`/about-me`} className="navbar__category-home" style={{marginRight:"550px"}}>About Me</NavLink> */}
                     </div>
                     <hr style={{ marginBottom: "0px" }}></hr>
                 </>
