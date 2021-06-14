@@ -15,20 +15,20 @@ def seed_categories():
     scripting = Category(name="Scripting")
     db.session.add(scripting)
 
-    convert_psd = Category(name="Convert PSD")
-    db.session.add(convert_psd)
+    # convert_psd = Category(name="Convert PSD")
+    # db.session.add(convert_psd)
 
-    landing_page = Category(name="Landing Page")
-    db.session.add(landing_page)
+    # landing_page = Category(name="Landing Page")
+    # db.session.add(landing_page)
 
-    email_template = Category(name="Email Template")
-    db.session.add(email_template)
+    # email_template = Category(name="Email Template")
+    # db.session.add(email_template)
 
-    browser_extensions = Category(name="Browser Extensions")
-    db.session.add(browser_extensions)
+    # browser_extensions = Category(name="Browser Extensions")
+    # db.session.add(browser_extensions)
 
-    help_consultation = Category(name="Help Consultation")
-    db.session.add(help_consultation)
+    # help_consultation = Category(name="Help Consultation")
+    # db.session.add(help_consultation)
 
 
 
