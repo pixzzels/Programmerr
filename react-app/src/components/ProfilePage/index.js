@@ -191,7 +191,7 @@ function ProfilePage() {
     }
 
     const handelDeleteService = () => {
-        dispatch(deleteService({ serviceId }))
+        dispatch(deleteService(serviceId))
     }
 
     if (!languages) return null;
@@ -477,7 +477,7 @@ function ProfilePage() {
                                                 {userOwned.map((service) => {
                                                     if (service.publish === false) {
                                                         return (
-                                                            <UserServiceCard service={service} />
+                                                            <UserServiceCard service={service} openDeleteVerification={openDeleteVerification}/>
                                                         )
                                                     }
                                                 })}

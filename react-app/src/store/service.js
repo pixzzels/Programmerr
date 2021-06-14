@@ -303,8 +303,8 @@ export const setServicePublish = (info) => async dispatch => {
     return data
 };
 
-export const deleteService = (info) => async dispatch => {
-    const { serviceId } = info
+export const deleteService = (serviceId) => async dispatch => {
+    
 
     const response = await fetch(`/api/service/delete/${serviceId}`, {
         method: 'DELETE',
@@ -313,9 +313,7 @@ export const deleteService = (info) => async dispatch => {
 
     if (!response.ok) throw response
 
-    const data = await response.json();
-    dispatch(deleteUserService(data));
-    return data
+    dispatch(deleteUserService(serviceId));
 };
 
 export const loadUserOwnedServices = (userId) => async (dispatch) => {
@@ -353,6 +351,10 @@ const serviceReducer = (state = initialState, action) => {
         case LOAD_SERVICE_EDIT: {
             newState = {}
             newState["editService"] = action.data
+            // const newNewState = {
+            //     ...state,
+            //     userServices: action.data
+            // }
             return {
                 ...newState, ...state
             }
@@ -407,6 +409,14 @@ const serviceReducer = (state = initialState, action) => {
             }
         }
 
+        // case UPDATE_SERVICE_PUBLISH: {
+        //     newState = {
+        //         ...state,
+        //         userServices: [...state.userServices, action.data]
+        //     }
+        //     return newState;
+        // }
+
         // case LOAD_USER_SERVICES: {
         //     newState = {}
         //     const newData = action.data.filter((service) => service.publish === true)
@@ -416,6 +426,15 @@ const serviceReducer = (state = initialState, action) => {
         //         ...newState, ...state
         //     }
         // }
+
+        case DELETE_SERVICE: {
+            newState = { ...state };
+            const index = newState.userServices.findIndex((element) => element.id === action.data)
+            let newArr = state.userServices
+            newArr.splice(index, 1)
+            newState = { ...state, userServices: [...newArr] }
+            return newState;
+        }
 
         default:
             return state;
