@@ -11,6 +11,7 @@ const UPDATE_STANDARD_WEB_SERVICE = 'service/UPDATE_STANDARD_WEB_SERVICE';
 const UPDATE_PREMIUM_WEB_SERVICE = 'service/UPDATE_PREMIUM_WEB_SERVICE';
 const UPDATE_SERVICE_DESCRIPTION = 'service/UPDATE_SERVICE_DESCRIPTION';
 const UPDATE_SERVICE_PUBLISH = 'service/UPDATE_SERVICE_PUBLISH';
+const DELETE_SERVICE = 'service/DELETE_SERVICE'
 
 // user profile services
 const LOAD_USER_SERVICES = 'service/LOAD_USER_SERVICES';
@@ -75,6 +76,11 @@ const loadAllUserOwnedServices = data => ({
     data
 })
 
+const deleteUserService = data => ({
+    type: DELETE_SERVICE,
+    data
+})
+
 export const loadServices = () => async (dispatch) => {
     const response = await fetch(`/api/service/`)
 
@@ -118,7 +124,7 @@ export const loadProgramingLanguages = () => async (dispatch) => {
 };
 
 export const addOverviewService = (info) => async dispatch => {
-    const { userTitle, categoryId, programmingLang, userId, publish } = info
+    const { userTitle, categoryId, programmingLang, userId, publish, listing_img } = info
     // console.log(language_id, languageLevel, userId)
 
     const response = await fetch(`/api/service/add/overview`, {
@@ -130,6 +136,7 @@ export const addOverviewService = (info) => async dispatch => {
             category_id: categoryId,
             service_language_id: programmingLang,
             user_id: userId,
+            listing_img: listing_img
         })
     })
 
@@ -285,7 +292,7 @@ export const setServicePublish = (info) => async dispatch => {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            publish
+            publish,
         })
     })
 
@@ -293,6 +300,21 @@ export const setServicePublish = (info) => async dispatch => {
 
     const data = await response.json();
     dispatch(updateServicePublish(data));
+    return data
+};
+
+export const deleteService = (info) => async dispatch => {
+    const { serviceId } = info
+
+    const response = await fetch(`/api/service/delete/${serviceId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!response.ok) throw response
+
+    const data = await response.json();
+    dispatch(deleteUserService(data));
     return data
 };
 
@@ -379,10 +401,21 @@ const serviceReducer = (state = initialState, action) => {
         case LOAD_USER_SERVICES: {
             newState = {}
             newState["userServices"] = action.data
+            // console.log('testing', action.data)
             return {
                 ...newState, ...state
             }
         }
+
+        // case LOAD_USER_SERVICES: {
+        //     newState = {}
+        //     const newData = action.data.filter((service) => service.publish === true)
+        //     newState["activeServices"] = newData
+
+        //     return {
+        //         ...newState, ...state
+        //     }
+        // }
 
         default:
             return state;

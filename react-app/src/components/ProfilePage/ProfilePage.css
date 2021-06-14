@@ -496,6 +496,32 @@
     /* justify-content: space-between; */
 }
 
+.create-new-gig-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35%;
+}
+
+.plus-btn {
+    background-color: #78CDD2;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid #78CDD2;
+    text-align: center;
+    line-height: 50px;
+    font-size: 50px;
+    height: 66px;
+    width: 66px;
+    padding-bottom: 40px;
+}
+
+.create-new-gig-card-text {
+    font-size: 14px;
+    color: #555555;
+}
+
 /*------Media Screen-------------------------------------------------------*/
 
 @media only screen and (max-width: 1259px) {

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './UserServiceCard.css';
 
-function UserServiceCard({ service }) {
+function UserServiceCard({ service, openDeleteVerification = false }) {
 
     const [price, setPrice] = useState();
     const [review, setReview] = useState();
 
-    // console.log(service)
+    const [showEditDD, setShowEditDD] = useState(false);
+
+
     useEffect(() => {
         if (service) {
             if (service.web_package) {
@@ -21,8 +23,11 @@ function UserServiceCard({ service }) {
         }
     }, [service])
 
+
+
+
+
     if (!service) return null;
-    // if (!service.reviews[0]) return null;
 
 
     return (
@@ -47,11 +52,28 @@ function UserServiceCard({ service }) {
                         }
                     </div>
                     <footer className="user-service-card-footer">
-                        <i className="fas fa-ellipsis-h"></i>
-                        <div style={{color:"#1DBF73"}}>
-                            <span className="card__service-price-static">STARTING AT</span>
-                            <span className="card__service-price" style={{fontWeight:'bold'}}>${price}</span>
-                        </div>
+                        <i className="fas fa-ellipsis-h service-card-edit-img-btn"
+                            onClick={() => setShowEditDD(!showEditDD)}
+                        ></i>
+
+                        {showEditDD &&
+                            <div style={{ color: "#1DBF73" }}>
+                                <NavLink className="card__link" to={`/new-service/edit/${service.id}`}>
+                                    <button className="user-service-card-edit-btn">Edit</button>
+                                </NavLink>
+                                <button className="user-service-card-edit-btn"
+                                    onClick={() => {
+                                        openDeleteVerification(service.id)
+                                    }}>Delete</button>
+                            </div>
+                        }
+
+                        {!showEditDD &&
+                            <div style={{ color: "#1DBF73" }}>
+                                <span className="card__service-price-static">STARTING AT</span>
+                                <span className="card__service-price" style={{ fontWeight: 'bold' }}>${price}</span>
+                            </div>
+                        }
                     </footer>
                 </div>
             </div>

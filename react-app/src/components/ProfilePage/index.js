@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import {
     loadUser, updateTagline, updateDescription, addLanguage, loadUserLanguages,
     deleteUserLanguage, addSkill, loadSkills, deleteUserSkill
 } from '../../store/user'
-import { loadUserOwnedServices } from '../../store/service';
+import { loadUserOwnedServices, setServicePublish, deleteService } from '../../store/service';
 import { loadLanguages } from '../../store/language'
 import NavBar from '../NavBar';
 import UserServiceCard from '../UserServiceCard';
@@ -87,6 +87,9 @@ function ProfilePage() {
         return lang[0];
     })
 
+    const [deleteVerify, setDeleteVerify] = useState(false);
+    const [serviceId, setServiceId] = useState();
+
     const [active, setActive] = useState(true);
 
     const [showTaglineDD, setShowTaglineDD] = useState(false);
@@ -103,8 +106,20 @@ function ProfilePage() {
     const [skill, setSkill] = useState('');
     const [skillLevel, setSkillLevel] = useState('');
 
+    const ref = useRef(null);
 
+    const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            setDeleteVerify(false);
+        }
+    };
 
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
     // const [edu, setEdu] = useState('');
     const userId = user.id
 
@@ -127,7 +142,7 @@ function ProfilePage() {
 
     useEffect(() => {
         dispatch(loadUserOwnedServices(userId))
-    }, [dispatch, userId])
+    }, [dispatch, userId, userOwned])
 
 
     const handleUpdateTagline = (e) => {
@@ -156,13 +171,28 @@ function ProfilePage() {
         // console.log("language", language, "level", languageLevel)
     };
 
+
     const handleSkillSubmit = (e) => {
         e.preventDefault();
         setShowSkillDD(false);
         dispatch(addSkill({ skill, skillLevel, userId }))
-        // console.log(skill, skillLevel)
-
     };
+
+    const openDeleteVerification = (serviceId) => {
+        setDeleteVerify(true)
+        setServiceId(serviceId)
+    }
+
+    const handleDeactivateService = () => {
+        const publish = false;
+        console.log(serviceId)
+        dispatch(setServicePublish({ publish, serviceId }))
+        setDeleteVerify(false)
+    }
+
+    const handelDeleteService = () => {
+        dispatch(deleteService({ serviceId }))
+    }
 
     if (!languages) return null;
     if (!userProfile) return null;
@@ -408,15 +438,38 @@ function ProfilePage() {
                                         >DRAFTS</div>
                                     </div>
                                     <div className="profile-services-container">
+                                        {deleteVerify &&
+                                            <div ref={ref} className="deleteVerify-container">
+                                                <p>Are you sure you want to delete your service? It will delete all associated information including reviews.</p>
+                                                <p>Did you want to deactivate it instead? It will prevent buyers from requesting your service, but will preserve all your data.</p>
+                                                <div className="deleteVerify-btn-container">
+                                                    <button type="button" className="deleteVerify-btn" onClick={handleDeactivateService}>DEACTIVATE</button>
+                                                    <button type="submit" className="deleteVerify-delete-btn" onClick={handelDeleteService}>DELETE</button>
+                                                    <button type="button" className="deleteVerify-btn" onClick={() => setDeleteVerify(false)}>CANCEL</button>
+                                                </div>
+                                            </div>
+                                        }
                                         {active &&
                                             <div className="profile-services">
                                                 {userOwned.map((service) => {
                                                     if (service.publish === true) {
                                                         return (
-                                                            <UserServiceCard service={service} />
+                                                            <UserServiceCard service={service} openDeleteVerification={openDeleteVerification} />
                                                         )
                                                     }
                                                 })}
+                                                <NavLink className="card__link" to="/new-service">
+                                                    <div className="user-service-card-wrapper">
+                                                        <div className="user-service-card-layout">
+                                                            <div className="create-new-gig-card-container">
+                                                                <button type="button" className="plus-btn">+</button>
+                                                                <h3 className="create-new-gig-card-text">Create A New Gig</h3>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </NavLink>
                                             </div>
                                         }
                                         {!active &&
@@ -428,6 +481,18 @@ function ProfilePage() {
                                                         )
                                                     }
                                                 })}
+                                                <NavLink className="card__link" to="/new-service">
+                                                    <div className="user-service-card-wrapper">
+                                                        <div className="user-service-card-layout">
+                                                            <div className="create-new-gig-card-container">
+                                                                <button type="button" className="plus-btn">+</button>
+                                                                <h3 className="create-new-gig-card-text">Create A New Gig</h3>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </NavLink>
                                             </div>
                                         }
                                     </div>

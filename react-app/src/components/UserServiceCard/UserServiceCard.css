@@ -11,6 +11,7 @@
     width: 232px;
     height: 260px;
     border: 1px solid #ddd;
+    background-color: white;
     /* margin: 10px; */
 }
 
@@ -37,4 +38,73 @@
     color: #62646A;
     font-size: 20px;
     margin-bottom: 10px;
+    position: relative;
+}
+/*---------service card edit------------------------------------*/
+
+.service-card-edit-img-btn:hover {
+    cursor: pointer;
+}
+
+.user-service-card-edit-btn {
+    background-color: #78CDD2;
+    border: 1px solid #78CDD2;
+    border-radius: 3px;
+    color: white;
+    font-weight: 500;
+    margin: 5px;
+    padding: 5px;
+    width: 60px;
+}
+
+.user-service-card-edit-btn:hover {
+    background-color: #6dbabe;
+    border: 1px solid #6dbabe;
+}
+
+.deleteVerify-container {
+    position: absolute;
+    height: 200px;
+    width: 756px;
+    border: 2px solid rgb(167, 167, 167);
+    border-radius: 3px;
+    background-color: white;
+    padding: 15px;
+}
+
+.deleteVerify-btn-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.deleteVerify-btn {
+    height: 40px;
+    width: 130px;
+    background-color: #1DBF73;
+    border: 1px solid #1DBF73;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.deleteVerify-btn:hover {
+    background-color: #1ab16a;
+
+}
+
+.deleteVerify-delete-btn {
+    height: 40px;
+    width: 130px;
+    background-color: #1DBF73;
+    border: 1px solid #1DBF73;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.deleteVerify-delete-btn:hover {
+    background-color: #d65151;
+    border: 1px solid #d65151;
 }

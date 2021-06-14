@@ -24,7 +24,6 @@ function ServiceCard({ service }) {
     if (!service) return null;
     // if (!service.reviews[0]) return null;
 
-
     return (
         <>
             <div className="card-wrapper">

@@ -23,7 +23,7 @@ function EditService() {
     const userService = useSelector(state => state.service.editService)
 
     // overview
-    const [content, setContent] = useState('description')
+    const [content, setContent] = useState('pricing')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
     const [serviceLang, setServiceLang] = useState()
@@ -76,7 +76,7 @@ function EditService() {
     const [serviceDescription, setServiceDescription] = useState('')
 
     // requirements
-    const [publish, setPublish] = useState();
+    // const [publish, setPublish] = useState();
     const [redirect, setRedirect] = useState(false);
 
     const { serviceId } = useParams();
@@ -199,7 +199,9 @@ function EditService() {
             const userTitle = "I will " + title
             const serviceId = userService.id
             // console.log(serviceId)
-            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId }))
+            const listing_img = "https://i.ibb.co/4WsGpQL/Screen-Shot-2021-06-13-at-4-30-50-AM.png"
+
+            dispatch(updateOverviewService({ userTitle, categoryId, programmingLang, userId, serviceId, listing_img  }))
             setContent('pricing')
         }
         // console.log("title", title, "category", category, "prgramminglang", programmingLang)
@@ -231,7 +233,7 @@ function EditService() {
             }))
         }
 
-        setContent('pricing')
+        setContent('description')
     }
 
     const handleDescriptionSubmit = (e) => {
@@ -241,8 +243,8 @@ function EditService() {
     };
 
     const handleServicePublish = () => {
-        setPublish(true)
-        dispatch(setServicePublish({ publish, serviceId }))
+        const publish = true
+        dispatch(setServicePublish({ publish, serviceId}))
         setRedirect(true)
     }
 
