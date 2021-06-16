@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
 import { loadServices } from '../../store/service';
 import ServiceCard from '../ServiceCard';
 import LoginFormModal from '../LoginFormModal';
@@ -14,7 +15,7 @@ function SplashPage() {
     useEffect(() => {
         dispatch(loadServices())
     }, [dispatch])
-    
+
     const [showJesse, setShowJesse] = useState(1)
     const [showBrad, setShowBrad] = useState(0)
     const [showEunice, setShowEunice] = useState(0)
@@ -22,10 +23,10 @@ function SplashPage() {
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    
+
     useEffect(() => {
         const changeBackground = setInterval(() => {
-            
+
             let num = getRandomInt(3)
             if (num === 0) {
                 setShowJesse(1)
@@ -52,18 +53,18 @@ function SplashPage() {
                 setShowEunice(0)
             }
         }, 3000);
-        
+
         return function cleanup() {
             clearInterval(changeBackground)
         }
     }, [showJesse, showBrad, showEunice])
-    
-    
-    
+
+
+
     if (!services) return null
-    
+
     let component =
-    <>
+        <>
             <div className="hero-container-side">
                 <p style={{ fontSize: "48px" }}><b>Find the perfect </b><i style={{ fontFamily: "DomaineDisplay" }}>freelance</i> <b>coding <br></br>services for your business</b></p>
                 <div style={{ display: "flex", alignItems: "center" }}>
@@ -89,7 +90,7 @@ function SplashPage() {
                         <div className="navbar__header">
 
                             <div className="navbar__logo">
-                                <span className="navbar__logo-name">Programmerr</span>
+                                <NavLink className="navbar__logo-name-splash" to={`/`}>Programmerr</NavLink>
                                 <span><i className="fas fa-circle navbar__logo-dot"></i></span>
                             </div>
 

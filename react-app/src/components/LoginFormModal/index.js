@@ -5,7 +5,7 @@ import Signup from './Signup';
 import './LoginFormModal.css'
 
 
-function LoginFormModal({ text = 'Sign In' }) {
+function LoginFormModal({ text = 'Sign In', page = "main" }) {
     const [showModal, setShowModal] = useState(false);
 
     // console.log(showModal)
@@ -39,7 +39,7 @@ function LoginFormModal({ text = 'Sign In' }) {
 
     return (
         <>
-            {text === "Sign In" &&
+            {text === "Sign In" && page !== "service" &&
                 <button style={{
                     color: "white",
                     backgroundColor: "transparent",
@@ -48,12 +48,12 @@ function LoginFormModal({ text = 'Sign In' }) {
                     fontSize: "16px",
                     marginRight: "10px"
                 }}
-                onClick={onClick}
+                    onClick={onClick}
                 >{text}
                 </button>
             }
 
-            {text === "Join" &&
+            {text === "Join" && page !== "service" &&
                 <button style={{
                     color: "white",
                     backgroundColor: "transparent",
@@ -67,6 +67,39 @@ function LoginFormModal({ text = 'Sign In' }) {
                     onClick={onClick}
                     onMouseOver={changeBackground}
                     onMouseLeave={changeBackground2}
+                >{text}
+                </button>
+            }
+
+            {text === "Sign In" && page === "service" &&
+                <button style={{
+                    color: "#7A7D85",
+                    backgroundColor: "transparent",
+                    border: "0px",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    marginRight: "10px"
+                }}
+                    onClick={onClick}
+                >{text}
+                </button>
+            }
+
+
+            {text === "Join" && page === "service" &&
+                <button style={{
+                    color: "#1DBF73",
+                    backgroundColor: "transparent",
+                    border: "1px solid #1DBF73",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                    padding: "7px 20px",
+                    borderRadius: "3px",
+                    marginRight: "10px"
+                }}
+                    onClick={onClick}
+                    // onMouseOver={changeBackground}
+                    // onMouseLeave={changeBackground2}
                 >{text}
                 </button>
             }

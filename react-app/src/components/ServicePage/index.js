@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { loadService } from '../../store/service';
+import LoginFormModal from '../LoginFormModal';
 import MultiPackageComponent from '../MultiPackageComponent';
 import NavBar from '../NavBar';
 import './ServicePage.css'
 
 function ServicePage() {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user)
     const service = useSelector(state => state.service.service)
     const [review, setReview] = useState();
     // console.log(service)
@@ -33,10 +35,38 @@ function ServicePage() {
 
     // console.log(service.reviews[0])
 
+    let component;
+
+    if (user) {
+        component =
+            <NavBar />
+
+    } else {
+        component =
+            <nav className="navbar-container">
+                <div className="navbar__header">
+
+                    <div className="navbar__logo">
+                        <NavLink className="navbar__logo-name-home" to={`/`}>Programmerr</NavLink>
+                        <span><i className="fas fa-circle navbar__logo-dot"></i></span>
+                    </div>
+
+                    <div className="navbar-buttons">
+                        <LoginFormModal page={"service"} />
+                        <LoginFormModal text={"Join"} page={"service"} />
+                    </div>
+
+                </div>
+                <div className="navbar__categories">
+
+                </div>
+            </nav>
+    }
+
 
     return (
         <>
-            <NavBar />
+            {component}
             <div className="service-page__navbar-wrapper">
                 <nav className="service-page__navbar">
                     <ul >

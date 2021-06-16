@@ -20,9 +20,11 @@
     font-weight: bold;
 }
 
-
-.main-wrapper {
-    /* margin: 0px 100px; */
+.navbar__logo-name-splash {
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
 }
 
 .hero {
