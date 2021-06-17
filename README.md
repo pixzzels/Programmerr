@@ -1,6 +1,6 @@
 # Programmerr
 
-Programmerr is clone inspired by Fiverr, an online marketplace for freelance services.
+Programmerr, an almost pixel perfect clone by Fiverr, an online marketplace for freelance services.
 
 #### Live link: [Programmerr](https://programmerr.herokuapp.com//)
 
