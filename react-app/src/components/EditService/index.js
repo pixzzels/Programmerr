@@ -12,6 +12,8 @@ import NavBar from '../NavBar';
 import './EditService.css';
 import './Pricing.css';
 import './Description.css';
+import './Requirements.css';
+
 
 
 
@@ -23,7 +25,7 @@ function EditService() {
     const userService = useSelector(state => state.service.editService)
 
     // overview
-    const [content, setContent] = useState('pricing')
+    const [content, setContent] = useState('requirements')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState()
     const [serviceLang, setServiceLang] = useState()
@@ -861,10 +863,15 @@ function EditService() {
             </div>
     }
 
-    if (content === 'publish') {
+    if (content === 'requirements') {
         component =
-            <div className="new-service__description-wrapper">
-                <div className="new-service__header">Publish</div>
+            <div className="new-service__publish-wrapper">
+                <div className="new-service__header">Requirements</div>
+                <div className="new-service__publish-content">
+                    <div className="publish-header">
+                        Choose one image to upload with your service listing
+                    </div>
+                </div>
                 <footer className="overview__gig-title-footer">
                     <button className="new-service__overview-btn-submit"
                         onClick={handleServicePublish}
@@ -898,8 +905,8 @@ function EditService() {
                         style={content === 'description' ? { color: "#1DBF73" } : {}}
                     >Description</div>
                     <div className="new-service__navbar-list"
-                        onClick={() => setContent('publish')}
-                        style={content === 'publish' ? { color: "#1DBF73" } : {}}
+                        onClick={() => setContent('requirements')}
+                        style={content === 'requirements' ? { color: "#1DBF73" } : {}}
                     >Requirements</div>
                 </nav>
 
