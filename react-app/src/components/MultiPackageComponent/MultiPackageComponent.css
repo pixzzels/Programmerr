@@ -90,3 +90,16 @@
     color: white;
     border: 1px solid #17aa66;
 }
+
+.service-request__submit-verify {
+    height: 200px;
+    width: 415px;
+    border: 1px solid #95979D;
+    border-radius: 3px;
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    z-index: 1;
+    background-color: white;
+    padding: 20px;
+}

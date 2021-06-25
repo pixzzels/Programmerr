@@ -7,6 +7,7 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
     const dispatch = useDispatch();
 
     const [packageType, setPackageType] = useState(basic)
+    const [submitRequest, setSubmitRequest] = useState(false)
 
     const handleRequestService = (e) => {
         e.preventDefault()
@@ -14,23 +15,23 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
 
     return (
         <div className="packages-info-main">
-            { basic && standard && premium &&
+            {basic && standard && premium &&
                 <div className="packages-info-headers">
 
                     <div className={packageType.type === 'Basic' ? "packages-info-header-selected" : "packages-info-header"}
                         onClick={() => setPackageType(basic)}
                     >Basic
-                </div>
+                    </div>
 
                     <div className={packageType.type === 'Standard' ? "packages-info-header-selected" : "packages-info-header"}
                         onClick={() => setPackageType(standard)}
                     >Standard
-                </div>
+                    </div>
 
                     <div className={packageType.type === 'Premium' ? "packages-info-header-selected" : "packages-info-header"}
                         onClick={() => setPackageType(premium)}
                     >Premium
-                </div>
+                    </div>
 
                 </div>
             }
@@ -82,9 +83,17 @@ function MultiPackageComponent({ basic, standard = false, premium = false }) {
                         </li>
                     </div>
 
-                    <button className="service-request__submit-btn" type="submit">
+                    <button className="service-request__submit-btn" type="button" onClick={() => setSubmitRequest(true)}>
                         {"Continue ($" + packageType.price + ")"}
                     </button>
+                    {submitRequest &&
+                        <>
+                            <div className="service-request__submit-verify">
+                                Request for service recieved! You will be notified when the seller accepts/declines your request!
+                                <button className="service-request__submit-btn"  onClick={() => setSubmitRequest(false)}>Continue</button>
+                            </div>
+                        </>
+                    }
 
                 </div>
             </form>
