@@ -66,7 +66,7 @@ function SplashPage() {
             } else {
                 setShowChris(0)
             }
-        }, 2500);
+        }, 3000);
 
         return function cleanup() {
             clearInterval(changeBackground)
@@ -107,22 +107,46 @@ function SplashPage() {
 
     if (!services) return null
 
-    let component =
-        <>
-            <div className="hero-container-side">
-                <p style={{ fontSize: "48px" }}><b>Find the perfect </b><i style={{ fontFamily: "DomaineDisplay" }}>freelance</i> <b>coding <br></br>services for your business</b></p>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    {/* <input
+    const setHeroContent = (name, description) => {
+        return (
+            <>
+                <div className="hero-container-side">
+                    <p style={{ fontSize: "48px" }}><b>Find the perfect </b><i style={{ fontFamily: "DomaineDisplay" }}>freelance</i> <b>coding <br></br>services for your business</b></p>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+
+                        {/* <input
                         className="search-bar"
                         type='search'
                         placeholder='Try "web development"'>
                     </input> */}
-                    {/* <button className="search-icon">
+                        {/* <button className="search-icon">
                         Search
                     </button> */}
+                    </div>
+                    <div className="hero-description">
+                        <div><b>{name}</b></div>
+                        <div><i>{description}</i></div>
+                    </div>
                 </div>
-            </div>
-        </>
+            </>
+        )
+    }
+    // let component =
+    //     <>
+    //         <div className="hero-container-side">
+    //             <p style={{ fontSize: "48px" }}><b>Find the perfect </b><i style={{ fontFamily: "DomaineDisplay" }}>freelance</i> <b>coding <br></br>services for your business</b></p>
+    //             <div style={{ display: "flex", alignItems: "center" }}>
+    //                 {/* <input
+    //                     className="search-bar"
+    //                     type='search'
+    //                     placeholder='Try "web development"'>
+    //                 </input> */}
+    //                 {/* <button className="search-icon">
+    //                     Search
+    //                 </button> */}
+    //             </div>
+    //         </div>
+    //     </>
     return (
 
 
@@ -152,19 +176,20 @@ function SplashPage() {
 
                     <div className="heros">
                         <div className={"hero jesse " + (showJesse == 0 ? "hidden" : "")} style={{ backgroundColor: "#5880a5", opacity: showJesse }}>
-                            {component}
+                            {setHeroContent("Wong, Jesse", "Lead Instuctor, Mentor")}
                             <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png" alt="jesse image"></img>
+
                         </div>
                         <div className={"hero brad " + (showBrad == 0 ? "hidden" : "")} style={{ backgroundColor: "#58a581", opacity: showBrad }}>
-                            {component}
+                            {setHeroContent("Simpson, Brad", "Mentor, Advisor, Supporter")}
                             <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png" alt="brad image"></img>
                         </div>
                         <div className={"hero eunice " + (showEunice === 0 ? "hidden" : "")} style={{ backgroundColor: "#a5587c", opacity: showEunice }}>
-                            {component}
+                            {setHeroContent("Park, Eunice", "Sister, Supporter")}
                             <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png" alt="eunice image"></img>
                         </div>
                         <div className={"hero chris " + (showChris === 0 ? "hidden" : "")} style={{ backgroundColor: "#6356a0", opacity: showChris }}>
-                            {component}
+                            {setHeroContent("Oney, Chris", "Mentor, Advisor, Supporter")}
                             <img src="https://i.ibb.co/vxx79jv/IMG-1081.png" alt="chris image"></img>
                         </div>
                     </div>
