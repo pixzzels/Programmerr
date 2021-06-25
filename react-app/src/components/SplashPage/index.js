@@ -19,6 +19,8 @@ function SplashPage() {
     const [showJesse, setShowJesse] = useState(1)
     const [showBrad, setShowBrad] = useState(0)
     const [showEunice, setShowEunice] = useState(0)
+    const [showChris, setShowChris] = useState(0)
+
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -27,37 +29,79 @@ function SplashPage() {
     useEffect(() => {
         const changeBackground = setInterval(() => {
 
-            let num = getRandomInt(3)
+            let num = getRandomInt(4)
             if (num === 0) {
-                setShowJesse(1)
+                setShowChris(0)
                 setShowBrad(0)
                 setShowEunice(0)
+                setShowJesse(1)
                 return
             } else {
                 setShowJesse(0)
             }
             if (num === 1) {
-                setShowBrad(1)
+                setShowChris(0)
                 setShowJesse(0)
                 setShowEunice(0)
+                setShowBrad(1)
                 return
             } else {
                 setShowBrad(0)
             }
             if (num === 2) {
-                setShowEunice(1)
+                setShowChris(0)
                 setShowBrad(0)
                 setShowJesse(0)
+                setShowEunice(1)
                 return
             } else {
                 setShowEunice(0)
             }
-        }, 3000);
+            if (num === 3) {
+                setShowBrad(0)
+                setShowJesse(0)
+                setShowEunice(0)
+                setShowChris(1)
+                return
+            } else {
+                setShowChris(0)
+            }
+        }, 2500);
 
         return function cleanup() {
             clearInterval(changeBackground)
         }
-    }, [showJesse, showBrad, showEunice])
+    }, [showJesse, showBrad, showEunice, showChris])
+
+    // useEffect(() => {
+    //     const jesse = setTimeout(() => {
+    //         setShowChris(0)
+    //         setShowBrad(0)
+    //         setShowEunice(0)
+    //         setShowJesse(1)
+    //     }, 3000)
+
+    //     const brad = setTimeout(() => {
+    //         setShowChris(0)
+    //         setShowEunice(0)
+    //         setShowJesse(0)
+    //         setShowBrad(1)
+    //     }, 6000)
+
+    //     const chris = setTimeout(() => {
+    //         setShowEunice(0)
+    //         setShowJesse(0)
+    //         setShowBrad(0)
+    //         setShowChris(1)
+    //     }, 9000)
+
+    //     return function cleanup() {
+    //         clearInterval(jesse)
+    //         clearInterval(brad)
+    //         clearInterval(chris)
+
+    //     }
+    // })
 
 
 
@@ -86,7 +130,7 @@ function SplashPage() {
             <div className="main-wrapper">
                 <div>
 
-                    <nav className="navbar-container sticky" style={showJesse === 1 ? { backgroundColor: "#5880a5" } : showBrad === 1 ? { backgroundColor: "#58a581" } : showEunice === 1 ? { backgroundColor: "#a5587c" } : {}}>
+                    <nav className="navbar-container sticky" style={showJesse === 1 ? { backgroundColor: "#5880a5" } : showBrad === 1 ? { backgroundColor: "#58a581" } : showEunice === 1 ? { backgroundColor: "#a5587c" } : showChris === 1 ? { backgroundColor: "#6356a0" } : {}}>
                         <div className="navbar__header">
 
                             <div className="navbar__logo">
@@ -109,15 +153,19 @@ function SplashPage() {
                     <div className="heros">
                         <div className={"hero jesse " + (showJesse == 0 ? "hidden" : "")} style={{ backgroundColor: "#5880a5", opacity: showJesse }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png" alt="jesse image"></img> */}
+                            <img src="https://i.ibb.co/YpDzKRp/IMG-0984.png" alt="jesse image"></img>
                         </div>
                         <div className={"hero brad " + (showBrad == 0 ? "hidden" : "")} style={{ backgroundColor: "#58a581", opacity: showBrad }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png" alt="brad image"></img> */}
+                            <img src="https://i.ibb.co/6BwG9ZF/IMG-0989.png" alt="brad image"></img>
                         </div>
                         <div className={"hero eunice " + (showEunice === 0 ? "hidden" : "")} style={{ backgroundColor: "#a5587c", opacity: showEunice }}>
                             {component}
-                            {/* <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png" alt="eunice image"></img> */}
+                            <img src="https://i.ibb.co/q0vzrG6/IMG-0987.png" alt="eunice image"></img>
+                        </div>
+                        <div className={"hero chris " + (showChris === 0 ? "hidden" : "")} style={{ backgroundColor: "#6356a0", opacity: showChris }}>
+                            {component}
+                            <img src="https://i.ibb.co/vxx79jv/IMG-1081.png" alt="chris image"></img>
                         </div>
                     </div>
 
