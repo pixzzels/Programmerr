@@ -43,6 +43,13 @@
     color: #ffffff;
 }
 
+.hero-description {
+    float: left;
+    font-size: 22px;
+    line-height: 35px;
+    color:rgb(216, 216, 216);
+}
+
 .search-bar {
     height: 48px;
     width: 85%;
