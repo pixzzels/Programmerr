@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
+import { Redirect, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import {
     loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage,
-    updatePremiumPackage, loadServiceEdit, updateServiceDescription, setServicePublish
+    updatePremiumPackage, loadServiceEdit, updateServiceDescription, setServicePublish, updateServiceImage
 } from '../../store/service';
 import NavBar from '../NavBar';
 
@@ -74,6 +74,10 @@ function EditService() {
 
     // description 
     const [serviceDescription, setServiceDescription] = useState('')
+
+    const history = useHistory(); // so that we can redirect after the image upload is successful
+    const [image, setImage] = useState(null);
+    const [imageLoading, setImageLoading] = useState(false);
 
     // requirements
     // const [publish, setPublish] = useState();
@@ -240,6 +244,39 @@ function EditService() {
         dispatch(updateServiceDescription({ serviceDescription, serviceId }))
         setContent('publish')
     };
+
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // aws uploads can be a bit slow—displaying
+        // some sort of loading message is a good idea
+        setImageLoading(true);
+        const info = {
+            image,
+            serviceId
+        }
+
+        const res = await dispatch(updateServiceImage(info))
+        if (res.ok) {
+            await res.json();
+            setImageLoading(false);
+            history.push(`/new-service/edit/${serviceId}`);
+        }
+        else {
+            setImageLoading(false);
+            // a real app would probably use more advanced
+            // error handling
+            console.log("error");
+        }
+    }
+
+    const updateImage = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    }
 
     const handleServicePublish = () => {
         const publish = true
@@ -865,13 +902,22 @@ function EditService() {
         component =
             <div className="new-service__description-wrapper">
                 <div className="new-service__header">Publish</div>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={updateImage}
+                    />
+                    <button type="submit">Submit</button>
+                    {(imageLoading) && <p>Loading...</p>}
+                </form>
                 <footer className="overview__gig-title-footer">
                     <button className="new-service__overview-btn-submit"
                         onClick={handleServicePublish}
                     >Publish!
                     </button>
                     <NavLink className="card__link" to="/profile">
-                        <button className="new-service__overview-btn-submit" style={{marginRight:"15px"}}>Save & Return</button>
+                        <button className="new-service__overview-btn-submit" style={{ marginRight: "15px" }}>Save & Return</button>
                     </NavLink>
                 </footer>
 

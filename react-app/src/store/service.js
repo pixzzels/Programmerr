@@ -10,6 +10,7 @@ const UPDATE_BASIC_WEB_SERVICE = 'service/UPDATE_BASIC_WEB_SERVICE';
 const UPDATE_STANDARD_WEB_SERVICE = 'service/UPDATE_STANDARD_WEB_SERVICE';
 const UPDATE_PREMIUM_WEB_SERVICE = 'service/UPDATE_PREMIUM_WEB_SERVICE';
 const UPDATE_SERVICE_DESCRIPTION = 'service/UPDATE_SERVICE_DESCRIPTION';
+const UPDATE_SERVICE_IMAGE = 'service/UPDATE_SERVICE_IMAGE';
 const UPDATE_SERVICE_PUBLISH = 'service/UPDATE_SERVICE_PUBLISH';
 const DELETE_SERVICE = 'service/DELETE_SERVICE'
 
@@ -66,13 +67,13 @@ const updateSDescription = data => ({
     data
 });
 
-const updateServicePublish = data => ({
-    type: UPDATE_SERVICE_PUBLISH,
+const updateSImage = data => ({
+    type: UPDATE_SERVICE_IMAGE,
     data
 })
 
-const loadAllUserOwnedServices = data => ({
-    type: LOAD_USER_SERVICES,
+const updateServicePublish = data => ({
+    type: UPDATE_SERVICE_PUBLISH,
     data
 })
 
@@ -81,6 +82,10 @@ const deleteUserService = data => ({
     data
 })
 
+const loadAllUserOwnedServices = data => ({
+    type: LOAD_USER_SERVICES,
+    data
+})
 export const loadServices = () => async (dispatch) => {
     const response = await fetch(`/api/service/`)
 
@@ -284,6 +289,23 @@ export const updateServiceDescription = (info) => async dispatch => {
     dispatch(updateSDescription(data));
     return data
 };
+
+export const updateServiceImage = (info) => async dispatch => {
+	const formData = new FormData();
+    formData.append('image', info['image']);
+    const response = await fetch(`/api/service/update/image/${info['serviceId']}`, {
+		method: 'POST',
+		body: formData,
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(updateSImage(data));
+		return data;
+	} else {
+		throw response;
+	}
+
+}
 
 export const setServicePublish = (info) => async dispatch => {
     const { publish, serviceId } = info
