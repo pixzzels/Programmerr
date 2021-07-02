@@ -292,4 +292,4 @@ def upload_image(serviceId):
     # new_image = Service(user=current_user, url=url)
     db.session.add(service)
     db.session.commit()
-    return {"service": service.to_dict()}
+    return service.to_dict()

@@ -6,17 +6,25 @@
 
 .new-service__image-container {
     height: 120px;
-    width: 170px;
+    width: 200px;
     background-color: #d1d1d1;
     border: 1px solid #a3a3a3;
     border-radius: 3px;
     text-align: center;
     margin-bottom: 10px;
     position: relative;
+    overflow: hidden;
 }
 
 .new-service__image-wrapper {
     display: flex;
+}
+
+.new-service__image-upload {
+    height: 120px;
+    width: 200px;
+    padding: 0px 20px 100px 20px;
+    border: 1px solid pink;
 }
 
 .new-service__image-change {

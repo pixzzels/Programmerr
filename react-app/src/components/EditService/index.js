@@ -917,12 +917,12 @@ function EditService() {
                             <img className="new-service__image" src={serviceImage}></img>
                         }
                         {!serviceImage &&
-                            <label for="file-upload" class="custom-file-upload">Click to upload image</label>
+                            <label className="custom-file-upload new-service__image-upload" htmlFor="file-upload">Click to upload image</label>
                         }
                     </div>
                     <div style={{display:"flex", flexDirection:"column", marginLeft:'15px'}}>
                         {serviceImage &&
-                            <label className="custom-file-upload new-service__image-change" for="file-upload">Change Image</label>
+                            <label className="custom-file-upload new-service__image-change" htmlFor="file-upload">Change Image</label>
                         }
                         <form onSubmit={handleSubmit}>
                             <input
@@ -936,6 +936,7 @@ function EditService() {
                             <button className="new-service__image-submit-btn" type="submit">Save Image</button>
                             {(imageLoading) && <p>Loading...</p>}
                         </form>
+                        {/* <div>(click save and refresh to see your new photo)</div> */}
                     </div>
                 </div>
 

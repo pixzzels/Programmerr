@@ -291,19 +291,19 @@ export const updateServiceDescription = (info) => async dispatch => {
 };
 
 export const updateServiceImage = (info) => async dispatch => {
-	const formData = new FormData();
+    const formData = new FormData();
     formData.append('image', info['image']);
     const response = await fetch(`/api/service/update/image/${info['serviceId']}`, {
-		method: 'POST',
-		body: formData,
-	});
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(updateSImage(data));
-		return data;
-	} else {
-		throw response;
-	}
+        method: 'POST',
+        body: formData,
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateSImage(data));
+        return data;
+    } else {
+        throw response;
+    }
 
 }
 
@@ -326,7 +326,7 @@ export const setServicePublish = (info) => async dispatch => {
 };
 
 export const deleteService = (serviceId) => async dispatch => {
-    
+
 
     const response = await fetch(`/api/service/delete/${serviceId}`, {
         method: 'DELETE',
@@ -380,6 +380,14 @@ const serviceReducer = (state = initialState, action) => {
             return {
                 ...newState, ...state
             }
+        }
+
+        case UPDATE_SERVICE_IMAGE: {
+            newState = {
+                ...state,
+                editService: action.data
+            }
+            return newState;
         }
 
         case LOAD_PROGRAMMING_LANG: {
