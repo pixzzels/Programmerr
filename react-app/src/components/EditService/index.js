@@ -12,6 +12,8 @@ import NavBar from '../NavBar';
 import './EditService.css';
 import './Pricing.css';
 import './Description.css';
+import './Requirements.css';
+
 
 
 
@@ -74,6 +76,8 @@ function EditService() {
 
     // description 
     const [serviceDescription, setServiceDescription] = useState('')
+    const [serviceImage, setServiceImage] = useState('')
+
 
     const history = useHistory(); // so that we can redirect after the image upload is successful
     const [image, setImage] = useState(null);
@@ -154,6 +158,10 @@ function EditService() {
             }
             if (userService.description) {
                 setServiceDescription(userService.description)
+            }
+
+            if (userService.listing_img) {
+                setServiceImage(userService.listing_img)
             }
         }
     }, [userService])
@@ -898,20 +906,40 @@ function EditService() {
             </div>
     }
 
-    if (content === 'publish') {
+    if (content === 'requirements') {
         component =
-            <div className="new-service__description-wrapper">
-                <div className="new-service__header">Publish</div>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={updateImage}
-                    />
-                    <button type="submit">Submit</button>
-                    {(imageLoading) && <p>Loading...</p>}
-                </form>
-                <footer className="overview__gig-title-footer">
+            <div className="new-service__requirements-wrapper">
+                <div className="new-service__header">Showcase your Services In A Gig Gallery</div>
+                <div className="new-service__image-wrapper">
+
+                    <div className="new-service__image-container">
+                        {serviceImage &&
+                            <img className="new-service__image" src={serviceImage}></img>
+                        }
+                        {!serviceImage &&
+                            <label for="file-upload" class="custom-file-upload">Click to upload image</label>
+                        }
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", marginLeft:'15px'}}>
+                        {serviceImage &&
+                            <label className="custom-file-upload new-service__image-change" for="file-upload">Change Image</label>
+                        }
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                id="file-upload"
+                                className="new-service__image-input hidden"
+                                type="file"
+                                accept="image/*"
+                                placeholder="choose an image"
+                                onChange={updateImage}
+                            />
+                            <button className="new-service__image-submit-btn" type="submit">Save Image</button>
+                            {(imageLoading) && <p>Loading...</p>}
+                        </form>
+                    </div>
+                </div>
+
+                <footer className="overview__gig-title-footer" style={{marginTop:'100px'}}>
                     <button className="new-service__overview-btn-submit"
                         onClick={handleServicePublish}
                     >Publish!
@@ -944,8 +972,8 @@ function EditService() {
                         style={content === 'description' ? { color: "#1DBF73" } : {}}
                     >Description</div>
                     <div className="new-service__navbar-list"
-                        onClick={() => setContent('publish')}
-                        style={content === 'publish' ? { color: "#1DBF73" } : {}}
+                        onClick={() => setContent('requirements')}
+                        style={content === 'requirements' ? { color: "#1DBF73" } : {}}
                     >Requirements</div>
                 </nav>
 
