@@ -1,0 +1,73 @@
+.new-service__requirements-wrapper {
+    margin: auto;
+    width: fit-content;
+    margin-top: 50px;
+}
+
+.new-service__image-container {
+    height: 120px;
+    width: 200px;
+    background-color: #d1d1d1;
+    border: 1px solid #a3a3a3;
+    border-radius: 3px;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.new-service__image-wrapper {
+    display: flex;
+}
+
+.new-service__image-upload {
+    height: 120px;
+    width: 200px;
+    padding: 0px 20px 100px 20px;
+    border: 1px solid pink;
+}
+
+.new-service__image-change {
+    padding: 5px 10px;
+    width: 200px;
+    font-size: 14px;
+    color: white;
+    background-color: #78CDD2;
+    border: 1px solid #78CDD2;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.new-service__image {
+    /* margin: auto; */
+    height: 120px;
+    /* width: 150px; */
+}
+
+.new-service__image-input {
+    border: 1px solid pink;
+}
+
+.new-service__image-submit-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    /* float: right; */
+    height: 48px;
+    width: 200px;
+    color: white;
+    background-color: #78CDD2;
+    border: 1px solid #78CDD2;
+    border-radius: 3px;
+    font-weight: bold;
+}.new-service__image-submit-btn:hover {
+    background-color: #6dbabe;
+    border: 1px solid #6dbabe;
+}
+
+.new-service__overview-btn-submit:hover {
+    background-color: #23a86a;
+    border: 1px solid #179c5e;
+}

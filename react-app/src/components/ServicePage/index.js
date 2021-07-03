@@ -63,7 +63,6 @@ function ServicePage() {
             </nav>
     }
 
-
     return (
         <>
             {component}
@@ -96,7 +95,6 @@ function ServicePage() {
                                 </div>
                             }
                         </div>
-
 
                     </div>
 
@@ -140,7 +138,6 @@ function ServicePage() {
                         </div>
                     </div>
 
-
                     <div className="service-page__about-seller">
                         <h2 className="service-page__section-header">About The Seller</h2>
                         <div className="about-seller__info">
@@ -158,7 +155,6 @@ function ServicePage() {
                                         {" " + review.score.toFixed(1)}
                                     </div>
                                 }
-
                             </div>
                         </div>
 
@@ -186,8 +182,7 @@ function ServicePage() {
                 </div>
 
                 <div className="service-page__packages-container">
-                    {console.log(service)}
-                    {service.id === parseInt(id) &&
+                    {service.id === parseInt(id) && service.web_package &&
                         <MultiPackageComponent
                             basic={service.web_package.web_basic}
                             standard={service.web_package.web_standard}

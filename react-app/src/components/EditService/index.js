@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
+import { Redirect, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import {
     loadProgramingLanguages, updateOverviewService, updateBasicPackage, updateStandardPackage,
-    updatePremiumPackage, loadServiceEdit, updateServiceDescription, setServicePublish
+    updatePremiumPackage, loadServiceEdit, updateServiceDescription, setServicePublish, updateServiceImage
 } from '../../store/service';
 import NavBar from '../NavBar';
 
 import './EditService.css';
 import './Pricing.css';
 import './Description.css';
+import './Requirements.css';
+
 
 
 
@@ -74,6 +76,12 @@ function EditService() {
 
     // description 
     const [serviceDescription, setServiceDescription] = useState('')
+    const [serviceImage, setServiceImage] = useState('')
+
+
+    const history = useHistory(); // so that we can redirect after the image upload is successful
+    const [image, setImage] = useState(null);
+    const [imageLoading, setImageLoading] = useState(false);
 
     // requirements
     // const [publish, setPublish] = useState();
@@ -151,6 +159,10 @@ function EditService() {
             if (userService.description) {
                 setServiceDescription(userService.description)
             }
+
+            if (userService.listing_img) {
+                setServiceImage(userService.listing_img)
+            }
         }
     }, [userService])
 
@@ -180,7 +192,7 @@ function EditService() {
             var ele = document.getElementsByName('programming-language');
             for (let i = 0; i < ele.length; i++) {
                 if (ele[i].checked) {
-                    console.log(ele[i].value)
+                    // console.log(ele[i].value)
                     programmingLang = ele[i].value
                 }
             }
@@ -231,15 +243,44 @@ function EditService() {
                 premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
             }))
         }
-
         setContent('description')
     }
 
     const handleDescriptionSubmit = (e) => {
         e.preventDefault();
         dispatch(updateServiceDescription({ serviceDescription, serviceId }))
-        setContent('publish')
+        setContent('requirements')
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // aws uploads can be a bit slow—displaying
+        // some sort of loading message is a good idea
+        setImageLoading(true);
+        const info = {
+            image,
+            serviceId
+        }
+
+        const res = await dispatch(updateServiceImage(info))
+        if (res.ok) {
+            await res.json();
+            setImageLoading(false);
+            history.push(`/new-service/edit/${serviceId}`);
+        }
+        else {
+            setImageLoading(false);
+            // a real app would probably use more advanced
+            // error handling
+            console.log("error");
+        }
+    }
+
+    const updateImage = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    }
 
     const handleServicePublish = () => {
         const publish = true
@@ -861,17 +902,47 @@ function EditService() {
             </div>
     }
 
-    if (content === 'publish') {
+    if (content === 'requirements') {
         component =
-            <div className="new-service__description-wrapper">
-                <div className="new-service__header">Publish</div>
-                <footer className="overview__gig-title-footer">
+            <div className="new-service__requirements-wrapper">
+                <div className="new-service__header">Showcase your Services In A Gig Gallery</div>
+                <div className="new-service__image-wrapper">
+
+                    <div className="new-service__image-container">
+                        {serviceImage &&
+                            <img className="new-service__image" src={serviceImage}></img>
+                        }
+                        {!serviceImage &&
+                            <label className="custom-file-upload new-service__image-upload" htmlFor="file-upload">Click to upload image</label>
+                        }
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", marginLeft:'15px'}}>
+                        {serviceImage &&
+                            <label className="custom-file-upload new-service__image-change" htmlFor="file-upload">Change Image</label>
+                        }
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                id="file-upload"
+                                className="new-service__image-input hidden"
+                                type="file"
+                                accept="image/*"
+                                placeholder="choose an image"
+                                onChange={updateImage}
+                            />
+                            <button className="new-service__image-submit-btn" type="submit">Save Image</button>
+                            {(imageLoading) && <p>Loading...</p>}
+                        </form>
+                        {/* <div>(click save and refresh to see your new photo)</div> */}
+                    </div>
+                </div>
+
+                <footer className="overview__gig-title-footer" style={{marginTop:'100px'}}>
                     <button className="new-service__overview-btn-submit"
                         onClick={handleServicePublish}
                     >Publish!
                     </button>
                     <NavLink className="card__link" to="/profile">
-                        <button className="new-service__overview-btn-submit" style={{marginRight:"15px"}}>Save & Return</button>
+                        <button className="new-service__overview-btn-submit" style={{ marginRight: "15px" }}>Save & Return</button>
                     </NavLink>
                 </footer>
 
@@ -898,8 +969,8 @@ function EditService() {
                         style={content === 'description' ? { color: "#1DBF73" } : {}}
                     >Description</div>
                     <div className="new-service__navbar-list"
-                        onClick={() => setContent('publish')}
-                        style={content === 'publish' ? { color: "#1DBF73" } : {}}
+                        onClick={() => setContent('requirements')}
+                        style={content === 'requirements' ? { color: "#1DBF73" } : {}}
                     >Requirements</div>
                 </nav>
 

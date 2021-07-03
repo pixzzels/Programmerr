@@ -67,6 +67,7 @@ class Service(db.Model):
         return {
             "id": self.id,
             "title": self.title,
+            "listing_img": self.listing_img,
             "user_id": self.user_id,
             "category_id": self.category_id,
             "service_language_id": self.service_language_id,

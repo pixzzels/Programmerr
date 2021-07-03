@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required
-from app.models import Service, ServiceLanguage, db, Web, WebPackage
+from flask_login import current_user, login_required
+from app.models import Service, ServiceLanguage, db, Web, WebPackage, User
+from app.aws import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
+
 
 service_routes = Blueprint('services', __name__)
 
@@ -246,3 +249,47 @@ def delete_service(serviceId):
     db.session.delete(service)
     db.session.commit()
     return service.dict_overview()
+
+
+## IMAGE ROUTES
+
+@service_routes.route("update/image/<int:serviceId>", methods=["POST"])
+@login_required
+def upload_image(serviceId):
+    # print('request!!', request.files)
+    print("test1")
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
+    print("test2")
+
+    image = request.files["image"]
+
+    print('image', image)
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    print("test3")
+    
+    
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    print("upload", upload)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    url = upload["url"]
+    # flask_login allows us to get the current user from the request
+    # current_use = User.query.get(current_user)
+    service = Service.query.get(serviceId)
+    service.listing_img = url
+    # new_image = Service(user=current_user, url=url)
+    db.session.add(service)
+    db.session.commit()
+    return service.to_dict()
