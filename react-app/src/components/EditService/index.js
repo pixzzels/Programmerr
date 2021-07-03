@@ -192,7 +192,7 @@ function EditService() {
             var ele = document.getElementsByName('programming-language');
             for (let i = 0; i < ele.length; i++) {
                 if (ele[i].checked) {
-                    console.log(ele[i].value)
+                    // console.log(ele[i].value)
                     programmingLang = ele[i].value
                 }
             }
@@ -243,18 +243,14 @@ function EditService() {
                 premiumContentUpload, premiumResponsiveDesign, premiumSourceCode, premiumRevisions, premiumPrice, serviceId
             }))
         }
-
         setContent('description')
     }
 
     const handleDescriptionSubmit = (e) => {
         e.preventDefault();
         dispatch(updateServiceDescription({ serviceDescription, serviceId }))
-        setContent('publish')
+        setContent('requirements')
     };
-
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
