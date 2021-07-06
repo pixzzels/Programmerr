@@ -11,14 +11,14 @@ function Footer() {
                     <div className="footer-flex">
                         <p>Developed by <b> Pixzzels</b></p>
                     </div>
-                    <div className="footer-flex">
+                    <a className="footer-flex set-width" href="https://www.linkedin.com/in/ellen-park-2b32a9172/">
                         <p>Linkedin</p>
                         <i className="fab fa-linkedin"></i>
-                    </div>
-                    <div className="footer-flex">
+                    </a>
+                    <a className="footer-flex set-width" href="https://github.com/pixzzels/Programmerr">
                         <p>Github</p>
                         <i className="fab fa-github-square"></i>
-                    </div>
+                    </a>
                 </div>
                 <div className="footer-flex">
                     <i className="far fa-copyright"></i>

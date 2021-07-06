@@ -8,10 +8,21 @@
 .footer-flex {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     margin: 15px;
     font-size: 16px;
     color: rgb(201, 201, 201);
+    text-decoration: none;
+    /* border: 1px solid red; */
+    height: 40px;
+    
+}
+
+.set-width {
+    width: 100px;
+}.set-width:hover {
+    /* font-weight: 500; */
+    text-shadow: #757575 0px 0px 8px;
 }
 
 .fab {
