@@ -17,6 +17,7 @@ import ServicePage from "./components/ServicePage";
 import NewService from "./components/NewService";
 import EditService from "./components/EditService";
 import PageNotFound from "./components/PageNotFound";
+import Footer from "./components/Footer";
 
 
 
@@ -78,6 +79,7 @@ function App() {
                     <h1>My Home Page</h1>
                 </ProtectedRoute> */}
             </Switch>
+            <Footer />
         </BrowserRouter>
     );
 }
