@@ -267,13 +267,14 @@ function EditService() {
         if (res.ok) {
             await res.json();
             setImageLoading(false);
-            history.push(`/new-service/edit/${serviceId}`);
+            // history.push(`/new-service/edit/${serviceId}`);
         }
         else {
+            // console.log("res", res)
             setImageLoading(false);
             // a real app would probably use more advanced
             // error handling
-            console.log("error");
+            // console.log("error");
         }
     }
 

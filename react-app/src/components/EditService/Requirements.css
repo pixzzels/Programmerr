@@ -2,6 +2,7 @@
     margin: auto;
     width: fit-content;
     margin-top: 50px;
+    min-height: 800px;
 }
 
 .new-service__image-container {
