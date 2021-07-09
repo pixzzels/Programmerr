@@ -264,8 +264,8 @@ function EditService() {
         }
 
         const res = await dispatch(updateServiceImage(info))
-        if (res.ok) {
-            await res.json();
+        if (res) {
+            // await res.json();
             setImageLoading(false);
             // history.push(`/new-service/edit/${serviceId}`);
         }
@@ -274,7 +274,7 @@ function EditService() {
             setImageLoading(false);
             // a real app would probably use more advanced
             // error handling
-            // console.log("error");
+            console.log("error");
         }
     }
 
