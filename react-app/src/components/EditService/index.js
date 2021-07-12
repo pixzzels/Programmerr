@@ -264,7 +264,7 @@ function EditService() {
         }
 
         const res = await dispatch(updateServiceImage(info))
-        if (res) {
+        if (res.ok) {
             // await res.json();
             setImageLoading(false);
             // history.push(`/new-service/edit/${serviceId}`);

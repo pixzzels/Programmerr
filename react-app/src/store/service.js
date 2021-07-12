@@ -301,7 +301,7 @@ export const updateServiceImage = (info) => async dispatch => {
     if (response.ok) {
         const data = await response.json();
         dispatch(updateSImage(data));
-        return data;
+        return response;
     } else {
         throw response;
     }

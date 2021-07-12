@@ -257,19 +257,19 @@ def delete_service(serviceId):
 @login_required
 def upload_image(serviceId):
     # print('request!!', request.files)
-    print("test1")
+    # print("test1")
     if "image" not in request.files:
         return {"errors": "image required"}, 400
-    print("test2")
+    # print("test2")
 
     image = request.files["image"]
 
-    print('image', image)
+    # print('image', image)
 
     if not allowed_file(image.filename):
         return {"errors": "file type not permitted"}, 400
 
-    print("test3")
+    # print("test3")
     
     
     image.filename = get_unique_filename(image.filename)
