@@ -73,38 +73,6 @@ function SplashPage() {
         }
     }, [showJesse, showBrad, showEunice, showChris])
 
-    // useEffect(() => {
-    //     const jesse = setTimeout(() => {
-    //         setShowChris(0)
-    //         setShowBrad(0)
-    //         setShowEunice(0)
-    //         setShowJesse(1)
-    //     }, 3000)
-
-    //     const brad = setTimeout(() => {
-    //         setShowChris(0)
-    //         setShowEunice(0)
-    //         setShowJesse(0)
-    //         setShowBrad(1)
-    //     }, 6000)
-
-    //     const chris = setTimeout(() => {
-    //         setShowEunice(0)
-    //         setShowJesse(0)
-    //         setShowBrad(0)
-    //         setShowChris(1)
-    //     }, 9000)
-
-    //     return function cleanup() {
-    //         clearInterval(jesse)
-    //         clearInterval(brad)
-    //         clearInterval(chris)
-
-    //     }
-    // })
-
-
-
     if (!services) return null
 
     const setHeroContent = (name, description) => {

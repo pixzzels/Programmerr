@@ -276,7 +276,7 @@ def upload_image(serviceId):
 
     upload = upload_file_to_s3(image)
 
-    print("upload", upload)
+    # print("upload", upload)
 
     if "url" not in upload:
         # if the dictionary doesn't have a url key

@@ -297,9 +297,9 @@ export const updateServiceImage = (info) => async dispatch => {
         method: 'POST',
         body: formData,
     });
-    // console.log('response', response)
     if (response.ok) {
         const data = await response.json();
+        console.log('data', data)
         dispatch(updateSImage(data));
         return response;
     } else {
