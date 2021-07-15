@@ -45,7 +45,7 @@ function NewService() {
             var ele = document.getElementsByName('programming-language');
             for (let i = 0; i < ele.length; i++) {
                 if (ele[i].checked) {
-                    console.log(ele[i].value)
+                    // console.log(ele[i].value)
                     programmingLang = ele[i].value
                 }
             }
@@ -67,7 +67,7 @@ function NewService() {
 
             dispatch(addOverviewService({ userTitle, categoryId, programmingLang, userId, publish, listing_img }))
                 .then(res => {
-                    console.log("res", res)
+                    // console.log("res", res)
                     setId(res.id)
                     setAdd(false)
                 })

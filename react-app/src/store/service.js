@@ -299,7 +299,7 @@ export const updateServiceImage = (info) => async dispatch => {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log('data', data)
+        // console.log('data', data)
         dispatch(updateSImage(data));
         return response;
     } else {

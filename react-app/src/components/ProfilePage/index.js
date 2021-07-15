@@ -185,7 +185,7 @@ function ProfilePage() {
 
     const handleDeactivateService = () => {
         const publish = false;
-        console.log(serviceId)
+        // console.log(serviceId)
         dispatch(setServicePublish({ publish, serviceId }))
         setDeleteVerify(false)
     }
